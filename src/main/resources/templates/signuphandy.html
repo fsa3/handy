@@ -65,6 +65,53 @@
             background-color: #f1f1f1;
             text-align: center;
         }
+
+
+        .dropbtn {
+            background-color: #4cacaf;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {background-color: #f1f1f1}
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
     </style>
 </head>
 <body>
@@ -78,15 +125,28 @@
         <label for="email"><b>Email</b></label>
         <input type="text" placeholder="Enter Email" name="email" required>
 
+
         <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="psw" required>
 
         <label for="psw-repeat"><b>Repeat Password</b></label>
         <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+
+            <div class="dropdown">
+                <button class="dropbtn">choose your trade</button>
+                <div class="dropdown-content">
+                    <a href="#">Carpenter</a>
+                    <a href="#">Plumber</a>
+                    <a href="#">Painter</a>
+                </div>
+            </div>
+
+
         <hr>
 
-        <a href="signuphandy">Sign up as a handyman</a>
         <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+
+
 
 
         <button type="submit" class="registerbtn">Register</button>

@@ -12,5 +12,8 @@ public class UserController {
         return "signup";
     }
 
-
+    @RequestMapping(value = "/signuphandy", method = RequestMethod.GET)
+    public String signUphandyPage(Model model) {
+        return "signuphandy";
+    }
 }
