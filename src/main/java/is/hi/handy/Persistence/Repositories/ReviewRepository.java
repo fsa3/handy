@@ -8,12 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.sql.Timestamp;
 import java.util.List;
 
-public interface ReviewRepository extends JpaRepository {
+public interface ReviewRepository extends JpaRepository<Review, Long> {
     Review save(Review review);
     void delete(Review review);
     List<Review> findAll();
-    List<Review> findAllOrderByIdDesc();
-    List<Review> findAllOrderByTimePostedDesc();
+    List<Review> findAllByOrderByIDDesc();
+    List<Review> findAllByOrderByTimePostedDesc();
     Review findByID(Long id);
     List<Review> findByText(String text);
     List<Review> findByRatingGreaterThan(int rating);
