@@ -10,6 +10,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
+    private String name;
     private String email;
     private String Info;
     private String password;
@@ -19,6 +20,14 @@ public class User {
     //todo messages
 
     public User(){
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
