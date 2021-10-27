@@ -11,8 +11,6 @@ public class PortfolioItem {
     private Long ID;
     private String title;
     private String description;
-    // Bætti við location
-    private String location;
     //private List<???> pictures;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,7 +22,6 @@ public class PortfolioItem {
     public PortfolioItem(String title, String description, String location, HandyUser handyman) {
         this.title = title;
         this.description = description;
-        this.location = location;
         this.handyman = handyman;
     }
 
@@ -50,14 +47,6 @@ public class PortfolioItem {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public HandyUser getHandyman() {
