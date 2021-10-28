@@ -2,7 +2,9 @@ package is.hi.handy.Services.Implementation;
 
 import is.hi.handy.Persistence.Entities.Ad;
 import is.hi.handy.Persistence.Entities.User;
+import is.hi.handy.Persistence.Repositories.AdRepository;
 import is.hi.handy.Services.AdService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -10,49 +12,56 @@ import java.util.List;
 
 @Service
 public class AdServiceImplementation implements AdService {
+    AdRepository repository;
+
+    @Autowired
+    public AdServiceImplementation(AdRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     public Ad save(Ad ad) {
-        return null;
+        return repository.save(ad);
     }
 
     @Override
     public void delete(Ad ad) {
-
+        repository.delete(ad);
     }
 
     @Override
     public List<Ad> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
     public List<Ad> findAllOrderByIdDesc() {
-        return null;
+        return repository.findAllByOrderByIDDesc();
     }
 
     @Override
     public List<Ad> findAllOrderByTimePostedDesc() {
-        return null;
+        return repository.findAllByOrderByTimePostedDesc();
     }
 
     @Override
     public Ad findOne(Long id) {
-        return null;
+        return repository.findByID(id);
     }
 
     @Override
     public List<Ad> findByTitle(String title) {
-        return null;
+        return repository.findByTitle(title);
     }
 
     @Override
     public List<Ad> findByUser(User user) {
-        return null;
+        return repository.findByUser(user);
     }
 
     @Override
     public List<Ad> findByDescription(String description) {
-        return null;
+        return repository.findByDescription(description);
     }
 
     @Override
@@ -62,9 +71,7 @@ public class AdServiceImplementation implements AdService {
 
     @Override
     public List<Ad> findByTimePostedGreaterThan(Timestamp timestamp) {
-        return null;
+        return repository.findByTimePostedGreaterThan(timestamp);
     }
-    //private AdRepository adRepository;
-
 
 }

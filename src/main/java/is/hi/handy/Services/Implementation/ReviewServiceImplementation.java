@@ -13,65 +13,65 @@ import java.util.List;
 
 @Service
 public class ReviewServiceImplementation implements ReviewService {
-    private ReviewRepository reviewRepository;
+    private ReviewRepository repository;
 
     @Autowired
-    public ReviewServiceImplementation(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
+    public ReviewServiceImplementation(ReviewRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public Review save(Review review) {
-        return null;
+        return repository.save(review);
     }
 
     @Override
     public void delete(Review review) {
-
+        repository.delete(review);
     }
 
     @Override
     public List<Review> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
     public List<Review> findAllOrderByIdDesc() {
-        return null;
+        return repository.findAllByOrderByIDDesc();
     }
 
     @Override
     public List<Review> findAllOrderByTimePosted() {
-        return null;
+        return repository.findAllByOrderByTimePostedDesc();
     }
 
     @Override
     public Review findOne(Long id) {
-        return null;
+        return repository.findByID(id);
     }
 
     @Override
     public List<Review> findByText(String text) {
-        return null;
+        return repository.findByText(text);
     }
 
     @Override
     public List<Review> findByRatingGreaterThan(int rating) {
-        return null;
+        return repository.findByRatingGreaterThan(rating);
     }
 
     @Override
     public List<Review> findByAuthor(User user) {
-        return null;
+        return repository.findByAuthor(user);
     }
 
     @Override
     public List<Review> findByHandyman(HandyUser user) {
-        return null;
+        return repository.findByHandyman(user);
     }
 
     @Override
     public List<Review> findByTimePostedGreaterThan(Timestamp time) {
-        return null;
+        return repository.findByTimePostedGreaterThan(time);
     }
 }
