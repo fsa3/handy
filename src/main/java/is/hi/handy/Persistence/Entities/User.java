@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
 
-@Entity
-@Table(name = "users")
+@Entity(name = "user")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
