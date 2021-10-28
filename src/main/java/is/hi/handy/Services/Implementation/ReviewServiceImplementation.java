@@ -13,11 +13,11 @@ import java.util.List;
 
 @Service
 public class ReviewServiceImplementation implements ReviewService {
-    private ReviewRepository repository;
+    private ReviewRepository reviewRepository;
 
     @Autowired
-    public ReviewServiceImplementation(ReviewRepository repository) {
-        this.repository = repository;
+    public ReviewServiceImplementation(ReviewRepository reviewRepository) {
+        this.reviewRepository = reviewRepository;
     }
 
     @Override
