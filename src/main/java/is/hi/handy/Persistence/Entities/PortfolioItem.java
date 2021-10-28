@@ -1,7 +1,6 @@
 package is.hi.handy.Persistence.Entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "portfolioItem")
@@ -14,7 +13,7 @@ public class PortfolioItem {
     //private List<???> pictures;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private HandyUser handyman;
+    private HandyUser user;
 
     public PortfolioItem() {
     }
@@ -22,7 +21,7 @@ public class PortfolioItem {
     public PortfolioItem(String title, String description, String location, HandyUser handyman) {
         this.title = title;
         this.description = description;
-        this.handyman = handyman;
+        this.user = handyman;
     }
 
     public Long getID() {
@@ -49,11 +48,11 @@ public class PortfolioItem {
         this.description = description;
     }
 
-    public HandyUser getHandyman() {
-        return handyman;
+    public HandyUser getUser() {
+        return user;
     }
 
-    public void setHandyman(HandyUser handyman) {
-        this.handyman = handyman;
+    public void setUser(HandyUser user) {
+        this.user = user;
     }
 }

@@ -45,6 +45,6 @@ public class PortfolioItemServiceImplementation implements PortfolioItemService 
 
     @Override
     public List<PortfolioItem> findByHandyUser(HandyUser handyUser) {
-        return portfolioItemRepository.findByUsername(handyUser.getName());
+        return portfolioItemRepository.findByUser(handyUser.getName());
     }
 }

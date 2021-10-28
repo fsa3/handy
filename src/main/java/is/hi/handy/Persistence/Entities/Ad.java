@@ -16,7 +16,7 @@ public class Ad {
     private String description;
     //pictures
     //location
-    private Timestamp timestap;
+    private Timestamp timePosted;
     private String trade;
 
     public Ad() {
@@ -51,12 +51,12 @@ public class Ad {
         this.description = description;
     }
 
-    public Timestamp getTimestap() {
-        return timestap;
+    public Timestamp getTimePosted() {
+        return timePosted;
     }
 
-    public void setTimestap(Timestamp timestap) {
-        this.timestap = timestap;
+    public void setTimePosted(Timestamp timePosted) {
+        this.timePosted = timePosted;
     }
 
     public String getTrade() {

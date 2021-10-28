@@ -12,7 +12,7 @@ import java.util.List;
 public class HandyUser extends User {
     private String trade;
     private double hourlyRate;
-    @OneToMany(mappedBy = "handyman", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PortfolioItem> portfolioItem = new ArrayList<>();
 
     @OneToMany(mappedBy = "handyman", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -13,5 +13,5 @@ public interface PortfolioItemRepository extends JpaRepository<PortfolioItem, Lo
     List<PortfolioItem> findAll();
     PortfolioItem findByID(long ID);
     PortfolioItem findByTitle(String title);
-    List<PortfolioItem> findByUsername(String username);
+    List<PortfolioItem> findByUser(String username);
 }
