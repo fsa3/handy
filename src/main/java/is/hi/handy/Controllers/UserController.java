@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 public class UserController {
     private UserService userService;
@@ -30,11 +32,23 @@ public class UserController {
         System.out.println(user.getEmail());
         System.out.println(user.getPassword());
         userService.save(user);
-        return "redirect:/signup";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/signuphandy", method = RequestMethod.GET)
     public String signUphandyPage(Model model) {
         return "signuphandy";
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String showAllUsers(Model model) {
+        List<User> allUsers = userService.findAllUsers();
+        model.addAttribute("users", allUsers);
+        if (allUsers.isEmpty()) System.out.println("User tafla tóm");
+        for (User u : allUsers) {
+            System.out.println("email" + u.getEmail());
+            System.out.println("id" + u.getID());
+        }
+        return "users";
     }
 }

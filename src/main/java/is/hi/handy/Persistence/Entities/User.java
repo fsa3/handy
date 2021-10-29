@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
 
-@Entity(name = "user")
-@Table(name = "user")
+@Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,5 +52,13 @@ public class User {
 
     public void setAds(List<Ad> ads) {
         this.adsvertisements = ads;
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
     }
 }
