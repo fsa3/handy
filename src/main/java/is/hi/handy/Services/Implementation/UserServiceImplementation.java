@@ -25,6 +25,11 @@ public class UserServiceImplementation implements UserService {
     public User save(User user) {
         return userRepository.save(user);
     }
+    // todo skoða að sameina aðferðir
+    @Override
+    public HandyUser saveHandyUser(HandyUser user) {
+        return handyUserRepository.save(user);
+    }
 
     @Override
     public void delete(User user) {

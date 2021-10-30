@@ -9,11 +9,11 @@ import java.util.ArrayList;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
-    private String name;
-    private String email;
-    private String Info;
-    private String password;
+    protected long ID;
+    protected String name;
+    protected String email;
+    protected String Info;
+    protected String password;
 
     @OneToMany(mappedBy = "user")
     private List<Ad> adsvertisements = new ArrayList<>();

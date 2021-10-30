@@ -9,7 +9,7 @@
 <div th:switch="${users}">
     <h2 th:case="null">No Books yet!</h2>
     <div th:case="*">
-        <h2>Books</h2>
+        <h2>Users</h2>
         <table>
             <thead>
             <tr>
@@ -24,7 +24,7 @@
                 <td th:text="${user.name}"></td>
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.password}"></td>
-                <td><a th:href="@{/delete/{id}(id=${user.ID})}">Delete</a></td>
+                <td><a th:href="@{/users/delete/{id}(id=${user.ID})}">Delete</a></td>
             </tr>
             </tbody>
         </table>

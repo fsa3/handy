@@ -1,11 +1,13 @@
 package is.hi.handy.Controllers;
 
+import is.hi.handy.Persistence.Entities.HandyUser;
 import is.hi.handy.Persistence.Entities.User;
 import is.hi.handy.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -40,6 +42,13 @@ public class UserController {
         return "signuphandy";
     }
 
+    @RequestMapping(value = "/signuphandy", method = RequestMethod.POST)
+    public String saveHandyUser(HandyUser user, BindingResult result, Model model) {
+        System.out.println(user);
+        userService.saveHandyUser(user);
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String showAllUsers(Model model) {
         List<User> allUsers = userService.findAllUsers();
@@ -50,5 +59,20 @@ public class UserController {
             System.out.println("id" + u.getID());
         }
         return "users";
+    }
+
+    @RequestMapping(value = "/users/delete/{id}", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable("id") long id, Model model) {
+        User userToDelete = userService.findUser(id);
+        userService.delete(userToDelete);
+        return "redirect:/users";
+    }
+
+    @RequestMapping(value = "/handymen", method = RequestMethod.GET)
+    public String showAllHandymen(Model model) {
+        List<HandyUser> allHandyUsers = userService.findAllHandyUser();
+        model.addAttribute("handymen", allHandyUsers);
+        if (allHandyUsers.isEmpty()) System.out.println("HandyUser tafla tóm");
+        return "handymen";
     }
 }

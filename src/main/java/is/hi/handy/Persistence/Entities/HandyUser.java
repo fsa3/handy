@@ -50,4 +50,14 @@ public class HandyUser extends User {
     public void setReviewsAbout(List<Review> reviewsAbout) {
         this.reviewsAbout = reviewsAbout;
     }
+
+    @Override
+    public String toString() {
+        return "HandyUser{" +
+                "trade='" + trade + '\'' +
+                ", hourlyRate=" + hourlyRate +
+                ", name=" + name +
+                ", email=" + email +
+                '}';
+    }
 }

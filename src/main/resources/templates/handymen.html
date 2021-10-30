@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Handymen</title>
+</head>
+<body>
+<h1>Users</h1>
+<div th:switch="${handymen}">
+    <h2 th:case="null">None :/</h2>
+    <div th:case="*">
+        <h2>Handymen</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Trade</th>
+                <th>Hourly Rate</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="handyman : ${handymen}">
+                <td th:text="${handyman.name}"></td>
+                <td th:text="${handyman.email}"></td>
+                <td th:text="${handyman.password}"></td>
+                <td th:text="${handyman.trade}"></td>
+                <td th:text="${handyman.hourlyRate}"></td>
+                <td><a th:href="@{/users/delete/{id}(id=${handyman.ID})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
