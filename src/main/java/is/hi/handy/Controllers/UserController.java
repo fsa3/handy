@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -69,10 +70,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/handymen", method = RequestMethod.GET)
-    public String showAllHandymen(Model model) {
-        List<HandyUser> allHandyUsers = userService.findAllHandyUser();
-        model.addAttribute("handymen", allHandyUsers);
-        if (allHandyUsers.isEmpty()) System.out.println("HandyUser tafla tóm");
+    public String showAllHandymen(Model model, @RequestParam(value = "trade", required = false) String trade) {
+        List<HandyUser> handyUsers = userService.findAllHandyUser();
+        if (trade != null) handyUsers = userService.findHandyUserByTrade(trade);
+        model.addAttribute("handymen", handyUsers);
+        if (handyUsers.isEmpty()) System.out.println("HandyUser tafla tóm");
         return "handymen";
     }
 }
