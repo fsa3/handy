@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ads</title>
+</head>
+<body>
+<div th:switch="${ads}">
+    <h2 th:case="null">No Ads yet!</h2>
+    <div th:case="*">
+        <h2>Ads</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>User</th>
+                <th>Time posted</th>
+                <th>Trade</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ad : ${ads}">
+                <td th:text="${ad.title}"></td>
+                <td th:text="${ad.user}"></td>
+                <td th:text="${ad.timePosted}"></td>
+                <td th:text="${ad.trade}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/addbook">Add a new book</a></p>
+</div>
+
+
+</body>
+</html>
