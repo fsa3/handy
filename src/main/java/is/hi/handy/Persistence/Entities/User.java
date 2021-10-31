@@ -12,7 +12,7 @@ public class User {
     protected long ID;
     protected String name;
     protected String email;
-    protected String Info;
+    protected String info;
     protected String password;
 
     @OneToMany(mappedBy = "user")
@@ -56,6 +56,14 @@ public class User {
 
     public long getID() {
         return ID;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public void setID(long ID) {

@@ -12,6 +12,7 @@ import java.util.List;
 public class HandyUser extends User {
     private String trade;
     private double hourlyRate;
+    private double averageRating;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PortfolioItem> portfolioItem = new ArrayList<>();
 
@@ -49,6 +50,14 @@ public class HandyUser extends User {
 
     public void setReviewsAbout(List<Review> reviewsAbout) {
         this.reviewsAbout = reviewsAbout;
+    }
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
     }
 
     @Override

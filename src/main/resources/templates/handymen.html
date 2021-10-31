@@ -18,16 +18,18 @@
                 <th>Password</th>
                 <th>Trade</th>
                 <th>Hourly Rate</th>
+                <th>Average Rating</th>
                 <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="handyman : ${handymen}">
-                <td th:text="${handyman.name}"></td>
+                <td><a th:text="${handyman.name}" th:href="@{/handymen/{id}(id=${handyman.ID})}"></a></td>
                 <td th:text="${handyman.email}"></td>
                 <td th:text="${handyman.password}"></td>
                 <td th:text="${handyman.trade}"></td>
                 <td th:text="${handyman.hourlyRate}"></td>
+                <td th:text="${handyman.averageRating}"></td>
                 <td><a th:href="@{/users/delete/{id}(id=${handyman.ID})}">Delete</a></td>
             </tr>
             </tbody>

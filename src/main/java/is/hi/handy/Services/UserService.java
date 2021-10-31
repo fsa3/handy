@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface UserService {
     User save(User user);
-    HandyUser saveHandyUser(HandyUser user); //todo skoða að sameina aðferðir
+    HandyUser save(HandyUser user); //todo skoða að sameina aðferðir
     void delete(User user);
+    void delete(HandyUser user); //todo skoða að sameina aðferðir
 
     List<User> findAllUsers();
     User findUser(Long id);
