@@ -16,7 +16,7 @@ public class User {
     protected String password;
 
     @OneToMany(mappedBy = "user")
-    private List<Ad> adsvertisements = new ArrayList<>();
+    private List<Ad> advertisements = new ArrayList<>();
     //todo messages
 
     public User(){
@@ -47,11 +47,11 @@ public class User {
     }
 
     public List<Ad> getAds() {
-        return adsvertisements;
+        return advertisements;
     }
 
     public void setAds(List<Ad> ads) {
-        this.adsvertisements = ads;
+        this.advertisements = ads;
     }
 
     public long getID() {

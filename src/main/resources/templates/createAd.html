@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Ad</title>
+</head>
+<body>
+
+<form action="#" th:action="@{/createAd}" th:object="${ad}" method="post">
+    <label for="title"><b>Title</b></label>
+    <input type="text" placeholder="Title" id="title" name="title" required>
+
+    <label for="description"><b>Description</b></label>
+    <input type="text" placeholder="Description" id="description" name="description" required>
+
+    <label for="trade"><b>Trade</b></label>
+    <input type="text" placeholder="Trade" id="trade" name="trade" required>
+    <hr>
+
+    <a href="/createAd">Post Ad</a>
+
+</form>
+
+</body>
+</html>
