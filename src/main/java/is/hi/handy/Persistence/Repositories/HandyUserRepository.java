@@ -1,5 +1,6 @@
 package is.hi.handy.Persistence.Repositories;
 
+import is.hi.handy.Persistence.Entities.Ad;
 import is.hi.handy.Persistence.Entities.HandyUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,4 +16,8 @@ public interface HandyUserRepository extends JpaRepository<HandyUser, Long> {
     List<HandyUser> findByNameLike(String name);
     List<HandyUser> findByTrade(String trade);
     List<HandyUser> findByHourlyRateBetween(double minRate, double maxRate);
+    List<HandyUser> findAllByOrderByAverageRatingDesc();
+    List<HandyUser> findByTradeOrderByAverageRatingDesc(String trade);
+    List<HandyUser> findByHourlyRateBetweenOrderByAverageRatingDesc(double minRate, double maxRate);
+    List<HandyUser> findByTradeAndHourlyRateBetweenOrderByAverageRatingDesc(String trade, double minRate, double maxRate);
 }

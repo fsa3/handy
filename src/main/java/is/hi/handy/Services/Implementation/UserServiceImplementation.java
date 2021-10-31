@@ -8,6 +8,7 @@ import is.hi.handy.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -101,6 +102,24 @@ public class UserServiceImplementation implements UserService {
     @Override
     public List<HandyUser> findHandyUserByRate(double minRate, double maxRate) {
         return handyUserRepository.findByHourlyRateBetween(minRate, maxRate);
+    }
+
+    @Override
+    public List<HandyUser> orderHandyUserByRating(String trade, Double minRate, Double maxRate) {
+        List<HandyUser> handyUsers;
+        if (trade != null && minRate != null && maxRate != null) {
+            handyUsers = handyUserRepository.findByTradeAndHourlyRateBetweenOrderByAverageRatingDesc(trade, minRate, maxRate);
+        }
+        else if (trade != null && minRate == null && maxRate == null) {
+            handyUsers = handyUserRepository.findByTradeOrderByAverageRatingDesc(trade);
+        }
+        else if (trade == null && minRate != null && maxRate != null) {
+            handyUsers = handyUserRepository.findByHourlyRateBetweenOrderByAverageRatingDesc(minRate, maxRate);
+        }
+        else {
+            handyUsers = handyUserRepository.findAllByOrderByAverageRatingDesc();
+        }
+        return handyUsers;
     }
 
     // á örgl ekki að vera svona, gerði bara nkl eins og Siggi gerði

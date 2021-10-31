@@ -88,9 +88,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/handymen", method = RequestMethod.GET)
-    public String showHandyUsers(Model model, @RequestParam(value = "trade", required = false) String trade) {
+    public String showHandyUsers(Model model, @RequestParam(value = "trade", required = false) String trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating) {
         List<HandyUser> handyUsers = userService.findAllHandyUser();
         if (trade != null) handyUsers = userService.findHandyUserByTrade(trade);
+        if (orderByRating) handyUsers = userService.orderHandyUserByRating(trade, new Double(0), new Double(0));
         model.addAttribute("handymen", handyUsers);
         return "handymen";
     }
