@@ -46,7 +46,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginForm(Model model) {
-        return null;
+        return "login";
     }
 
     public String submitLogin(String email, String password, Model model) {
@@ -66,12 +66,14 @@ public class UserController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
     public String editUser(User user, Model model) {
-        return null;
+        return "editUser";
     }
 
+    @RequestMapping(value = "/editHandyUser", method = RequestMethod.GET)
     public String editHandyUser(HandyUser user, Model model) {
-        return null;
+        return "editHandyUser";
     }
 
     @RequestMapping(value = "/users/delete/{id}", method = RequestMethod.GET)
