@@ -44,6 +44,7 @@ public class UserController {
         return "signuphandy";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginForm(Model model) {
         return null;
     }
