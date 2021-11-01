@@ -40,7 +40,7 @@ public class UserController {
         return "signup";
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST) //todo setja í klasarit
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(User user, BindingResult result, Model model) {
         if(result.hasErrors()) {
             return "redirect:/signup";
@@ -62,7 +62,7 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST) // todo laga í klasariti
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String submitLogin(User user, BindingResult result, Model model, HttpSession session) {
         if(result.hasErrors()) {
             return "login";
@@ -99,18 +99,18 @@ public class UserController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/myprofile", method = RequestMethod.GET) //todo laga í klasariti
+    @RequestMapping(value = "/myprofile", method = RequestMethod.GET)
     public String editUser(HttpSession session, Model model) {
         User sessionUser = (User) session.getAttribute("LoggedInUser");
         if(sessionUser != null) {
             model.addAttribute("LoggedInUser", sessionUser);
             return "editUser";
         }
-        return "redirect:/";
+        return "login";
     }
 
     @RequestMapping(value = "/editHandyUser", method = RequestMethod.GET)
-    public String editHandyUser(HandyUser user, Model model) {
+    public String editHandyUser(HttpSession session, Model model) {
         return "editHandyUser";
     }
 
@@ -132,7 +132,7 @@ public class UserController {
     public String showHandyUsers(Model model, @RequestParam(value = "trade", required = false) String trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating) {
         List<HandyUser> handyUsers = userService.findAllHandyUser();
         if (trade != null) handyUsers = userService.findHandyUserByTrade(trade);
-        if (orderByRating) handyUsers = userService.orderHandyUserByRating(trade, new Double(0), new Double(0));
+        if (orderByRating) handyUsers = userService.orderHandyUserByRating(trade, new Double(0), new Double(0)); // value á min og max harðkóðuð tímabundið
         model.addAttribute("handymen", handyUsers);
         return "handymen";
     }

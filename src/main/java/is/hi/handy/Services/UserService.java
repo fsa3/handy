@@ -26,7 +26,6 @@ public interface UserService {
     List<HandyUser> findHandyUserByRate(double minRate, double maxRate);
     List<HandyUser> orderHandyUserByRating(String trade, Double minRate, Double maxRate);
 
-    // todo skilgreina þessa aðferð betur, veit ekki hvort það er rétt að gera þetta svona
     User login(User user);
 
 }

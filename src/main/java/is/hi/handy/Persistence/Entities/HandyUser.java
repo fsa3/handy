@@ -10,9 +10,9 @@ import java.util.List;
 @Entity
 @Table(name = "handyUsers")
 public class HandyUser extends User {
-    private String trade;
+    private String trade; // verður mögulega eitthvað annað en String
     private double hourlyRate;
-    private double averageRating;
+    private double averageRating; // á eftir að skrifa virkni sem reiknar averageRating út frá reviews
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PortfolioItem> portfolioItem = new ArrayList<>();
 
