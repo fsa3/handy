@@ -27,6 +27,6 @@ public interface UserService {
     List<HandyUser> orderHandyUserByRating(String trade, Double minRate, Double maxRate);
 
     // todo skilgreina þessa aðferð betur, veit ekki hvort það er rétt að gera þetta svona
-    User login(String email, String password);
+    User login(User user);
 
 }

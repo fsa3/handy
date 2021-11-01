@@ -124,10 +124,10 @@ public class UserServiceImplementation implements UserService {
 
     // á örgl ekki að vera svona, gerði bara nkl eins og Siggi gerði
     @Override
-    public User login(String email, String password) {
-        User doesExist = findByEmail(email);
+    public User login(User user) {
+        User doesExist = findByEmail(user.getEmail());
         if(doesExist != null) {
-            if(doesExist.getPassword().equals(password)) {
+            if(doesExist.getPassword().equals(user.getPassword())) {
                 return doesExist;
             }
         }

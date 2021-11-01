@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -39,6 +40,18 @@ public class UserController {
         return "signup";
     }
 
+    @RequestMapping(value = "/signup", method = RequestMethod.POST) //todo setja í klasarit
+    public String signUp(User user, BindingResult result, Model model) {
+        if(result.hasErrors()) {
+            return "redirect:/signup";
+        }
+        User exists = userService.findByEmail(user.getEmail());
+        if(exists == null) {
+            userService.save(user);
+        }
+        return "redirect:/login";
+    }
+
     @RequestMapping(value = "/signuphandy", method = RequestMethod.GET)
     public String handyUserSignupForm(Model model) {
         return "signuphandy";
@@ -49,11 +62,20 @@ public class UserController {
         return "login";
     }
 
-    public String submitLogin(String email, String password, Model model) {
-        return null;
+    @RequestMapping(value = "/login", method = RequestMethod.POST) // todo laga í klasariti
+    public String submitLogin(User user, BindingResult result, Model model, HttpSession session) {
+        if(result.hasErrors()) {
+            return "login";
+        }
+        User exists = userService.login(user);
+        if(exists != null) {
+            session.setAttribute("LoggedInUser", exists);
+            model.addAttribute("LoggedInUser", exists);
+            // todo hvað á að returna hér?
+        }
+        return "redirect:/";
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String saveUser(User user, BindingResult result, Model model) {
         userService.save(user);
         return "redirect:/";
@@ -66,9 +88,14 @@ public class UserController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
-    public String editUser(User user, Model model) {
-        return "editUser";
+    @RequestMapping(value = "/myprofile", method = RequestMethod.GET) //todo laga í klasariti
+    public String editUser(HttpSession session, Model model) {
+        User sessionUser = (User) session.getAttribute("LoggedInUser");
+        if(sessionUser != null) {
+            model.addAttribute("LoggedInUser", sessionUser);
+            return "editUser";
+        }
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/editHandyUser", method = RequestMethod.GET)
