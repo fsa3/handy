@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="#" th:action="@{/createAd}" th:object="${ad}" method="post">
+<form action="#" th:action="@{/createad}" th:object="${ad}" method="post">
     <label for="title"><b>Title</b></label>
     <input type="text" placeholder="Title" id="title" name="title" required>
 
@@ -17,7 +17,7 @@
     <input type="text" placeholder="Trade" id="trade" name="trade" required>
     <hr>
 
-    <a href="/createAd">Post Ad</a>
+    <button type="submit">Post Ad</button>
 
 </form>
 

@@ -21,11 +21,13 @@ public class Ad {
     private String trade;
 
     public Ad() {
+        timePosted = new Timestamp(System.currentTimeMillis());
     }
 
     public Ad(String title, String description) {
         this.title = title;
         this.description = description;
+        timePosted = new Timestamp(System.currentTimeMillis());
     }
 
     public User getUser() {
