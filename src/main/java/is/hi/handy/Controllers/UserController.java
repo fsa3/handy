@@ -71,14 +71,25 @@ public class UserController {
         if(exists != null) {
             session.setAttribute("LoggedInUser", exists);
             model.addAttribute("LoggedInUser", exists);
-            // todo hvað á að returna hér?
+            return "editUser";
         }
         return "redirect:/";
     }
 
-    public String saveUser(User user, BindingResult result, Model model) {
-        userService.save(user);
-        return "redirect:/";
+    @RequestMapping(value = "myprofile", method = RequestMethod.POST)
+    public String saveUser(User user, BindingResult result, Model model, HttpSession session) {
+        if(result.hasErrors()) {
+            return "editUser";
+        }
+        User loggedInUser = (User) session.getAttribute("LoggedInUser");
+        assert loggedInUser != null;
+        loggedInUser.setName(user.getName());
+        loggedInUser.setEmail(user.getEmail());
+        loggedInUser.setInfo(user.getInfo());
+        userService.save(loggedInUser);
+        session.setAttribute("LoggedInUser", loggedInUser);
+        model.addAttribute("LoggedInUser", loggedInUser);
+        return "redirect:/users"; //todo skoða þetta redirect
     }
 
     @RequestMapping(value = "/signuphandy", method = RequestMethod.POST)
