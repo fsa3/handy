@@ -12,56 +12,56 @@ import java.util.List;
 
 @Service
 public class AdServiceImplementation implements AdService {
-    AdRepository repository;
+    AdRepository adRepository;
 
     @Autowired
     public AdServiceImplementation(AdRepository repository) {
-        this.repository = repository;
+        this.adRepository = repository;
     }
 
     @Override
     public Ad save(Ad ad) {
-        return repository.save(ad);
+        return adRepository.save(ad);
     }
 
     @Override
     public void delete(Ad ad) {
-        repository.delete(ad);
+        adRepository.delete(ad);
     }
 
     @Override
     public List<Ad> findAll() {
-        return repository.findAll();
+        return adRepository.findAll();
     }
 
     @Override
     public List<Ad> findAllOrderByIdDesc() {
-        return repository.findAllByOrderByIDDesc();
+        return adRepository.findAllByOrderByIDDesc();
     }
 
     @Override
     public List<Ad> findAllOrderByTimePostedDesc() {
-        return repository.findAllByOrderByTimePostedDesc();
+        return adRepository.findAllByOrderByTimePostedDesc();
     }
 
     @Override
     public Ad findOne(Long id) {
-        return repository.findByID(id);
+        return adRepository.findByID(id);
     }
 
     @Override
     public List<Ad> findByTitle(String title) {
-        return repository.findByTitle(title);
+        return adRepository.findByTitle(title);
     }
 
     @Override
     public List<Ad> findByUser(User user) {
-        return repository.findByUser(user);
+        return adRepository.findByUser(user);
     }
 
     @Override
     public List<Ad> findByDescription(String description) {
-        return repository.findByDescription(description);
+        return adRepository.findByDescription(description);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class AdServiceImplementation implements AdService {
 
     @Override
     public List<Ad> findByTimePostedGreaterThan(Timestamp timestamp) {
-        return repository.findByTimePostedGreaterThan(timestamp);
+        return adRepository.findByTimePostedGreaterThan(timestamp);
     }
 
 }
