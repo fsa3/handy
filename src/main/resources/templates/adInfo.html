@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|Handy - ${ad.title}|"></title>
+</head>
+<body>
+<h1 th:text="${ad.title}"></h1>
+<p>Advertiser:</p>
+<p th:text="${ad.user}"></p>
+<p>Skillset needed:</p>
+<p th:text="${ad.trade}"></p>
+<p>Description:</p>
+<p th:text="${ad.description}"></p>
+</body>
+</html>

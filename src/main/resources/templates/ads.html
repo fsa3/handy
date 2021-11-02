@@ -13,17 +13,18 @@
             <thead>
             <tr>
                 <th>Title</th>
-                <th>User</th>
                 <th>Time posted</th>
                 <th>Trade</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="ad : ${ads}">
-                <td th:text="${ad.title}"></td>
-                <td th:text="${ad.user}"></td>
+                <td><a th:text="${ad.title}" th:href="@{/ads/{id}(id=${ad.ID})}"></a></td>
                 <td th:text="${ad.timePosted}"></td>
                 <td th:text="${ad.trade}"></td>
+                <td><a th:href="@{/ads/delete/{id}(id=${ad.ID})}">Delete</a></td>
+
             </tr>
             </tbody>
         </table>
