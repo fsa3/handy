@@ -10,15 +10,15 @@ public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
     private String title;
     private String description;
     //pictures
     //location
     private Timestamp timePosted;
     private String trade;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     public Ad() {
         timePosted = new Timestamp(System.currentTimeMillis());
@@ -68,5 +68,13 @@ public class Ad {
 
     public void setTrade(String trade) {
         this.trade = trade;
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
     }
 }
