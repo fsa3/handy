@@ -57,6 +57,13 @@ public class UserController {
         return "signuphandy";
     }
 
+    @RequestMapping(value = "/signuphandy", method = RequestMethod.POST)
+    public String signUpHandy(HandyUser user, BindingResult result, Model model) {
+        System.out.println(user);
+        userService.save(user);
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginForm(Model model) {
         return "login";
@@ -69,9 +76,13 @@ public class UserController {
         }
         User exists = userService.login(user);
         if(exists != null) {
+            if (exists instanceof HandyUser) {
+                session.setAttribute("handyUserLoggedIn", true);
+            }
+            else session.setAttribute("handyUserLoggedIn", false);
             session.setAttribute("LoggedInUser", exists);
             model.addAttribute("LoggedInUser", exists);
-            return "editUser";
+            return "redirect:/myprofile";
         }
         return "redirect:/";
     }
@@ -92,21 +103,16 @@ public class UserController {
         return "redirect:/users"; //todo skoða þetta redirect
     }
 
-    @RequestMapping(value = "/signuphandy", method = RequestMethod.POST)
-    public String saveHandyUser(HandyUser user, BindingResult result, Model model) {
-        System.out.println(user);
-        userService.save(user);
-        return "redirect:/";
-    }
-
     @RequestMapping(value = "/myprofile", method = RequestMethod.GET)
     public String editUser(HttpSession session, Model model) {
         User sessionUser = (User) session.getAttribute("LoggedInUser");
         if(sessionUser != null) {
+            boolean handyUserLoggedIn = (Boolean) session.getAttribute("handyUserLoggedIn");
             model.addAttribute("LoggedInUser", sessionUser);
+            if (handyUserLoggedIn) return "editHandyUser";
             return "editUser";
         }
-        return "login";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/editHandyUser", method = RequestMethod.GET)
