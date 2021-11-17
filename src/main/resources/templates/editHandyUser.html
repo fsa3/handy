@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script th:inline="javascript">
+
+        /*<![CDATA[*/
+
+        var userName = /*[[${LoggedInUser.name}]]*/ 'name';
+        var userTrade = /*[[${LoggedInUser.trade}]]*/ 'trade';
+        var userInfo = /*[[${LoggedInUser.info}]]*/ 'info';
+        var userRate = /*[[${LoggedInUser.hourlyRate}]]*/ 'hourly rate';
+
+        /*]]>*/
+        console.log("trade: " + userTrade);
+        console.log("info " + userInfo);
+        console.log("Rate " + userRate);
+    </script>
 </head>
 <body>
 <div class="main-content">
@@ -14,33 +28,33 @@
     </div>
 </div>
 <div class="card-body">
-    <form action="#" th:action="@{/myprofile}" th:object="${handyUser}" method="post">
+    <form action="#" th:action="@{/savehandyuser}" th:object="${handyUser}" method="post">
         <h6 class="heading-small text-muted mb-4">User information</h6>
         <div class="pl-lg-4">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group focused">
                         <label class="form-control-label" for="input-username">Name</label>
-                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Name" th:value="${LoggedInUser.name}">
+                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Name" name="name" th:value="${LoggedInUser.name}">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label class="form-control-label" for="input-email">Email</label>
-                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="Email" th:value="${LoggedInUser.email}">
+                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="Email" name="email" th:value="${LoggedInUser.email}">
                     </div>
                 </div>
                 <div>
                     <select name="trade" id="tradeSelect">
-                        <option value="Carpenter">Carpenter</option>
-                        <option value="Plumber">Plumber</option>
+                        <option value="Carpenter" th:selected="${LoggedInUser.trade=='Carpenter'}">Carpenter</option>
+                        <option value="Plumber" th:selected="${LoggedInUser.trade=='Plumber'}">Plumber</option>
                         <option value="Painter" th:selected="${LoggedInUser.trade=='Painter'}">Painter</option>
                     </select>
                 </div>
                 <div>
                     <div class="form-group">
                         <label class="form-control-label" for="input-hourlyRate">Hourly rate</label>
-                        <input type="text" id="input-hourlyRate" class="form-control form-control-alternative" placeholder="Hourly rate" th:value="${LoggedInUser.hourlyRate}">
+                        <input type="number" id="input-hourlyRate" class="form-control form-control-alternative" placeholder="Hourly rate" name="hourlyRate" th:value="${LoggedInUser.hourlyRate}">
                     </div>
                 </div>
             </div>
@@ -52,7 +66,7 @@
         <div class="pl-lg-4">
             <div class="form-group focused">
                 <label>About Me</label>
-                <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ..." th:value="${LoggedInUser.info}">info...</textarea>
+                <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ..." name="info" th:inline="text">[[${LoggedInUser.info}]]</textarea>
             </div>
         </div>
 
