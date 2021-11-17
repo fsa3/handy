@@ -87,7 +87,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "myprofile", method = RequestMethod.POST)
+    @RequestMapping(value = "saveuser", method = RequestMethod.POST)
     public String saveUser(User user, BindingResult result, Model model, HttpSession session) {
         if(result.hasErrors()) {
             return "editUser";
@@ -103,13 +103,35 @@ public class UserController {
         return "redirect:/users"; //todo skoða þetta redirect
     }
 
+    @RequestMapping(value = "savehandyuser", method = RequestMethod.POST)
+    public String saveHandyUser(HandyUser user, BindingResult result, Model model, HttpSession session) {
+        if(result.hasErrors()) {
+            return "editUser";
+        }
+        HandyUser loggedInUser = (HandyUser) session.getAttribute("LoggedInUser");
+        assert loggedInUser != null;
+        assert (boolean) session.getAttribute("handyUserLoggedIn");
+        loggedInUser.setName(user.getName());
+        loggedInUser.setEmail(user.getEmail());
+        loggedInUser.setTrade(user.getTrade());
+        loggedInUser.setHourlyRate(user.getHourlyRate());
+        loggedInUser.setInfo(user.getInfo());
+        userService.save(loggedInUser);
+        session.setAttribute("LoggedInUser", loggedInUser);
+        model.addAttribute("LoggedInUser", loggedInUser);
+        return "redirect:/"; //todo skoða þetta redirect
+    }
+
     @RequestMapping(value = "/myprofile", method = RequestMethod.GET)
     public String editUser(HttpSession session, Model model) {
         User sessionUser = (User) session.getAttribute("LoggedInUser");
         if(sessionUser != null) {
             boolean handyUserLoggedIn = (Boolean) session.getAttribute("handyUserLoggedIn");
             model.addAttribute("LoggedInUser", sessionUser);
-            if (handyUserLoggedIn) return "editHandyUser";
+            if (handyUserLoggedIn) {
+                model.addAttribute("LoggedInUser", (HandyUser) sessionUser);
+                return "editHandyUser";
+            }
             return "editUser";
         }
         return "redirect:/login";
