@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Ads</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../static/icons/handy-icon-small.png" th:href="@{/icons/handy-icon-small.png}">
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" media="screen" />
+    <link href="../static/css/grid.css" th:href="@{/css/grid.css}" rel="stylesheet" media="screen" />
 </head>
 <body>
-<div th:switch="${ads}">
-    <h2 th:case="null">No Ads yet!</h2>
-    <div th:case="*">
-        <h2>Ads</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Time posted</th>
-                <th>Trade</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="ad : ${ads}">
-                <td><a th:text="${ad.title}" th:href="@{/ads/{id}(id=${ad.ID})}"></a></td>
-                <td th:text="${ad.timePosted}"></td>
-                <td th:text="${ad.trade}"></td>
-                <td><a th:href="@{/ads/delete/{id}(id=${ad.ID})}">Delete</a></td>
+<div th:replace="fragments/header :: header"></div>
+<main>
+    <div th:switch="${ads}">
+        <h2 th:case="null">No Ads yet!</h2>
+        <div th:case="*">
+            <h2>Ads</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Time posted</th>
+                    <th>Trade</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ad : ${ads}">
+                    <td><a th:text="${ad.title}" th:href="@{/ads/{id}(id=${ad.ID})}"></a></td>
+                    <td th:text="${ad.timePosted}"></td>
+                    <td th:text="${ad.trade}"></td>
+                    <td><a th:href="@{/ads/delete/{id}(id=${ad.ID})}">Delete</a></td>
 
-            </tr>
-            </tbody>
-        </table>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a href="/createad">Create new Ad</a></p>
     </div>
-    <p><a href="/createad">Create new Ad</a></p>
-</div>
+</main>
+<div th:replace="fragments/footer :: footer"></div>
 
 
 </body>

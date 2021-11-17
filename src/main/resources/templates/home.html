@@ -1,60 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html lang="is">
 <head>
-    <link href="../static/css/stylesheet.css" th:href="@{/css/stylesheet.css}" rel="stylesheet" media="screen" />
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="icon" type="image/x-icon" href="../static/icons/handy-icon-small.png" th:href="@{/icons/handy-icon-small.png}">
+    <title>Handy</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" media="all">
-    <title>Handy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../static/icons/handy-icon-small.png" th:href="@{/icons/handy-icon-small.png}">
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" media="screen" />
+    <link href="../static/css/grid.css" th:href="@{/css/grid.css}" rel="stylesheet" media="screen" />
 </head>
 <body>
-    <header>
-        <div>
-            <h1>Handy</h1>
+<div th:replace="fragments/header :: header"></div>
+<main>
+    <section class="home-section">
+        <div class="dropdown">
+            <button class="dropbtn">What are you looking for?</button>
+            <div class="dropdown-content">
+                <a href="/handymen?trade=Carpenter">Carpenter</a>
+                <a href="/handymen?trade=Plumber">Plumber</a>
+                <a href="/handymen?trade=Painter">Painter</a>
+            </div>
         </div>
-    </header>
-<div>
-    <form method="get" action="/signup">
-        <button type="submit">Sign up</button>
-    </form>
-    <form method="get" action="/login">
-        <button type="submit">Login</button>
-    </form>
-
-</div>
-
-<div class="dropdown">
-    <button class="dropbtn">What are you looking for?</button>
-    <div class="dropdown-content">
-        <a href="/handymen?trade=Carpenter">Carpenter</a>
-        <a href="/handymen?trade=Plumber">Plumber</a>
-        <a href="/handymen?trade=Painter">Painter</a>
-    </div>
-</div>
-
-    <a href="/users">View all users</a>
-
-    <a href="/myprofile">My Profile</a>
-
-<div>
-    <form method="get" action="/ads">
-        <button type="submit">All ads</button>
-    </form>
-    <form method="get" action="/handymen">
-        <button type="submit">All Handymen</button>
-    </form>
-    <form method="get" action="/editUser">
-        <button type="submit">Edit User</button>
-    </form>
-    <form method="get" action="/editHandyUser">
-        <button type="submit">Edit Handy User</button>
-    </form>
-    <form method="get" action="/information">
-        <button type="submit">Information</button>
-    </form>
-</div>
-
+        <button class="home-btn" onclick="location.href='/handymen'">All Handymen</button>
+        <button class="home-btn" onclick="location.href='/ads'">All Advertisements</button>
+    </section>
+</main>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

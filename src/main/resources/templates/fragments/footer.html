@@ -1,0 +1,35 @@
+<footer th:fragment="footer">
+    <div class="grid">
+        <div class="row">
+            <div class="col col-12 footer_title">
+                <h2>Handy</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-6 col-sm-12 offset-col-sm-1">
+                <div class="contact">
+                    <div><a href="mailto:handy@handy.is">handy@handy.is</a></div>
+                    <div><a href="tel:5812345">581 2345</a></div>
+                </div>
+                <div class="contact-button left">
+                    <button onclick="location.href='mailto:handy@handy.is'">Contact us</button>
+                </div>
+            </div>
+            <div class="col col-6 col-sm-12 offset-col-sm-1 socials">
+                <div>
+                    <a class="social" href="" target="_blank">
+                        <img src="https://img.icons8.com/ios/50/000000/info--v1.png"/>
+                        <p>About Us</p>
+                    </a>
+                    <a class="social" href="" target="_blank">
+                        <img th:src="@{/icons/question.png}">
+                        <p>Why choose our service</p>
+                    </a>
+                    <div class="contact-button right">
+                        <button onclick="location.href='mailto:handy@handy.is'">Contact us</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

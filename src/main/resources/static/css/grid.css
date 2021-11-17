@@ -1,0 +1,205 @@
+.grid {
+    margin: 0 auto;
+    max-width: 1200px;
+    overflow: hidden; }
+@media (max-width: 1240px) {
+    .grid {
+        padding-left: 10px;
+        padding-right: 10px; } }
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px; }
+
+.col {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%; }
+
+.col-0 {
+    width: 0%; }
+
+.offset-col-0 {
+    margin-left: 0%; }
+
+.col-1 {
+    width: 8.33333%; }
+
+.offset-col-1 {
+    margin-left: 8.33333%; }
+
+.col-2 {
+    width: 16.66667%; }
+
+.offset-col-2 {
+    margin-left: 16.66667%; }
+
+.col-3 {
+    width: 25%; }
+
+.offset-col-3 {
+    margin-left: 25%; }
+
+.col-4 {
+    width: 33.33333%; }
+
+.offset-col-4 {
+    margin-left: 33.33333%; }
+
+.col-5 {
+    width: 41.66667%; }
+
+.offset-col-5 {
+    margin-left: 41.66667%; }
+
+.col-6 {
+    width: 50%; }
+
+.offset-col-6 {
+    margin-left: 50%; }
+
+.col-7 {
+    width: 58.33333%; }
+
+.offset-col-7 {
+    margin-left: 58.33333%; }
+
+.col-8 {
+    width: 66.66667%; }
+
+.offset-col-8 {
+    margin-left: 66.66667%; }
+
+.col-9 {
+    width: 75%; }
+
+.offset-col-9 {
+    margin-left: 75%; }
+
+.col-10 {
+    width: 83.33333%; }
+
+.offset-col-10 {
+    margin-left: 83.33333%; }
+
+.col-11 {
+    width: 91.66667%; }
+
+.offset-col-11 {
+    margin-left: 91.66667%; }
+
+.col-12 {
+    width: 100%; }
+
+.offset-col-12 {
+    margin-left: 100%; }
+
+@media (max-width: 999px) {
+    .col-md-0 {
+        width: 0%; }
+    .offset-col-md-0 {
+        margin-left: 0%; }
+    .col-md-1 {
+        width: 8.33333%; }
+    .offset-col-md-1 {
+        margin-left: 8.33333%; }
+    .col-md-2 {
+        width: 16.66667%; }
+    .offset-col-md-2 {
+        margin-left: 16.66667%; }
+    .col-md-3 {
+        width: 25%; }
+    .offset-col-md-3 {
+        margin-left: 25%; }
+    .col-md-4 {
+        width: 33.33333%; }
+    .offset-col-md-4 {
+        margin-left: 33.33333%; }
+    .col-md-5 {
+        width: 41.66667%; }
+    .offset-col-md-5 {
+        margin-left: 41.66667%; }
+    .col-md-6 {
+        width: 50%; }
+    .offset-col-md-6 {
+        margin-left: 50%; }
+    .col-md-7 {
+        width: 58.33333%; }
+    .offset-col-md-7 {
+        margin-left: 58.33333%; }
+    .col-md-8 {
+        width: 66.66667%; }
+    .offset-col-md-8 {
+        margin-left: 66.66667%; }
+    .col-md-9 {
+        width: 75%; }
+    .offset-col-md-9 {
+        margin-left: 75%; }
+    .col-md-10 {
+        width: 83.33333%; }
+    .offset-col-md-10 {
+        margin-left: 83.33333%; }
+    .col-md-11 {
+        width: 91.66667%; }
+    .offset-col-md-11 {
+        margin-left: 91.66667%; }
+    .col-md-12 {
+        width: 100%; }
+    .offset-col-md-12 {
+        margin-left: 100%; } }
+
+@media (max-width: 630px) {
+    .col-sm-0 {
+        width: 0%; }
+    .offset-col-sm-0 {
+        margin-left: 0%; }
+    .col-sm-1 {
+        width: 8.33333%; }
+    .offset-col-sm-1 {
+        margin-left: 8.33333%; }
+    .col-sm-2 {
+        width: 16.66667%; }
+    .offset-col-sm-2 {
+        margin-left: 16.66667%; }
+    .col-sm-3 {
+        width: 25%; }
+    .offset-col-sm-3 {
+        margin-left: 25%; }
+    .col-sm-4 {
+        width: 33.33333%; }
+    .offset-col-sm-4 {
+        margin-left: 33.33333%; }
+    .col-sm-5 {
+        width: 41.66667%; }
+    .offset-col-sm-5 {
+        margin-left: 41.66667%; }
+    .col-sm-6 {
+        width: 50%; }
+    .offset-col-sm-6 {
+        margin-left: 50%; }
+    .col-sm-7 {
+        width: 58.33333%; }
+    .offset-col-sm-7 {
+        margin-left: 58.33333%; }
+    .col-sm-8 {
+        width: 66.66667%; }
+    .offset-col-sm-8 {
+        margin-left: 66.66667%; }
+    .col-sm-9 {
+        width: 75%; }
+    .offset-col-sm-9 {
+        margin-left: 75%; }
+    .col-sm-10 {
+        width: 83.33333%; }
+    .offset-col-sm-10 {
+        margin-left: 83.33333%; }
+    .col-sm-11 {
+        width: 91.66667%; }
+    .offset-col-sm-11 {
+        margin-left: 91.66667%; }
+    .col-sm-12 {
+        width: 100%; }
+    .offset-col-sm-12 {
+        margin-left: 100%; } }
