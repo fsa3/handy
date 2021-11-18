@@ -14,37 +14,54 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <main>
-    <h1>Users</h1>
-    <div th:switch="${handymen}">
-        <h2 th:case="null">None :/</h2>
-        <div th:case="*">
-            <h2>Handymen</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Trade</th>
-                    <th>Hourly Rate</th>
-                    <th>Average Rating</th>
-                    <th>Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="handyman : ${handymen}">
-                    <td><a th:text="${handyman.name}" th:href="@{/handymen/{id}(id=${handyman.ID})}"></a></td>
-                    <td th:text="${handyman.email}"></td>
-                    <td th:text="${handyman.password}"></td>
-                    <td th:text="${handyman.trade}"></td>
-                    <td th:text="${handyman.hourlyRate}"></td>
-                    <td th:text="${handyman.averageRating}"></td>
-                    <td><a th:href="@{/users/delete/{id}(id=${handyman.ID})}">Delete</a></td>
-                </tr>
-                </tbody>
-            </table>
+    <section class="grid handymen">
+        <div class="row">
+            <div class="col col-12">
+                <div>
+                    <div>
+                        <h2>Available handymen</h2>
+                        <div class="handyman-search">
+                            <p>Search for a handyman:</p>
+                            <form>
+                                <input type="text">
+                                <button type="submit">Search</button>
+                            </form>
+                            <p>or</p>
+                            <div class="dropdown">
+                                <button class="dropbtn">Select a trade</button>
+                                <div class="dropdown-content">
+                                    <a href="/handymen?trade=Carpenter">Carpenter</a>
+                                    <a href="/handymen?trade=Plumber">Plumber</a>
+                                    <a href="/handymen?trade=Painter">Painter</a>
+                                </div>
+                            </div>
+                            <button onclick="location.href='/handymen'">Clear search</button>
+                        </div>
+                        <table class="handymen-table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Trade</th>
+                                <th>Hourly Rate</th>
+                                <th>Average Rating</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="handyman : ${handymen}" th:attr="onclick=|location.href='/handymen/${handyman.ID}'|">
+                                <td><strong th:text="${handyman.name}"></strong></td>
+                                <td th:text="${handyman.trade}">Painter</td>
+                                <td th:text="${handyman.hourlyRate}">69.0</td>
+                                <td th:text="${handyman.averageRating}">0.0</td>
+                                <td><svg class="open-icon"  viewBox='0 0 2048 2048' xmlns='http://www.w3.org/2000/svg'><path d='M658 2023l-121-121 878-878-878-878L658 25l999 999-999 999z' fill='#000000'></path></svg></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 </main>
 <div th:replace="fragments/footer :: footer"></div>
 </body>

@@ -13,6 +13,10 @@ h1, h2, h3 {
     font-weight: 400;
 }
 
+a {
+    cursor: pointer;
+}
+
 .dropbtn {
     background-color: rgb(224, 158, 82);
     color:#000;
@@ -375,6 +379,7 @@ button {
     border-radius: 5px;
     font-family: 'Lato', sans-serif;
     border-color: #000;
+    cursor: pointer;
 }
 
 .home-section {
@@ -409,4 +414,101 @@ button {
 
 .home-section .home-btn:hover {
     background-color: rgb(168, 119, 63);
+}
+
+.handymen {
+    min-height: 90vh;
+}
+
+.handymen h2 {
+    margin: 1rem 0;
+}
+
+.handymen-table {
+    width: 100%;
+    border-collapse: collapse;
+    padding-left: 1rem;
+}
+
+.handymen-table thead {
+    font-size: 1.2rem;
+}
+
+.handymen-table tbody:before {
+    content:"@";
+    display:block;
+    line-height:10px;
+    text-indent:-99999px;
+}
+
+.handymen-table th {
+    text-align: left;
+}
+
+.handymen-table tbody tr {
+    height: 3rem;
+    border: 1.1px solid rgb(224, 158, 82);
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.handymen-table tbody tr td:first-child {
+    padding-left: 1rem;
+}
+
+.handymen-table tbody tr:hover {
+    background-color: rgb(238, 238, 238);
+}
+
+.handymen-table .open-icon {
+    height: 2rem;
+}
+
+.handyman-search {
+    margin-bottom: 1rem;
+}
+
+.handyman-search, .handyman-search form {
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.handyman-search p, .handyman-search form {
+    margin-right: 2rem;
+}
+
+.handyman-search input {
+    padding: 0.5rem;
+    margin-right: 1rem;
+    width: 14rem;
+}
+
+.handyman-search .dropbtn {
+    font-size: 1.3rem;
+    margin-right: 3rem;
+}
+
+.handyman-profile {
+    min-height: 90vh;
+}
+
+.handyman-profile .row {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.handyman-profile h2 {
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+    font-weight: 600;
+}
+
+.handyman-profile h3 {
+    font-weight: bold;
+}
+
+.handyman-profile .trade {
+    color: rgb(46, 46, 46);
+    font-size: 1.2rem;
 }

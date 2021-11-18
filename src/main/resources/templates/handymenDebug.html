@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org" lang="en">
+<head>
+  <title>Handymen</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="../static/icons/handy-icon-small.png" th:href="@{/icons/handy-icon-small.png}">
+  <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" media="screen" />
+  <link href="../static/css/grid.css" th:href="@{/css/grid.css}" rel="stylesheet" media="screen" />
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<main>
+  <h1>Users</h1>
+  <div th:switch="${handymen}">
+    <h2 th:case="null">None :/</h2>
+    <div th:case="*">
+      <h2>Handymen</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Trade</th>
+          <th>Hourly Rate</th>
+          <th>Average Rating</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="handyman : ${handymen}">
+          <td><a th:text="${handyman.name}" th:href="@{/handymen/{id}(id=${handyman.ID})}"></a></td>
+          <td th:text="${handyman.email}"></td>
+          <td th:text="${handyman.password}"></td>
+          <td th:text="${handyman.trade}"></td>
+          <td th:text="${handyman.hourlyRate}"></td>
+          <td th:text="${handyman.averageRating}"></td>
+          <td><a th:href="@{/users/delete/{id}(id=${handyman.ID})}">Delete</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

@@ -1,15 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title th:text="|Handy - ${handyman.name}|"></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../static/icons/handy-icon-small.png" th:href="@{/icons/handy-icon-small.png}">
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" media="screen" />
+    <link href="../static/css/grid.css" th:href="@{/css/grid.css}" rel="stylesheet" media="screen" />
 </head>
 <body>
-<h1 th:text="${handyman.name}"></h1>
-<p th:text="${handyman.trade}"></p>
-<p>About:</p>
-<p th:text="${handyman.info}"></p>
-<p th:text="|Hourly rate: ${handyman.hourlyRate}|"></p>
-<p th:text="|Average rating: ${handyman.averageRating}|"></p>
+<div th:replace="fragments/header :: header"></div>
+<main>
+    <section class="grid handyman-profile">
+        <div class="row">
+            <div class="col col-10">
+                <h2 th:text="${handyman.name}"></h2>
+                <p class="trade" th:text="${handyman.trade}"></p>
+            </div>
+            <div class="col col-2">
+                <button><a>Write a review</a></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-6">
+                <h3>About</h3>
+                <p th:text="${handyman.info}"></p>
+            </div>
+            <div class="col col-6">
+                <p th:text="|Hourly rate: ${handyman.hourlyRate}|"></p>
+                <p th:text="|Average rating: ${handyman.averageRating}|"></p>
+            </div>
+        </div>
+    </section>
+</main>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
