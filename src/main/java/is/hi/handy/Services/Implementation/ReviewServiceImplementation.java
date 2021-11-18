@@ -3,7 +3,9 @@ package is.hi.handy.Services.Implementation;
 import is.hi.handy.Persistence.Entities.HandyUser;
 import is.hi.handy.Persistence.Entities.Review;
 import is.hi.handy.Persistence.Entities.User;
+import is.hi.handy.Persistence.Repositories.HandyUserRepository;
 import is.hi.handy.Persistence.Repositories.ReviewRepository;
+import is.hi.handy.Persistence.Repositories.UserRepository;
 import is.hi.handy.Services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,14 +16,24 @@ import java.util.List;
 @Service
 public class ReviewServiceImplementation implements ReviewService {
     private ReviewRepository repository;
+    private HandyUserRepository handyUserRepository;
 
     @Autowired
-    public ReviewServiceImplementation(ReviewRepository repository) {
+    public ReviewServiceImplementation(ReviewRepository repository, HandyUserRepository handyUserRepository) {
         this.repository = repository;
+        this.handyUserRepository = handyUserRepository;
     }
 
     @Override
     public Review save(Review review) {
+        HandyUser handyUser = review.getHandyman();
+        double userTotalRating = (double) review.getRating();
+        List<Review> userRatings = handyUser.getReviewsAbout();
+        for (Review r : userRatings) {
+            userTotalRating += r.getRating();
+        }
+        handyUser.setAverageRating(userTotalRating/(userRatings.size()+1));
+        handyUserRepository.save(handyUser);
         return repository.save(review);
     }
 
