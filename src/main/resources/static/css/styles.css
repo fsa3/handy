@@ -512,3 +512,32 @@ button {
     color: rgb(46, 46, 46);
     font-size: 1.2rem;
 }
+
+.review {
+    background-color: rgb(224, 195, 161);
+    border: 1.1px solid rgb(224, 158, 82);
+    border-radius: 5px;
+    display: flex;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.review div {
+    width: 50%;
+}
+
+.review .rating {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.review .rating p {
+    margin-right: 0.2rem;
+}
+
+.review .author {
+    text-align: right;
+}

@@ -21,7 +21,7 @@
                 <p class="trade" th:text="${handyman.trade}"></p>
             </div>
             <div class="col col-2">
-                <button><a>Write a review</a></button>
+                <button><a th:href="@{/createReview/{handyUserId}(handyUserId=${handyman.ID})}">Write a review</a></button>
             </div>
         </div>
         <div class="row">
@@ -32,6 +32,25 @@
             <div class="col col-6">
                 <p th:text="|Hourly rate: ${handyman.hourlyRate}|"></p>
                 <p th:text="|Average rating: ${handyman.averageRating}|"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-10 offset-col-1">
+                <h3>Reviews</h3>
+            </div>
+            <div class="col col-10 offset-col-1" th:each="review : ${handymanReviews}">
+                <div class="review">
+                    <div>
+                        <p th:text="${review.text}"></p>
+                    </div>
+                    <div>
+                        <div class="rating">
+                            <p th:text="${review.rating}"></p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+                        </div>
+                        <p class="author" th:text="|By: ${review.author.name}|"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

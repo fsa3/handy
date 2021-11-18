@@ -32,6 +32,7 @@ public class UserController {
     public String userViewHandy(@PathVariable("id") long id, Model model) {
         HandyUser userToView = userService.findOneHandyUser(id);
         model.addAttribute("handyman", userToView);
+        model.addAttribute("handymanReviews", userToView.getReviewsAbout());
         return "handyUserProfile";
     }
 
