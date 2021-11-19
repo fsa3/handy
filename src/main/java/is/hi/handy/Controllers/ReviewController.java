@@ -33,7 +33,7 @@ public class ReviewController {
             model.addAttribute("reviewAbout", userService.findOneHandyUser(handyUserId));
             return "createReview";
         }
-        return "login";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "createReview/{handyUserId}", method = RequestMethod.POST)

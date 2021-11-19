@@ -27,8 +27,8 @@ private AdService adService;
 public AdController(AdService adService){this.adService = adService;}
 
     @RequestMapping("/ads")
-     public String adForm(Model model) {
-
+     public String adForm(Model model, HttpSession session) {
+        model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
         List<Ad> advertisements = adService.findAllOrderByTimePostedDesc();
         model.addAttribute("ads", advertisements);
 
@@ -36,7 +36,8 @@ public AdController(AdService adService){this.adService = adService;}
     }
 
     @RequestMapping(value = "/ads/{id}", method = RequestMethod.GET)
-    public String adInfoGet(@PathVariable("id") long id, Model model){
+    public String adInfoGet(@PathVariable("id") long id, Model model, HttpSession session){
+        model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
 
         Ad detailedAd = adService.findOne(id);
         model.addAttribute("ad", detailedAd);
@@ -48,6 +49,7 @@ public AdController(AdService adService){this.adService = adService;}
     @RequestMapping(value = "/createad", method = RequestMethod.GET)
     public String adFormGet(Model model, HttpSession session){
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
+        model.addAttribute("LoggedInUser", loggedInUser);
         if(loggedInUser != null) {
             return "createAd";
         }

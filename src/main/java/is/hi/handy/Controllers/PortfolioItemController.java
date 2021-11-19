@@ -33,7 +33,7 @@ public class PortfolioItemController {
             model.addAttribute("LoggedInUser", loggedInUser);
             return "createPortfolioItem";
         }
-        return "login";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/createPortfolioItem/{handyUserId}", method = RequestMethod.POST)

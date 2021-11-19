@@ -27,10 +27,6 @@ public class UserController {
         this.portfolioItemService = portfolioItemService;
     }
 
-    public String userViewUser(long id, Model model) {
-        return null;
-    }
-
     @RequestMapping(value = "/handymen/{id}", method = RequestMethod.GET)
     public String userViewHandy(@PathVariable("id") long id, Model model) {
         HandyUser userToView = userService.findOneHandyUser(id);
@@ -142,11 +138,6 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/editHandyUser", method = RequestMethod.GET)
-    public String editHandyUser(HttpSession session, Model model) {
-        return "editHandyUser";
-    }
-
     @RequestMapping(value = "/users/delete/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable("id") long id, Model model) {
         User userToDelete = userService.findUser(id);
@@ -162,7 +153,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/handymen", method = RequestMethod.GET)
-    public String showHandyUsers(Model model, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "trade", required = false) String trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating) {
+    public String showHandyUsers(Model model, HttpSession session, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "trade", required = false) String trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating) {
+        model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
         List<HandyUser> handyUsers = userService.findAllHandyUser();
         if (trade != null) handyUsers = userService.findHandyUserByTrade(trade);
         if (orderByRating) handyUsers = userService.orderHandyUserByRating(trade, new Double(0), new Double(0)); // value á min og max harðkóðuð tímabundið
