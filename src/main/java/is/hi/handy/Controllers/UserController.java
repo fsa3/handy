@@ -3,6 +3,7 @@ package is.hi.handy.Controllers;
 import is.hi.handy.Persistence.Entities.HandyUser;
 import is.hi.handy.Persistence.Entities.User;
 import is.hi.handy.Services.PortfolioItemService;
+import is.hi.handy.Services.ReviewService;
 import is.hi.handy.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,15 +21,18 @@ import java.util.List;
 public class UserController {
     private UserService userService;
     private PortfolioItemService portfolioItemService;
+    private ReviewService reviewService;
 
     @Autowired
-    public UserController(UserService userService, PortfolioItemService portfolioItemService) {
+    public UserController(UserService userService, PortfolioItemService portfolioItemService, ReviewService reviewService) {
         this.userService = userService;
         this.portfolioItemService = portfolioItemService;
+        this.reviewService = reviewService;
     }
 
     @RequestMapping(value = "/handymen/{id}", method = RequestMethod.GET)
-    public String userViewHandy(@PathVariable("id") long id, Model model) {
+    public String userViewHandy(@PathVariable("id") long id, Model model, HttpSession session) {
+        model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
         HandyUser userToView = userService.findOneHandyUser(id);
         model.addAttribute("handyman", userToView);
         model.addAttribute("handymanReviews", userToView.getReviewsAbout());
@@ -101,7 +105,7 @@ public class UserController {
         userService.save(loggedInUser);
         session.setAttribute("LoggedInUser", loggedInUser);
         model.addAttribute("LoggedInUser", loggedInUser);
-        return "redirect:/users"; //todo skoða þetta redirect
+        return "redirect:/myprofile/?saved=true";
     }
 
     @RequestMapping(value = "savehandyuser", method = RequestMethod.POST)
@@ -120,15 +124,17 @@ public class UserController {
         userService.save(loggedInUser);
         session.setAttribute("LoggedInUser", loggedInUser);
         model.addAttribute("LoggedInUser", loggedInUser);
-        return "redirect:/"; //todo skoða þetta redirect
+        return "redirect:/myprofile/?saved=true";
     }
 
     @RequestMapping(value = "/myprofile", method = RequestMethod.GET)
-    public String editUser(HttpSession session, Model model) {
+    public String editUser(HttpSession session, Model model, @RequestParam(value = "saved", required = false, defaultValue = "false") Boolean saved) {
         User sessionUser = (User) session.getAttribute("LoggedInUser");
         if(sessionUser != null) {
+            model.addAttribute("saved", (boolean) saved);
             boolean handyUserLoggedIn = (Boolean) session.getAttribute("handyUserLoggedIn");
             model.addAttribute("LoggedInUser", sessionUser);
+            model.addAttribute("reviewsWritten", reviewService.findByAuthor(sessionUser));
             if (handyUserLoggedIn) {
                 model.addAttribute("LoggedInUser", (HandyUser) sessionUser);
                 return "editHandyUser";

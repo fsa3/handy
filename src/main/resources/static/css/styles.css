@@ -541,3 +541,55 @@ button {
 .review .author {
     text-align: right;
 }
+
+.user-information {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.user-information div {
+    margin-right: 2rem;
+}
+
+.user-information div div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.2rem;
+
+}
+
+.user-information .input-label {
+    min-width: 6rem;
+}
+
+.user-information input, .user-information select {
+    width: 30rem;
+    padding: 0.2rem;
+}
+
+.user-information textarea {
+    width: 30rem;
+    padding: 0.2rem;
+}
+
+section {
+    min-height: 90vh;
+}
+
+.user-profile h2 {
+    margin-top: 1rem;
+}
+
+.user-profile h3 {
+    margin-top: 0.5rem;
+}
+
+.user-profile button {
+    margin: 1rem 1rem 1rem 0;
+}
+
+.user-profile .saved {
+    display: flex;
+    align-items: center;
+    color: rgb(224, 158, 82);
+}
