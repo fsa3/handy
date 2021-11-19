@@ -71,7 +71,7 @@
         </div>
 
         <div>
-            <button><a th:href="@{/createPortfolioItem/{handyUserId}(handyUserId=${handyman.ID})}">Add a project to your portfolio!</a></button>
+            <button><a th:href="@{/createPortfolioItem/{handyUserId}(handyUserId=${LoggedInUser.ID})}">Add a project to your portfolio!</a></button>
         </div>
 
         <button type="submit">Save</button>

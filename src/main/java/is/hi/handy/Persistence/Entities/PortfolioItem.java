@@ -10,6 +10,7 @@ public class PortfolioItem {
     private Long ID;
     private String title;
     private String description;
+    private String location;
     //private List<???> pictures;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -54,5 +55,13 @@ public class PortfolioItem {
 
     public void setUser(HandyUser user) {
         this.user = user;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

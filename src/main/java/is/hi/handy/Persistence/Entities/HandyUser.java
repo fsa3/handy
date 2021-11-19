@@ -12,7 +12,7 @@ import java.util.List;
 public class HandyUser extends User {
     private String trade; // verður mögulega eitthvað annað en String
     private double hourlyRate;
-    private double averageRating; // á eftir að skrifa virkni sem reiknar averageRating út frá reviews
+    private double averageRating;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PortfolioItem> portfolioItem = new ArrayList<>();
 

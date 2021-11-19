@@ -2,6 +2,7 @@ package is.hi.handy.Controllers;
 
 import is.hi.handy.Persistence.Entities.HandyUser;
 import is.hi.handy.Persistence.Entities.User;
+import is.hi.handy.Services.PortfolioItemService;
 import is.hi.handy.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,12 @@ import java.util.List;
 @Controller
 public class UserController {
     private UserService userService;
+    private PortfolioItemService portfolioItemService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PortfolioItemService portfolioItemService) {
         this.userService = userService;
+        this.portfolioItemService = portfolioItemService;
     }
 
     public String userViewUser(long id, Model model) {
@@ -33,6 +36,7 @@ public class UserController {
         HandyUser userToView = userService.findOneHandyUser(id);
         model.addAttribute("handyman", userToView);
         model.addAttribute("handymanReviews", userToView.getReviewsAbout());
+        model.addAttribute("handymanPortfolioItems", portfolioItemService.findByHandyUser(userToView));
         return "handyUserProfile";
     }
 

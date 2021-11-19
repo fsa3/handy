@@ -1,5 +1,6 @@
 package is.hi.handy.Persistence.Repositories;
 
+import is.hi.handy.Persistence.Entities.HandyUser;
 import is.hi.handy.Persistence.Entities.PortfolioItem;
 import is.hi.handy.Persistence.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +14,5 @@ public interface PortfolioItemRepository extends JpaRepository<PortfolioItem, Lo
     List<PortfolioItem> findAll();
     PortfolioItem findByID(long ID);
     PortfolioItem findByTitle(String title);
-    List<PortfolioItem> findByUser(String username);
+    List<PortfolioItem> findByUserOrderByIDDesc(HandyUser user);
 }

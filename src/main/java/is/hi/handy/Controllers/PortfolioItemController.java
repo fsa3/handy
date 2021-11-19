@@ -28,19 +28,20 @@ public class PortfolioItemController {
 
     @RequestMapping(value = "/createPortfolioItem/{handyUserId}", method = RequestMethod.GET)
     public String creatPortfolioItem(Model model, HttpSession session, @PathVariable("handyUserId") long handyUserID){
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        User loggedInUser = (User) session.getAttribute("LoggedInUser");
         if(loggedInUser != null) {
             model.addAttribute("LoggedInUser", loggedInUser);
             return "createPortfolioItem";
         }
         return "login";
     }
-    @RequestMapping(value = "createPortfolioItem/{handyUserId}", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/createPortfolioItem/{handyUserId}", method = RequestMethod.POST)
     public String save(Model model, PortfolioItem portfolioItem, @PathVariable("handyUserId") long handyUserId, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
         portfolioItem.setUser((HandyUser) loggedInUser);
         portfolioItemService.save(portfolioItem);
-        return "redirect:/editHandyUser/" + handyUserId;
+        return "redirect:/myprofile";
     }
 
 }
