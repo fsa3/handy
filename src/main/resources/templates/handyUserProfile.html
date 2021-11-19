@@ -40,8 +40,10 @@
             </div>
             <div class="col col-10 offset-col-1" th:each="portfolioItem : ${handymanPortfolioItems}">
                 <div class="review">
-                    <div>
+                    <div th:switch="${portfolioItem.stringImage}">
                         <p th:text="${portfolioItem.title}"></p>
+                        <p th:case="null"></p>
+                        <img th:case="*" th:src="|data:image/jpg;base64,${portfolioItem.stringImage}|" style="height: 7rem">
                     </div>
                     <div>
                         <div class="rating">

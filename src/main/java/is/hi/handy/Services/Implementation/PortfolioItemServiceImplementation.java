@@ -7,6 +7,7 @@ import is.hi.handy.Services.PortfolioItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Service
@@ -45,6 +46,16 @@ public class PortfolioItemServiceImplementation implements PortfolioItemService 
 
     @Override
     public List<PortfolioItem> findByHandyUser(HandyUser handyUser) {
-        return portfolioItemRepository.findByUserOrderByIDDesc(handyUser);
+        List<PortfolioItem> items = portfolioItemRepository.findByUserOrderByIDDesc(handyUser);
+        for(PortfolioItem item : items) {
+            if (item.getImage() == null) continue;
+            byte[] encode = java.util.Base64.getEncoder().encode(item.getImage().getImage());
+            try {
+                item.setStringImage(new String(encode, "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        return items;
     }
 }

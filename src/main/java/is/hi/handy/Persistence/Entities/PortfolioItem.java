@@ -11,7 +11,9 @@ public class PortfolioItem {
     private String title;
     private String description;
     private String location;
-    //private List<???> pictures;
+    @OneToOne
+    private Image image;
+    private String stringImage;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private HandyUser user;
@@ -63,5 +65,21 @@ public class PortfolioItem {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public String getStringImage() {
+        return stringImage;
+    }
+
+    public void setStringImage(String stringImage) {
+        this.stringImage = stringImage;
     }
 }

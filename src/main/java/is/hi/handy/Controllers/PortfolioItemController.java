@@ -1,9 +1,7 @@
 package is.hi.handy.Controllers;
 
-import is.hi.handy.Persistence.Entities.HandyUser;
-import is.hi.handy.Persistence.Entities.PortfolioItem;
-import is.hi.handy.Persistence.Entities.Review;
-import is.hi.handy.Persistence.Entities.User;
+import is.hi.handy.Persistence.Entities.*;
+import is.hi.handy.Services.ImageService;
 import is.hi.handy.Services.PortfolioItemService;
 import is.hi.handy.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +10,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 public class PortfolioItemController {
     PortfolioItemService portfolioItemService;
     UserService userService;
+    ImageService imageService;
 
     @Autowired
-    PortfolioItemController(PortfolioItemService portfolioItemService, UserService userService){
+    PortfolioItemController(PortfolioItemService portfolioItemService, UserService userService, ImageService imageService){
         this.portfolioItemService = portfolioItemService;
         this.userService = userService;
+        this.imageService = imageService;
     }
 
     @RequestMapping(value = "/createPortfolioItem/{handyUserId}", method = RequestMethod.GET)
@@ -37,9 +40,13 @@ public class PortfolioItemController {
     }
 
     @RequestMapping(value = "/createPortfolioItem/{handyUserId}", method = RequestMethod.POST)
-    public String save(Model model, PortfolioItem portfolioItem, @PathVariable("handyUserId") long handyUserId, HttpSession session) {
+    public String save(Model model, PortfolioItem portfolioItem, @PathVariable("handyUserId") long handyUserId, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
+        //byte[] image = file.getBytes();
+        Image image = new Image("portfolioItemImage", file.getBytes());
+        portfolioItem.setImage(image);
         portfolioItem.setUser((HandyUser) loggedInUser);
+        imageService.save(image);
         portfolioItemService.save(portfolioItem);
         return "redirect:/myprofile";
     }
