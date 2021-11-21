@@ -1,6 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html lang="is">
 <head>
+    <title>Handy</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../static/icons/handy-icon-small.png" th:href="@{/icons/handy-icon-small.png}">
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" media="screen" />
+    <link href="../static/css/grid.css" th:href="@{/css/grid.css}" rel="stylesheet" media="screen" />
+</head>
+
     <style>
         /* Bordered form */
         form {
@@ -74,27 +85,31 @@
             }
         }
     </style>
-</head>
-<form action="#" th:action="@{/login}" th:object="${user}"  method="post">
+<body>
+<main>
+    <form action="#" th:action="@{/login}" th:object="${user}"  method="post">
 
-    <div class="container">
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" id="email" name="email" required>
+        <div class="container">
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" id="email" name="email" required>
 
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" id="psw" name="password" required>
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" id="psw" name="password" required>
 
-        <button type="submit">Login</button>
-        <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
-    </div>
+            <button type="submit">Login</button>
 
-    <div class="container" style="background-color:#f1f1f1">
-        <form method="get" action="/home">
-            <button type="submit" class="cancelbtn">Cancel</button>
-        </form>
+            <a href="/signup">Dont have an account? Sign up Here.</a>
+        </div>
 
-        <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-</form>
+        <div class="container" style="background-color:#f1f1f1">
+            <form method="get" action="/home">
+                <button type="submit" class="cancelbtn">Cancel</button>
+            </form>
+
+            <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+    </form>
+</main>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

@@ -4,6 +4,7 @@
     padding: 0;
 }
 
+
 html {
     font-size: 16px;
     font-family: 'Lato', sans-serif;
@@ -380,6 +381,10 @@ button {
     font-family: 'Lato', sans-serif;
     border-color: #000;
     cursor: pointer;
+}
+
+.handyUserProfileButtons{
+    margin-bottom: 1rem;
 }
 
 .home-section {

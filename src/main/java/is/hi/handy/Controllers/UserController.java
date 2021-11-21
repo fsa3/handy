@@ -92,6 +92,19 @@ public class UserController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(Model model) {
+        return "login";
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public String submitLogout(User user, BindingResult result, Model model, HttpSession session) {
+
+            session.setAttribute("LoggedInUser", null);
+            model.addAttribute("LoggedInUser", null);
+            return "redirect:/";
+    }
+
     @RequestMapping(value = "saveuser", method = RequestMethod.POST)
     public String saveUser(User user, BindingResult result, Model model, HttpSession session) {
         if(result.hasErrors()) {

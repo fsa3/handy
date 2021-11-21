@@ -1,7 +1,8 @@
 .grid {
     margin: 0 auto;
     max-width: 1200px;
-    overflow: hidden; }
+    overflow: hidden;}
+
 @media (max-width: 1240px) {
     .grid {
         padding-left: 10px;

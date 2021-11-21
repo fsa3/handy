@@ -19,6 +19,9 @@
         <div class="col col-12">
             <h2 th:text="${LoggedInUser.name}"></h2>
         </div>
+        <div class="col col-2">
+            <button><a th:href="@{/logout/{handyUserId}(handyUserId=${handyman.ID})}">Log Out</a></button>
+        </div>
     </div>
     <div class="row">
         <div class="col col-12">
