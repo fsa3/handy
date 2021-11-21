@@ -72,6 +72,27 @@
                         <p th:text="${saved} ? 'Information saved successfully!'"></p>
                     </div>
                 </form>
+                <div class="row">
+                    <div class="col col-12 ">
+                        <h3>Portfolio</h3>
+                        <button><a th:href="@{/createPortfolioItem/{LoggedInUserId}(LoggedInUserId=${LoggedInUser.ID})}">Add to your portfolio</a></button>
+                    </div>
+                    <div class="col col-12 " th:each="portfolioItem : ${LoggedInUser.portfolioItem}">
+                        <div class="review">
+                            <div th:switch="${portfolioItem.stringImage}">
+                                <p th:text="${portfolioItem.title}"></p>
+                                <p th:case="null"></p>
+                                <img th:case="*" th:src="|data:image/jpg;base64,${portfolioItem.stringImage}|" style="height: 7rem">
+                            </div>
+                            <div>
+                                <div class="rating">
+                                    <p th:text="${portfolioItem.location}"></p>
+                                </div>
+                                <p class="author" th:text="${portfolioItem.description}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">

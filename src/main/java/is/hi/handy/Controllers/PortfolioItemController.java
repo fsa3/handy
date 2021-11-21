@@ -34,6 +34,9 @@ public class PortfolioItemController {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
         if(loggedInUser != null) {
             model.addAttribute("LoggedInUser", loggedInUser);
+            if((boolean) session.getAttribute("handyUserLoggedIn")){
+                model.addAttribute("myPortfolioItem", ((HandyUser)loggedInUser).getPortfolioItem());
+            }
             return "createPortfolioItem";
         }
         return "redirect:/login";
