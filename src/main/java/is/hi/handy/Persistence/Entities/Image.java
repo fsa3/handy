@@ -11,9 +11,6 @@ public class Image {
     @Column(name = "Id")
     private long id;
 
-    @Column(name = "Name")
-    private String name;
-
     @Lob
     @Column(name = "Image")
     private byte[] image;
@@ -25,9 +22,8 @@ public class Image {
         super();
         // TODO Auto-generated constructor stub
     }
-    public Image(String name, byte[] image) {
+    public Image(byte[] image) {
         super();
-        this.name = name;
         this.image = image;
     }
     public long getId() {
@@ -35,12 +31,6 @@ public class Image {
     }
     public void setId(long id) {
         this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
     public byte[] getImage() {
         return image;

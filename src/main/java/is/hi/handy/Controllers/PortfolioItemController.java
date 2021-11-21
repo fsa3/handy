@@ -43,7 +43,7 @@ public class PortfolioItemController {
     public String save(Model model, PortfolioItem portfolioItem, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
         //byte[] image = file.getBytes();
-        Image image = new Image("portfolioItemImage", file.getBytes());
+        Image image = new Image(file.getBytes());
         portfolioItem.setImage(image);
         portfolioItem.setUser((HandyUser) loggedInUser);
         imageService.save(image);
