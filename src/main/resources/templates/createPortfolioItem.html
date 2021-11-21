@@ -22,7 +22,7 @@
         </div>
         <div class="row">
             <div class="col col-12">
-                <form action="#" th:action="@{/createPortfolioItem/{handymanId}(handymanId=${LoggedInUser.ID})}" th:object="${portfolioItem}" enctype="multipart/form-data" method="post">
+                <form action="#" th:action="@{/createPortfolioItem}" th:object="${portfolioItem}" enctype="multipart/form-data" method="post">
                     <div style="display: flex; flex-direction: column; margin-top: 1rem">
                         <label>Title:</label>
                         <textarea rows="1" name="title"></textarea>

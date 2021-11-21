@@ -137,6 +137,7 @@ public class UserController {
             model.addAttribute("reviewsWritten", reviewService.findByAuthor(sessionUser));
             if (handyUserLoggedIn) {
                 model.addAttribute("LoggedInUser", (HandyUser) sessionUser);
+                model.addAttribute("myPortfolioItems", portfolioItemService.findByHandyUser((HandyUser) sessionUser));
                 return "editHandyUser";
             }
             return "editUser";

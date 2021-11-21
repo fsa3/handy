@@ -29,21 +29,18 @@ public class PortfolioItemController {
         this.imageService = imageService;
     }
 
-    @RequestMapping(value = "/createPortfolioItem/{handyUserId}", method = RequestMethod.GET)
-    public String creatPortfolioItem(Model model, HttpSession session, @PathVariable("handyUserId") long handyUserID){
+    @RequestMapping(value = "/createPortfolioItem", method = RequestMethod.GET)
+    public String creatPortfolioItem(Model model, HttpSession session){
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
         if(loggedInUser != null) {
             model.addAttribute("LoggedInUser", loggedInUser);
-            if((boolean) session.getAttribute("handyUserLoggedIn")){
-                model.addAttribute("myPortfolioItem", ((HandyUser)loggedInUser).getPortfolioItem());
-            }
             return "createPortfolioItem";
         }
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/createPortfolioItem/{handyUserId}", method = RequestMethod.POST)
-    public String save(Model model, PortfolioItem portfolioItem, @PathVariable("handyUserId") long handyUserId, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
+    @RequestMapping(value = "/createPortfolioItem", method = RequestMethod.POST)
+    public String save(Model model, PortfolioItem portfolioItem, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
         //byte[] image = file.getBytes();
         Image image = new Image("portfolioItemImage", file.getBytes());
