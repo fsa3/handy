@@ -18,6 +18,9 @@ public class Image {
     @OneToOne(fetch = FetchType.LAZY)
     private PortfolioItem portfolioItem;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Ad ad;
+
     public Image() {
         super();
         // TODO Auto-generated constructor stub
@@ -45,5 +48,13 @@ public class Image {
 
     public void setPortfolioItem(PortfolioItem portfolioItem) {
         this.portfolioItem = portfolioItem;
+    }
+
+    public Ad getAd() {
+        return ad;
+    }
+
+    public void setAd(Ad ad) {
+        this.ad = ad;
     }
 }

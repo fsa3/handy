@@ -1,9 +1,10 @@
 package is.hi.handy.Controllers;
 
 import is.hi.handy.Persistence.Entities.Ad;
-import is.hi.handy.Persistence.Entities.HandyUser;
+import is.hi.handy.Persistence.Entities.Image;
 import is.hi.handy.Persistence.Entities.User;
 import is.hi.handy.Services.AdService;
+import is.hi.handy.Services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +12,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.servlet.http.HttpSession;
-import java.nio.file.FileStore;
+import java.io.IOException;
 import java.util.List;
 
 /* Þetta er í vinnslu*/
@@ -22,9 +25,13 @@ import java.util.List;
 @Controller
 public class AdController {
 private AdService adService;
+private ImageService imageService;
 
 @Autowired
-public AdController(AdService adService){this.adService = adService;}
+public AdController(AdService adService, ImageService imageService) {
+    this.adService = adService;
+    this.imageService = imageService;
+}
 
     @RequestMapping("/ads")
      public String adForm(Model model, HttpSession session) {
@@ -57,15 +64,17 @@ public AdController(AdService adService){this.adService = adService;}
     }
 
     @RequestMapping(value = "/createad", method = RequestMethod.POST)
-    public String saveAd(Ad ad, BindingResult result, Model model, HttpSession session){
-        System.out.println(ad);
-        if(result.hasErrors()){
-            return "createad";
-        }
+    public String saveAd(Ad ad, BindingResult result, Model model, HttpSession session, @RequestParam("file") MultipartFile file) throws IOException {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
-        ad.setUser(loggedInUser);
-        adService.save(ad);
-        return "redirect:/ads";
+        if(!result.hasErrors()){
+            Image image = new Image(file.getBytes());
+            image = imageService.save(image);
+            ad.setImage(image);
+            ad.setUser(loggedInUser);
+            adService.save(ad);
+            return "redirect:/ads";
+        }
+        return "createad";
     }
 
     @RequestMapping(value = "/ads/delete/{id}", method = RequestMethod.GET)

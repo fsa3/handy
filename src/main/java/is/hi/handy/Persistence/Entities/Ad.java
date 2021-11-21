@@ -2,6 +2,7 @@ package is.hi.handy.Persistence.Entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 @Entity
 
@@ -12,9 +13,12 @@ public class Ad {
     private long ID;
     private String title;
     private String description;
-    //pictures
-    //location
+    @OneToOne
+    private Image image;
+    private String stringImage;
+    private String location;
     private Timestamp timePosted;
+    private String formattedDate;
     private String trade;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -22,12 +26,14 @@ public class Ad {
 
     public Ad() {
         timePosted = new Timestamp(System.currentTimeMillis());
+        formattedDate = new SimpleDateFormat("dd.MM.yyyy").format(timePosted);
     }
 
     public Ad(String title, String description) {
         this.title = title;
         this.description = description;
         timePosted = new Timestamp(System.currentTimeMillis());
+        formattedDate = new SimpleDateFormat("dd.MM.yyyy").format(timePosted);
     }
 
     public User getUser() {
@@ -76,5 +82,33 @@ public class Ad {
 
     public void setID(Long ID) {
         this.ID = ID;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public String getStringImage() {
+        return stringImage;
+    }
+
+    public void setStringImage(String stringImage) {
+        this.stringImage = stringImage;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getFormattedDate() {
+        return formattedDate;
     }
 }

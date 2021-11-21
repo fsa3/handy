@@ -15,6 +15,7 @@ h1, h2, h3 {
 }
 
 a {
+    color: #000;
     cursor: pointer;
 }
 
@@ -56,6 +57,10 @@ a {
 
 .dropdown:hover .dropbtn {
     background-color: rgb(168, 119, 63);
+}
+
+textarea {
+    font-family: 'Lato', sans-serif;
 }
 
 header {
@@ -578,7 +583,7 @@ button {
 }
 
 section {
-    min-height: 90vh;
+    min-height: 70vh;
 }
 
 .user-profile h2 {
@@ -597,4 +602,77 @@ section {
     display: flex;
     align-items: center;
     color: rgb(224, 158, 82);
+}
+
+.ad-form h2 {
+    margin-top: 1rem;
+    margin-bottom: 0.7rem;
+}
+
+.ad-form form > div {
+    display: flex;
+}
+
+.ad-form form > div > div > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.ad-form .input-label {
+    min-width: 4.5rem;
+}
+
+.ad-form input, .user-information select {
+    width: 30rem;
+    padding: 0.2rem;
+}
+
+.ad-form textarea {
+    width: 30rem;
+    padding: 0.2rem;
+    margin-left: 3rem;
+}
+
+.ad-form button {
+    margin-top: 0.5rem;
+}
+
+.ad {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(224, 195, 161);
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    padding: 0.3rem;
+    text-decoration: none;
+}
+
+.ad:hover {
+    background-color: rgb(207, 170, 128);
+}
+
+.ad .image {
+    height: 16rem;
+    margin-bottom: 0.3rem;
+}
+
+.ad img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.ad p {
+    margin-top: 0.3rem;
+}
+
+.ad h3 {
+    font-weight: 600;
+}
+
+.ad .location-time {
+    display: flex;
+    justify-content: space-between;
 }

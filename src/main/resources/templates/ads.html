@@ -14,32 +14,33 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <main>
-    <div th:switch="${ads}">
-        <h2 th:case="null">No Ads yet!</h2>
-        <div th:case="*">
-            <h2>Ads</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Time posted</th>
-                    <th>Trade</th>
-                    <th>Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="ad : ${ads}">
-                    <td><a th:text="${ad.title}" th:href="@{/ads/{id}(id=${ad.ID})}"></a></td>
-                    <td th:text="${ad.timePosted}"></td>
-                    <td th:text="${ad.trade}"></td>
-                    <td><a th:href="@{/ads/delete/{id}(id=${ad.ID})}">Delete</a></td>
-
-                </tr>
-                </tbody>
-            </table>
+    <section class="grid ads">
+        <div class="row">
+            <div class="col col-12">
+                <h2>Advertisements</h2>
+            </div>
         </div>
-        <p><a href="/createad">Create new Ad</a></p>
-    </div>
+        <div class="row" style="align-items: stretch">
+            <div class="col col-4" th:each="ad : ${ads}" style="margin-top: 1rem">
+                <a class="ad" th:href="@{/ads/{id}(id=${ad.ID})}">
+                    <div class="image">
+                        <img th:src="|data:image/jpg;base64,${ad.stringImage}|">
+                    </div>
+                    <h3 th:text="${ad.title}"></h3>
+                    <p th:text="${ad.trade}"></p>
+                    <div class="location-time">
+                        <p th:text="${ad.location}"></p>
+                        <p th:text="${ad.formattedDate}"></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <button><a href="/createad">Create new Ad</a></button>
+            </div>
+        </div>
+    </section>
 </main>
 <div th:replace="fragments/footer :: footer"></div>
 

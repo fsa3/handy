@@ -12,5 +12,6 @@
 <p th:text="${ad.trade}"></p>
 <p>Description:</p>
 <p th:text="${ad.description}"></p>
+<img th:src="|data:image/jpg;base64,${ad.stringImage}|" style="height: 7rem">
 </body>
 </html>
