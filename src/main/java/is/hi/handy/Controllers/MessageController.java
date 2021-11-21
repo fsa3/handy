@@ -45,8 +45,8 @@ public String messageForm(Model model, HttpSession session, @PathVariable("handy
         model.addAttribute("LoggedInUser", loggedInUser);
         User recipient = userService.findUser(userId);
         model.addAttribute("recipient", recipient);
-        List<Message> messages = messageService.findAllBySenderAndRecipient(loggedInUser, recipient);
-        model.addAttribute("message", messages);
+        List<Message> messages = messageService.findAllMessagesBetweenTwoUsers(loggedInUser, recipient);
+        model.addAttribute("messages", messages);
         return "messageForm";
     }
     return "redirect:/login";
@@ -63,7 +63,7 @@ public String messageForm(Model model, HttpSession session, @PathVariable("handy
     }
 
 // hér á eftir að búa til mymessages.
-    }
+}
 
   //  @RequestMapping(/)
 

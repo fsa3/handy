@@ -1,25 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Create Ad</title>
+    <title>Create a new ad - Handy</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../static/icons/handy-icon-small.png" th:href="@{/icons/handy-icon-small.png}">
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" media="screen" />
+    <link href="../static/css/grid.css" th:href="@{/css/grid.css}" rel="stylesheet" media="screen" />
 </head>
 <body>
-
-<form action="#" th:action="@{/createad}" th:object="${ad}" method="post">
-    <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Title" id="title" name="title" required>
-
-    <label for="description"><b>Description</b></label>
-    <input type="text" placeholder="Description" id="description" name="description" required>
-
-    <label for="trade"><b>Trade</b></label>
-    <input type="text" placeholder="Trade" id="trade" name="trade" required>
-    <hr>
-
-    <button type="submit">Post Ad</button>
-
-</form>
-
+<div th:replace="fragments/header :: header"></div>
+<main>
+    <section class="grid ad-form">
+        <div class="row">
+            <div class="col col-12">
+                <h2>Create a new advertisement</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <form action="#" th:action="@{/createad}" th:object="${ad}" method="post">
+                    <div>
+                        <div>
+                            <label for="title"><b>Title</b></label>
+                            <input type="text" placeholder="Title" id="title" name="title" required>
+                        </div>
+                        <div>
+                            <label class="input-label" for="tradeSelect">Trade</label>
+                            <select name="trade" id="tradeSelect">
+                                <option value="Carpenter">Carpenter</option>
+                                <option value="Plumber">Plumber</option>
+                                <option value="Painter">Painter</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Image:</label>
+                            <input type="file" name="file">
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Description" id="description" name="description" required>
+                    </div>
+                    <button type="submit">Post Ad</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

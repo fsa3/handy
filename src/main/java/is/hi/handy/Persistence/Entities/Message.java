@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "messages")
-public class Message {
+public class Message implements Comparable<Message> {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,7 @@ public class Message {
     }
 
     public Message() {
+        timePosted = new Timestamp(System.currentTimeMillis());
     }
 
     public long getID() {
@@ -75,5 +76,10 @@ public class Message {
 
     public void setTimePosted(Timestamp timePosted) {
         this.timePosted = timePosted;
+    }
+
+    @Override
+    public int compareTo(Message o) {
+        return this.timePosted.compareTo(o.timePosted);
     }
 }
