@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org" lang="en">
+<head>
+    <title>Handymen</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../static/icons/handy-icon-small.png" th:href="@{/icons/handy-icon-small.png}">
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" media="screen" />
+    <link href="../static/css/grid.css" th:href="@{/css/grid.css}" rel="stylesheet" media="screen" />
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<main>
+    <section class="grid handymen">
+        <div class="row">
+            <div class="col col-12">
+                <div>
+                    <div>
+                        <h2>My Messages</h2>
+                        <table class="handymen-table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Last message</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="handyman : ${handymen}" th:attr="onclick=|location.href='/handymen/${handyman.ID}'|">
+                                <td><strong th:text="${handyman.name}"></strong></td>
+                                <td th:text="${handyman.trade}">Painter</td>
+                                <td th:text="${handyman.hourlyRate}">69.0</td>
+                                <td th:text="${handyman.averageRating}">0.0</td>
+                                <td><svg class="open-icon"  viewBox='0 0 2048 2048' xmlns='http://www.w3.org/2000/svg'><path d='M658 2023l-121-121 878-878-878-878L658 25l999 999-999 999z' fill='#000000'></path></svg></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
