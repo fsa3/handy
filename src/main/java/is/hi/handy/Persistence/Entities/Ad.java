@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 @Entity
 
 @Table(name = "ads")
-public class Ad {
+public class Ad implements Comparable<Ad> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
@@ -110,5 +110,10 @@ public class Ad {
 
     public String getFormattedDate() {
         return formattedDate;
+    }
+
+    @Override
+    public int compareTo(Ad o) {
+        return -this.timePosted.compareTo(o.timePosted);
     }
 }

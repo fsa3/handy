@@ -20,5 +20,6 @@ public interface AdService {
     List<Ad> findByDescription(String description);
     List<Ad> findByLocation(String location);
     List<Ad> findByTimePostedGreaterThan(Timestamp timestamp);
+    List<Ad> findAdBySearch(String search);
 
 }

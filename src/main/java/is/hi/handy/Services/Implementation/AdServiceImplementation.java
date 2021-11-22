@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class AdServiceImplementation implements AdService {
@@ -60,7 +60,7 @@ public class AdServiceImplementation implements AdService {
 
     @Override
     public List<Ad> findByTitle(String title) {
-        return setAdsImages(adRepository.findByTitle(title));
+        return setAdsImages(adRepository.findByTitleContainingIgnoreCase(title));
     }
 
     @Override
@@ -70,7 +70,7 @@ public class AdServiceImplementation implements AdService {
 
     @Override
     public List<Ad> findByDescription(String description) {
-        return setAdsImages(adRepository.findByDescription(description));
+        return setAdsImages(adRepository.findByDescriptionContainingIgnoreCase(description));
     }
 
     @Override
@@ -81,6 +81,17 @@ public class AdServiceImplementation implements AdService {
     @Override
     public List<Ad> findByTimePostedGreaterThan(Timestamp timestamp) {
         return setAdsImages(adRepository.findByTimePostedGreaterThan(timestamp));
+    }
+
+    @Override
+    public List<Ad> findAdBySearch(String search) {
+        Set<Ad> adsSet = new HashSet<>();
+        adsSet.addAll(adRepository.findByTitleContainingIgnoreCase(search));
+        adsSet.addAll(adRepository.findByDescriptionContainingIgnoreCase(search));
+        adsSet.addAll(adRepository.findByLocationContainingIgnoreCase(search));
+        List<Ad> ads = new ArrayList<Ad>(adsSet);
+        Collections.sort(ads);
+        return setAdsImages(ads);
     }
 
     private Ad setAdImage(Ad ad) {

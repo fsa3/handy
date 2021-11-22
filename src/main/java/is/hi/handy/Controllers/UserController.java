@@ -65,9 +65,14 @@ public class UserController {
 
     @RequestMapping(value = "/signuphandy", method = RequestMethod.POST)
     public String signUpHandy(HandyUser user, BindingResult result, Model model) {
-        System.out.println(user);
-        userService.save(user);
-        return "redirect:/";
+        if(result.hasErrors()) {
+            return "redirect:/signup";
+        }
+        User exists = userService.findByEmail(user.getEmail());
+        if(exists == null) {
+            userService.save(user);
+        }
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -90,7 +95,8 @@ public class UserController {
             model.addAttribute("LoggedInUser", exists);
             return "redirect:/myprofile";
         }
-        return "redirect:/";
+        model.addAttribute("loginError", true);
+        return "login";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

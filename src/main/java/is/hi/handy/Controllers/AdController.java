@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /* Þetta er í vinnslu*/
@@ -34,14 +36,23 @@ public class AdController {
         this.imageService = imageService;
     }
 
-    @RequestMapping("/ads")
-     public String adForm(Model model, HttpSession session, @RequestParam(value = "trade", required = false) Trade trade) {
+    @RequestMapping(value = "/ads", method = RequestMethod.GET)
+    public String adForm(Model model, HttpSession session, @RequestParam(value = "trade", required = false) Trade trade, @RequestParam(value = "search", required = false) String searchString) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
         List<Ad> advertisements;
         if (trade != null) advertisements = adService.findByTrade(trade);
+        else if (searchString != null) {
+            model.addAttribute("searchString", searchString);
+            advertisements = adService.findAdBySearch(searchString);
+        }
         else advertisements = adService.findAllOrderByTimePostedDesc();
         model.addAttribute("ads", advertisements);
         return "ads";
+    }
+
+    @RequestMapping(value = "/ads/search", method = RequestMethod.POST)
+    public String searchForAd(String searchQuery) {
+        return "redirect:/ads?search=" + URLEncoder.encode(searchQuery, StandardCharsets.UTF_8);
     }
 
     @RequestMapping(value = "/ads/{id}", method = RequestMethod.GET)

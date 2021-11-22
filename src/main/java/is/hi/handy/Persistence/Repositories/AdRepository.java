@@ -17,10 +17,10 @@ public interface AdRepository extends JpaRepository<Ad, Long> {
     List<Ad> findAllByOrderByTimePostedDesc();
     List<Ad> findByTradeOrderByTimePostedDesc(Trade trade);
     Ad findByID(Long ID);
-    List<Ad> findByTitle(String title);
+    List<Ad> findByTitleContainingIgnoreCase(String title);
     List<Ad> findByUser(User user);
-    List<Ad> findByDescription(String description);
-    //List<Ad> findByLocation(String location);
+    List<Ad> findByDescriptionContainingIgnoreCase(String description);
+    List<Ad> findByLocationContainingIgnoreCase(String location);
     List<Ad> findByTimePostedGreaterThan(Timestamp timestamp);
 
 }

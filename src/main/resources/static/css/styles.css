@@ -601,8 +601,8 @@ section {
     margin-top: 0.5rem;
 }
 
-.user-profile button {
-    margin: 1rem 1rem 1rem 0;
+.saved button {
+    margin-right: 1rem;
 }
 
 .user-profile .saved {
@@ -778,4 +778,80 @@ section {
 .ad-search .dropbtn {
     font-size: 1.3rem;
     margin-right: 3rem;
+}
+
+.login {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.login form {
+    border: 3px solid #f1f1f1;
+    padding: 0.5rem;
+}
+
+.login input[type=text], .login input[type=password], .login select, .login input[type=number] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.login button {
+    padding: 14px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.login button:hover {
+    opacity: 0.8;
+}
+
+.login .container {
+    padding: 16px;
+    background-color: white;
+}
+
+.login input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+.login hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+.login .registerbtn {
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.login .registerbtn:hover {
+    opacity: 1;
+}
+
+.login a[href="/signuphandy"] {
+    font-weight: 600;
+}
+
+.login a[href="/signuphandy"] + p {
+    margin-top: 1rem;
+}
+
+.login .error {
+    color: crimson;
+}
+
+.profile-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
 }

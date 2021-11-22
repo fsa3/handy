@@ -27,8 +27,8 @@
             <div class="col col-12">
                 <div class="ad-search">
                     <p>Search for an ad:</p>
-                    <form>
-                        <input type="text">
+                    <form th:action="@{/ads/search}" th:object="${string}" method="post">
+                        <input name="searchQuery" type="text" placeholder="Enter ad content or location" th:value="${searchString}">
                         <button type="submit">Search</button>
                     </form>
                     <p>or</p>
