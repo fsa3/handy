@@ -16,15 +16,19 @@
 <main>
     <section class="grid ads">
         <div class="row">
-            <div class="col col-12">
+            <div class="col col-10">
                 <h2>Advertisements</h2>
+            </div>
+            <div class="col col-2 new-ad-btn">
+                <button><a href="/createad">Create new Ad</a></button>
             </div>
         </div>
         <div class="row" style="align-items: stretch">
             <div class="col col-4" th:each="ad : ${ads}" style="margin-top: 1rem">
                 <a class="ad" th:href="@{/ads/{id}(id=${ad.ID})}">
-                    <div class="image">
-                        <img th:src="|data:image/jpg;base64,${ad.stringImage}|">
+                    <div class="image" th:switch="${ad.stringImage}">
+                        <img th:case="null" th:src="@{/img/handyman-business-tools-and-equipment.jpeg}">
+                        <img th:case="*" th:src="|data:image/jpg;base64,${ad.stringImage}|">
                     </div>
                     <h3 th:text="${ad.title}"></h3>
                     <p th:text="${ad.trade}"></p>
@@ -33,11 +37,6 @@
                         <p th:text="${ad.formattedDate}"></p>
                     </div>
                 </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-12">
-                <button><a href="/createad">Create new Ad</a></button>
             </div>
         </div>
     </section>

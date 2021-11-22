@@ -19,6 +19,10 @@ a {
     cursor: pointer;
 }
 
+button a {
+    text-decoration: none;
+}
+
 .dropbtn {
     background-color: rgb(224, 158, 82);
     color:#000;
@@ -641,6 +645,24 @@ section {
     margin-top: 0.5rem;
 }
 
+.ads {
+    padding-bottom: 2rem;
+}
+
+.ads h2 {
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+.ads button {
+    margin-top: 1rem;
+}
+
+.ads .new-ad-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .ad {
     display: flex;
     flex-direction: column;
@@ -678,4 +700,57 @@ section {
 .ad .location-time {
     display: flex;
     justify-content: space-between;
+}
+
+.ad-info h2 {
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.ad-info h2 + hr {
+    margin-bottom: 1rem;
+}
+
+.ad-info {
+    padding-bottom: 2rem;
+}
+
+.ad-info .image-col {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ad-info .image {
+    height: 20rem;
+}
+
+.ad-info img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: 3px solid rgb(224, 195, 161);
+    border-radius: 10px;
+}
+
+.ad-info .attributes {
+    display: flex;
+    flex-direction: column;
+    min-height: 20rem;
+}
+
+.ad-info .attributes p {
+    margin-bottom: 1rem;
+}
+
+.ad-info .description {
+    flex-grow: 1;
+}
+
+.ad-info .posted-by {
+    margin-top: 1rem;
+}
+
+.ad-info .send-btn {
+    display: flex;
+    justify-content: flex-end;
 }
