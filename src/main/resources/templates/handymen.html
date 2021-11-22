@@ -30,9 +30,7 @@
                             <div class="dropdown">
                                 <button class="dropbtn">Select a trade</button>
                                 <div class="dropdown-content">
-                                    <a href="/handymen?trade=Carpenter">Carpenter</a>
-                                    <a href="/handymen?trade=Plumber">Plumber</a>
-                                    <a href="/handymen?trade=Painter">Painter</a>
+                                    <a th:each="tradeOpt : ${T(is.hi.handy.Persistence.Entities.Trade).values()}" th:text="${tradeOpt}" th:href="@{/handymen?trade={trade}(trade=${tradeOpt})}"></a>
                                 </div>
                             </div>
                             <button onclick="location.href='/handymen'">Clear search</button>

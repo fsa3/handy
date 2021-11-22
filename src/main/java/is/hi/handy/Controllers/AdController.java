@@ -24,14 +24,14 @@ import java.util.List;
 
 @Controller
 public class AdController {
-private AdService adService;
-private ImageService imageService;
+    private AdService adService;
+    private ImageService imageService;
 
-@Autowired
-public AdController(AdService adService, ImageService imageService) {
-    this.adService = adService;
-    this.imageService = imageService;
-}
+    @Autowired
+    public AdController(AdService adService, ImageService imageService) {
+        this.adService = adService;
+        this.imageService = imageService;
+    }
 
     @RequestMapping("/ads")
      public String adForm(Model model, HttpSession session, @RequestParam(value = "trade", required = false) String trade) {

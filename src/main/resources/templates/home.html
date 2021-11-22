@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="is">
+<html xmlns:th="http://thymeleaf.org" lang="en">
 <head>
     <title>Handy</title>
     <meta charset="utf-8">
@@ -18,9 +18,7 @@
         <div class="dropdown">
             <button class="dropbtn">What are you looking for?</button>
             <div class="dropdown-content">
-                <a href="/handymen?trade=Carpenter">Carpenter</a>
-                <a href="/handymen?trade=Plumber">Plumber</a>
-                <a href="/handymen?trade=Painter">Painter</a>
+                <a th:each="tradeOpt : ${T(is.hi.handy.Persistence.Entities.Trade).values()}" th:text="${tradeOpt}" th:href="@{/handymen?trade={trade}(trade=${tradeOpt})}"></a>
             </div>
         </div>
         <button class="home-btn" onclick="location.href='/handymen'">All Handymen</button>
