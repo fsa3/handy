@@ -654,7 +654,7 @@ section {
     font-weight: 500;
 }
 
-.ads button {
+.ads .new-ad-btn button {
     margin-top: 1rem;
 }
 
@@ -753,4 +753,29 @@ section {
 .ad-info .send-btn {
     display: flex;
     justify-content: flex-end;
+}
+
+.ad-search {
+    margin-bottom: 1rem;
+}
+
+.ad-search, .ad-search form {
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.ad-search p, .ad-search form {
+    margin-right: 2rem;
+}
+
+.ad-search input {
+    padding: 0.5rem;
+    margin-right: 1rem;
+    width: 14rem;
+}
+
+.ad-search .dropbtn {
+    font-size: 1.3rem;
+    margin-right: 3rem;
 }

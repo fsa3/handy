@@ -34,11 +34,12 @@ public AdController(AdService adService, ImageService imageService) {
 }
 
     @RequestMapping("/ads")
-     public String adForm(Model model, HttpSession session) {
+     public String adForm(Model model, HttpSession session, @RequestParam(value = "trade", required = false) String trade) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
-        List<Ad> advertisements = adService.findAllOrderByTimePostedDesc();
+        List<Ad> advertisements;
+        if (trade != null) advertisements = adService.findByTrade(trade);
+        else advertisements = adService.findAllOrderByTimePostedDesc();
         model.addAttribute("ads", advertisements);
-
         return "ads";
     }
 

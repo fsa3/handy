@@ -48,6 +48,11 @@ public class AdServiceImplementation implements AdService {
     }
 
     @Override
+    public List<Ad> findByTrade(String trade) {
+        return setAdsImages(adRepository.findByTradeOrderByTimePostedDesc(trade));
+    }
+
+    @Override
     public Ad findOne(Long id) {
         return setAdImage(adRepository.findByID(id));
     }

@@ -12,6 +12,7 @@ public interface AdService {
     List<Ad> findAll();
     List<Ad> findAllOrderByIdDesc();
     List<Ad> findAllOrderByTimePostedDesc();
+    List<Ad> findByTrade(String trade);
     Ad findOne(Long id);
     List<Ad> findByTitle(String title);
     List<Ad> findByUser(User user);
