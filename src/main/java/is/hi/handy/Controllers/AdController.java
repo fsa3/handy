@@ -2,6 +2,7 @@ package is.hi.handy.Controllers;
 
 import is.hi.handy.Persistence.Entities.Ad;
 import is.hi.handy.Persistence.Entities.Image;
+import is.hi.handy.Persistence.Entities.Trade;
 import is.hi.handy.Persistence.Entities.User;
 import is.hi.handy.Services.AdService;
 import is.hi.handy.Services.ImageService;
@@ -34,7 +35,7 @@ public class AdController {
     }
 
     @RequestMapping("/ads")
-     public String adForm(Model model, HttpSession session, @RequestParam(value = "trade", required = false) String trade) {
+     public String adForm(Model model, HttpSession session, @RequestParam(value = "trade", required = false) Trade trade) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
         List<Ad> advertisements;
         if (trade != null) advertisements = adService.findByTrade(trade);

@@ -1,6 +1,7 @@
 package is.hi.handy.Services.Implementation;
 
 import is.hi.handy.Persistence.Entities.HandyUser;
+import is.hi.handy.Persistence.Entities.Trade;
 import is.hi.handy.Persistence.Entities.User;
 import is.hi.handy.Persistence.Repositories.HandyUserRepository;
 import is.hi.handy.Persistence.Repositories.UserRepository;
@@ -95,7 +96,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public List<HandyUser> findHandyUserByTrade(String trade) {
+    public List<HandyUser> findHandyUserByTrade(Trade trade) {
         return handyUserRepository.findByTrade(trade);
     }
 
@@ -105,7 +106,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public List<HandyUser> orderHandyUserByRating(String trade, Double minRate, Double maxRate) {
+    public List<HandyUser> orderHandyUserByRating(Trade trade, Double minRate, Double maxRate) {
         List<HandyUser> handyUsers;
         if (trade != null && minRate != null && maxRate != null) {
             handyUsers = handyUserRepository.findByTradeAndHourlyRateBetweenOrderByAverageRatingDesc(trade, minRate, maxRate);

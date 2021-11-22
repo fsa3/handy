@@ -1,6 +1,7 @@
 package is.hi.handy.Controllers;
 
 import is.hi.handy.Persistence.Entities.HandyUser;
+import is.hi.handy.Persistence.Entities.Trade;
 import is.hi.handy.Persistence.Entities.User;
 import is.hi.handy.Services.PortfolioItemService;
 import is.hi.handy.Services.ReviewService;
@@ -167,7 +168,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/handymen", method = RequestMethod.GET)
-    public String showHandyUsers(Model model, HttpSession session, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "trade", required = false) String trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating) {
+    public String showHandyUsers(Model model, HttpSession session, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "trade", required = false) Trade trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
         List<HandyUser> handyUsers = userService.findAllHandyUser();
         if (trade != null) handyUsers = userService.findHandyUserByTrade(trade);

@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "handyUsers")
 public class HandyUser extends User {
-    private String trade; // verður mögulega eitthvað annað en String
+    private Trade trade;
     private double hourlyRate;
     private double averageRating;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -24,11 +24,11 @@ public class HandyUser extends User {
     public HandyUser() {
     }
 
-    public String getTrade() {
+    public Trade getTrade() {
         return trade;
     }
 
-    public void setTrade(String trade) {
+    public void setTrade(Trade trade) {
         this.trade = trade;
     }
 

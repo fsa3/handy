@@ -19,7 +19,7 @@ public class Ad {
     private String location;
     private Timestamp timePosted;
     private String formattedDate;
-    private String trade;
+    private Trade trade;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -68,11 +68,11 @@ public class Ad {
         this.timePosted = timePosted;
     }
 
-    public String getTrade() {
+    public Trade getTrade() {
         return trade;
     }
 
-    public void setTrade(String trade) {
+    public void setTrade(Trade trade) {
         this.trade = trade;
     }
 

@@ -1,6 +1,7 @@
 package is.hi.handy.Persistence.Repositories;
 
 import is.hi.handy.Persistence.Entities.Ad;
+import is.hi.handy.Persistence.Entities.Trade;
 import is.hi.handy.Persistence.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,7 +15,7 @@ public interface AdRepository extends JpaRepository<Ad, Long> {
     List<Ad> findAll();
     List<Ad> findAllByOrderByIDDesc();
     List<Ad> findAllByOrderByTimePostedDesc();
-    List<Ad> findByTradeOrderByTimePostedDesc(String trade);
+    List<Ad> findByTradeOrderByTimePostedDesc(Trade trade);
     Ad findByID(Long ID);
     List<Ad> findByTitle(String title);
     List<Ad> findByUser(User user);

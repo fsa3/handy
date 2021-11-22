@@ -1,6 +1,7 @@
 package is.hi.handy.Services;
 
 import is.hi.handy.Persistence.Entities.Ad;
+import is.hi.handy.Persistence.Entities.Trade;
 import is.hi.handy.Persistence.Entities.User;
 
 import java.sql.Timestamp;
@@ -12,7 +13,7 @@ public interface AdService {
     List<Ad> findAll();
     List<Ad> findAllOrderByIdDesc();
     List<Ad> findAllOrderByTimePostedDesc();
-    List<Ad> findByTrade(String trade);
+    List<Ad> findByTrade(Trade trade);
     Ad findOne(Long id);
     List<Ad> findByTitle(String title);
     List<Ad> findByUser(User user);

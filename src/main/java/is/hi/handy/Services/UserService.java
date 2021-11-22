@@ -1,6 +1,7 @@
 package is.hi.handy.Services;
 
 import is.hi.handy.Persistence.Entities.HandyUser;
+import is.hi.handy.Persistence.Entities.Trade;
 import is.hi.handy.Persistence.Entities.User;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public interface UserService {
     HandyUser findHandyUserByEmail(String email);
     List<HandyUser> findHandyUserByName(String name);
     List<HandyUser> findHandyUserByNameLike(String name);
-    List<HandyUser> findHandyUserByTrade(String trade);
+    List<HandyUser> findHandyUserByTrade(Trade trade);
     List<HandyUser> findHandyUserByRate(double minRate, double maxRate);
-    List<HandyUser> orderHandyUserByRating(String trade, Double minRate, Double maxRate);
+    List<HandyUser> orderHandyUserByRating(Trade trade, Double minRate, Double maxRate);
 
     User login(User user);
 

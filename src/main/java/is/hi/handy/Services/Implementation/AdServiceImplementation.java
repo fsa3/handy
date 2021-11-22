@@ -2,6 +2,7 @@ package is.hi.handy.Services.Implementation;
 
 import is.hi.handy.Persistence.Entities.Ad;
 import is.hi.handy.Persistence.Entities.Image;
+import is.hi.handy.Persistence.Entities.Trade;
 import is.hi.handy.Persistence.Entities.User;
 import is.hi.handy.Persistence.Repositories.AdRepository;
 import is.hi.handy.Services.AdService;
@@ -48,7 +49,7 @@ public class AdServiceImplementation implements AdService {
     }
 
     @Override
-    public List<Ad> findByTrade(String trade) {
+    public List<Ad> findByTrade(Trade trade) {
         return setAdsImages(adRepository.findByTradeOrderByTimePostedDesc(trade));
     }
 

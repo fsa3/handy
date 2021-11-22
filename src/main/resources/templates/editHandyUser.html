@@ -54,9 +54,7 @@
                             <div>
                                 <label class="input-label" for="tradeSelect">Trade</label>
                                 <select name="trade" id="tradeSelect">
-                                    <option value="Carpenter" th:selected="${LoggedInUser.trade=='Carpenter'}">Carpenter</option>
-                                    <option value="Plumber" th:selected="${LoggedInUser.trade=='Plumber'}">Plumber</option>
-                                    <option value="Painter" th:selected="${LoggedInUser.trade=='Painter'}">Painter</option>
+                                    <option th:each="tradeOpt : ${T(is.hi.handy.Persistence.Entities.Trade).values()}" th:value="${tradeOpt}" th:text="${tradeOpt}" th:selected="${LoggedInUser.trade==tradeOpt}"></option>
                                 </select>
                             </div>
                             <div>
