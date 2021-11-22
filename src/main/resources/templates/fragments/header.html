@@ -12,12 +12,12 @@
                 <li><a href="/handymen">Handymen</a></li>
                 <li><a href="/ads">Advertisements</a></li>
             </ul>
-            <ul th:switch="${LoggedInUser}" class="login-list">
-                <li th:case="*"><img th:src="@{/icons/messenger.png}" class="user-photo"></li>
-                <li th:case="*"><a href="/myMessages">My messages</a></li>
+            <ul class="login-list">
+                <li th:if="${LoggedInUser}"><img th:src="@{/icons/messenger.png}" class="user-photo"></li>
+                <li th:if="${LoggedInUser}"><a href="/myMessages">My messages</a></li>
                 <li><img th:src="@{/icons/user_1.png}" class="user-photo"></li>
-                <li th:case="null" class="login-href"><a href="/login">Log in</a></li>
-                <li th:case="*" class="login-href"><a href="/myprofile"><p th:text="${LoggedInUser.name}"></p></a></li>
+                <li th:unless="${LoggedInUser}" class="login-href"><a href="/login">Log in</a></li>
+                <li th:if="${LoggedInUser}" class="login-href"><a href="/myprofile"><p th:text="${LoggedInUser.name}"></p></a></li>
             </ul>
         </div>
     </nav>

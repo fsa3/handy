@@ -167,6 +167,7 @@ header .nav-icon::after {
 
 .user-photo {
     max-height: 1.8rem;
+    margin-left: 1rem;
 }
 
 .login-href {
@@ -177,6 +178,8 @@ header .nav-icon::after {
 
 .login-list {
     justify-content: right;
+    align-items: center;
+    width: auto;
 }
 
 .login-list a{
