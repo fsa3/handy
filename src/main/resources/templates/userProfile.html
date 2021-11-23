@@ -38,13 +38,13 @@
             <div class="col col-10 offset-col-1">
                 <h3>Posted ads</h3>
             </div>
-            <div class="col col-10 offset-col-1" th:each="ads : ${userAds}">
+            <div class="col col-10 offset-col-1" th:each="ad : ${userAds}">
                 <a class="ad" th:href="@{/ads/{id}(id=${ad.ID})}">
                 <div class="review">
-                    <div th:switch="${ads.stringImage}">
-                        <p th:text="${ads.title}"></p>
+                    <div th:switch="${ad.stringImage}">
+                        <p th:text="${ad.title}"></p>
                         <p th:case="null"></p>
-                        <img th:case="*" th:src="|data:image/jpg;base64,${ads.stringImage}|" style="height: 7rem" src="">
+                        <img th:case="*" th:src="|data:image/jpg;base64,${ad.stringImage}|" style="height: 7rem" src="">
                     </div>
                     <div>
                         <div class="rating">

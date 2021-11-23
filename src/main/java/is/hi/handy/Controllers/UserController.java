@@ -28,10 +28,11 @@ public class UserController {
     private AdService adService;
 
     @Autowired
-    public UserController(UserService userService, PortfolioItemService portfolioItemService, ReviewService reviewService) {
+    public UserController(UserService userService, PortfolioItemService portfolioItemService, ReviewService reviewService, AdService adService) {
         this.userService = userService;
         this.portfolioItemService = portfolioItemService;
         this.reviewService = reviewService;
+        this.adService = adService;
     }
 
     @RequestMapping(value = "/handymen/{id}", method = RequestMethod.GET)
@@ -68,8 +69,9 @@ public class UserController {
         User exists = userService.findByEmail(user.getEmail());
         if(exists == null) {
             userService.save(user);
+            return "redirect:/login";
         }
-        return "redirect:/login";
+        return "redirect:/signup";
     }
 
     @RequestMapping(value = "/signuphandy", method = RequestMethod.GET)
@@ -80,13 +82,14 @@ public class UserController {
     @RequestMapping(value = "/signuphandy", method = RequestMethod.POST)
     public String signUpHandy(HandyUser user, BindingResult result, Model model) {
         if(result.hasErrors()) {
-            return "redirect:/signup";
+            return "redirect:/signuphandy";
         }
         User exists = userService.findByEmail(user.getEmail());
         if(exists == null) {
             userService.save(user);
+            return "redirect:/login";
         }
-        return "redirect:/login";
+        return "redirect:/signuphandy";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -180,7 +183,7 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @RequestMapping(value = "handymen/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/handymen/delete/{id}", method = RequestMethod.GET)
     public String deleteHandyUser(@PathVariable("id") long id, Model model) {
         HandyUser userToDelete = userService.findOneHandyUser(id);
         userService.delete(userToDelete);
@@ -188,12 +191,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/handymen", method = RequestMethod.GET)
-    public String showHandyUsers(Model model, HttpSession session, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "trade", required = false) Trade trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating) {
+    public String showHandyUsers(Model model, HttpSession session, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "trade", required = false) Trade trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating, @RequestParam(value = "minRate", required = false) Double minRate, @RequestParam(value = "maxRate", required = false) Double maxRate) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
         List<HandyUser> handyUsers = userService.findAllHandyUser();
         if (trade != null) handyUsers = userService.findHandyUserByTrade(trade);
         if (orderByRating) handyUsers = userService.orderHandyUserByRating(trade, new Double(0), new Double(0)); // value á min og max harðkóðuð tímabundið
         model.addAttribute("handymen", handyUsers);
+        model.addAttribute("ratings", new int[]{0, 1, 2, 3, 4, 5});
         return "handymen";
     }
 

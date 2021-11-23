@@ -22,17 +22,32 @@
                         <h2>Available handymen</h2>
                         <div class="handyman-search">
                             <p>Search for a handyman:</p>
-                            <form>
-                                <input type="text">
+                            <form th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" th:action="@{${urlBuilder.replaceQueryParam('name', name).toUriString()}}" method="get">
+                                <input type="text" name="name">
                                 <button type="submit">Search</button>
                             </form>
                             <p>or</p>
                             <div class="dropdown">
                                 <button class="dropbtn">Select a trade</button>
                                 <div class="dropdown-content">
-                                    <a th:each="tradeOpt : ${T(is.hi.handy.Persistence.Entities.Trade).values()}" th:text="${tradeOpt}" th:href="@{/handymen?trade={trade}(trade=${tradeOpt})}"></a>
+                                    <a th:each="tradeOpt : ${T(is.hi.handy.Persistence.Entities.Trade).values()}" th:text="${tradeOpt}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" th:href="@{${urlBuilder.replaceQueryParam('trade', tradeOpt).toUriString()}}"></a>
                                 </div>
                             </div>
+                            <div class="min-max-rating">
+                                <div class="dropdown">
+                                    <button class="dropbtn">Minimum rating</button>
+                                    <div class="dropdown-content">
+                                        <a th:each="i: ${ratings}" th:text="${i}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" th:href="@{${urlBuilder.replaceQueryParam('minRate', i).toUriString()}}"></a>
+                                    </div>
+                                </div>
+                                <div class="dropdown">
+                                    <button class="dropbtn">Maximum rating</button>
+                                    <div class="dropdown-content">
+                                        <a th:each="i: ${ratings}" th:text="${i}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" th:href="@{${urlBuilder.replaceQueryParam('maxRate', i).toUriString()}}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <button th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" th:attr="onclick=|location.href='${urlBuilder.replaceQueryParam('orderByRating', 'true').toUriString()}'|" onclick="location.href=''">Order by average rating</button>
                             <button onclick="location.href='/handymen'">Clear search</button>
                         </div>
                         <table class="handymen-table">
