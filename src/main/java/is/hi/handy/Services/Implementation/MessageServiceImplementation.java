@@ -41,7 +41,7 @@ public class MessageServiceImplementation implements MessageService {
     }
 
     @Override
-    public List<Message> findAllRecipient(User recipient) {
+    public List<Message> findAllByRecipient(User recipient) {
         return messageRepository.findAllByRecipient(recipient);
     }
 

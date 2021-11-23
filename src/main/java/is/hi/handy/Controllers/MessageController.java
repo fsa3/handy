@@ -1,8 +1,6 @@
 package is.hi.handy.Controllers;
 
-import is.hi.handy.Persistence.Entities.HandyUser;
 import is.hi.handy.Persistence.Entities.Message;
-import is.hi.handy.Persistence.Entities.Review;
 import is.hi.handy.Persistence.Entities.User;
 import is.hi.handy.Services.MessageService;
 import is.hi.handy.Services.UserService;
@@ -27,17 +25,7 @@ public class MessageController {
         this.messageService = messageService;
         this.userService = userService;
     }
-/*
-    @RequestMapping("mymessages/{id}")
-    public String getMessages(@PathVariable("id") long id, Model model, HttpSession session){
-        model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
 
-        List<Message> messages = messageService.findAllBySender((User) session.getAttribute("LoggedInUser"));
-        System.out.println(messages);
-        model.addAttribute("messages", messages);
-
-        return "mymessages";
- */
 @RequestMapping(value = "/messageForm/{handyUserId}", method = RequestMethod.GET)
 public String messageForm(Model model, HttpSession session, @PathVariable("handyUserId") long userId) {
     User loggedInUser = (User) session.getAttribute("LoggedInUser");
@@ -62,8 +50,19 @@ public String messageForm(Model model, HttpSession session, @PathVariable("handy
         return "redirect:/messageForm/" + userId;
     }
 
-// hér á eftir að búa til mymessages.
+    // hér á eftir að búa til mymessages.
+    @RequestMapping(value = "/myMessages/", method = RequestMethod.GET)
+    public String getMessages( Model model, HttpSession session) {
+        model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
+
+
+        List<Message> messages = messageService.findAllByRecipient((User)(session.getAttribute("LoggedInUser")));
+        System.out.println(messages);
+
+
+        model.addAttribute("messages", messages);
+
+        return "myMessages";
+    }
+
 }
-
-  //  @RequestMapping(/)
-

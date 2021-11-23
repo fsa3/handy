@@ -12,4 +12,5 @@ public interface PortfolioItemService {
     PortfolioItem findByID(long ID);
     PortfolioItem findByTitle(String title);
     List<PortfolioItem> findByHandyUser(HandyUser handyUser);
+
 }

@@ -14,28 +14,25 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <main>
-    <section class="grid handymen">
+    <section class="grid messages">
         <div class="row">
             <div class="col col-12">
                 <div>
                     <div>
                         <h2>My Messages</h2>
-                        <table class="handymen-table">
+                        <table class="messages-table">
                             <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Last message</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>time</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="handyman : ${handymen}" th:attr="onclick=|location.href='/handymen/${handyman.ID}'|">
-                                <td><strong th:text="${handyman.name}"></strong></td>
-                                <td th:text="${handyman.trade}">Painter</td>
-                                <td th:text="${handyman.hourlyRate}">69.0</td>
-                                <td th:text="${handyman.averageRating}">0.0</td>
+                            <tr th:each="message : ${messages}" th:attr="onclick=|location.href='/}'|">
+                                <td><strong th:text="${message.sender}"></strong></td>
+                                <td th:text="${message.subjectHeading}"></td>
+                                <td th:text="${message.timePosted}"></td>
                                 <td><svg class="open-icon"  viewBox='0 0 2048 2048' xmlns='http://www.w3.org/2000/svg'><path d='M658 2023l-121-121 878-878-878-878L658 25l999 999-999 999z' fill='#000000'></path></svg></td>
                             </tr>
                             </tbody>
