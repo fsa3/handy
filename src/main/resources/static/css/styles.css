@@ -8,6 +8,17 @@
 html {
     font-size: 16px;
     font-family: 'Lato', sans-serif;
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
 }
 
 h1, h2, h3 {
@@ -216,7 +227,9 @@ header .nav-icon::after {
 footer {
     background-color: #303030;
     color: #fff;
-    padding-bottom: 1rem; }
+    padding-bottom: 1rem;
+
+}
 footer a {
     color: #fff; }
 footer a:hover {
@@ -301,8 +314,8 @@ footer .terms a {
 footer {
     background-color: #303030;
     color: #fff;
-    padding-bottom: 1rem;
-    padding-top: 0.5rem;
+    /*padding-bottom: 1rem;*/
+    /*padding-top: 0.5rem;*/
 }
 footer a {
     color: #fff; }
@@ -854,4 +867,12 @@ section {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+}
+
+.information .h1,h2,h3 {
+    padding-bottom: 0.5rem;
+}
+
+.information pre {
+    font-family: 'Lato', sans-serif;
 }
