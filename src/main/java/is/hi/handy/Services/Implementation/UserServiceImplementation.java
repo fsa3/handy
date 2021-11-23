@@ -134,4 +134,119 @@ public class UserServiceImplementation implements UserService {
         }
         return null;
     }
+
+    @Override
+    public List<HandyUser> findByFilter(String name, Trade trade, Double minRate, Double maxRate, boolean orderByRating) {
+        if (name != null && trade == null && minRate == null && maxRate == null && !orderByRating) { //name
+            return handyUserRepository.findByNameContainingIgnoreCase(name);
+        }
+        else if (name != null && trade == null && minRate == null && maxRate == null && orderByRating) { //name order
+            return handyUserRepository.findByNameContainingIgnoreCaseOrderByAverageRatingDesc(name);
+        }
+
+        else if (name == null && trade != null && minRate == null && maxRate == null && !orderByRating) { //trade
+            return handyUserRepository.findByTrade(trade);
+        }
+        else if (name == null && trade != null && minRate == null && maxRate == null && orderByRating) { //trade order
+            return handyUserRepository.findByTradeOrderByAverageRatingDesc(trade);
+        }
+
+        else if (name == null && trade == null && minRate != null && maxRate == null && !orderByRating) { //minRate
+            return handyUserRepository.findByHourlyRateGreaterThan(minRate);
+        }
+        else if (name == null && trade == null && minRate != null && maxRate == null && orderByRating) { //minRate order
+            return handyUserRepository.findByHourlyRateGreaterThanOrderByAverageRatingDesc(minRate);
+        }
+
+        else if (name == null && trade == null && minRate == null && maxRate != null && !orderByRating) { //maxRate
+            return handyUserRepository.findByHourlyRateLessThan(maxRate);
+        }
+        else if (name == null && trade == null && minRate == null && maxRate != null && orderByRating) { //maxRate order
+            return handyUserRepository.findByHourlyRateLessThanOrderByAverageRatingDesc(maxRate);
+        }
+
+        else if (name != null && trade != null && minRate == null && maxRate == null && !orderByRating) { //name & trade
+            return handyUserRepository.findByNameContainingIgnoreCaseAndTrade(name, trade);
+        }
+        else if (name != null && trade != null && minRate == null && maxRate == null && orderByRating) { //name & trade order
+            return handyUserRepository.findByNameContainingIgnoreCaseAndTradeOrderByAverageRatingDesc(name, trade);
+        }
+
+        else if (name != null && trade == null && minRate != null && maxRate == null && !orderByRating) { //name & minRate
+            return handyUserRepository.findByNameContainingIgnoreCaseAndHourlyRateGreaterThan(name, minRate);
+        }
+        else if (name != null && trade == null && minRate != null && maxRate == null && orderByRating) { //name & minRate order
+            return handyUserRepository.findByNameContainingIgnoreCaseAndHourlyRateGreaterThanOrderByAverageRatingDesc(name, minRate);
+        }
+
+        else if (name != null && trade == null && minRate == null && maxRate != null && !orderByRating) { //name & maxRate
+            return handyUserRepository.findByNameContainingIgnoreCaseAndHourlyRateLessThan(name, maxRate);
+        }
+        else if (name != null && trade == null && minRate == null && maxRate != null && orderByRating) { //name & maxRate order
+            return handyUserRepository.findByNameContainingIgnoreCaseAndHourlyRateLessThanOrderByAverageRatingDesc(name, maxRate);
+        }
+
+        else if (name == null && trade != null && minRate != null && maxRate == null && !orderByRating) { //trade & minRate
+            return handyUserRepository.findByTradeAndHourlyRateGreaterThan(trade, minRate);
+        }
+        else if (name == null && trade != null && minRate != null && maxRate == null && orderByRating) { //trade & minRate order
+            return handyUserRepository.findByTradeAndHourlyRateGreaterThanOrderByAverageRatingDesc(trade, minRate);
+        }
+
+        else if (name == null && trade != null && minRate == null && maxRate != null && !orderByRating) { //trade & maxRate
+            return handyUserRepository.findByTradeAndHourlyRateLessThan(trade, maxRate);
+        }
+        else if (name == null && trade != null && minRate == null && maxRate != null && orderByRating) { //trade & maxRate order
+            return handyUserRepository.findByTradeAndHourlyRateLessThanOrderByAverageRatingDesc(trade, maxRate);
+        }
+
+        else if (name == null && trade == null && minRate != null && maxRate != null && !orderByRating) { //minRate & maxRate
+            return handyUserRepository.findByHourlyRateBetween(minRate, maxRate);
+        }
+        else if (name == null && trade == null && minRate != null && maxRate != null && orderByRating) { //minRate & maxRate order
+            return handyUserRepository.findByHourlyRateBetweenOrderByAverageRatingDesc(minRate, maxRate);
+        }
+
+        else if (name != null && trade != null && minRate != null && maxRate == null && !orderByRating) { //name,trade,minRate
+            return handyUserRepository.findByNameContainingIgnoreCaseAndTradeAndHourlyRateGreaterThan(name, trade, minRate);
+        }
+        else if (name != null && trade != null && minRate != null && maxRate == null && orderByRating) { //name,trade,minRate order
+            return handyUserRepository.findByNameContainingIgnoreCaseAndTradeAndHourlyRateGreaterThanOrderByAverageRatingDesc(name, trade, minRate);
+        }
+
+        else if (name != null && trade != null && minRate == null && maxRate != null && !orderByRating) { //name,trade,maxRate
+            return handyUserRepository.findByNameContainingIgnoreCaseAndTradeAndHourlyRateLessThan(name, trade, maxRate);
+        }
+        else if (name != null && trade != null && minRate == null && maxRate != null && orderByRating) { //name,trade,maxRate order
+            return handyUserRepository.findByNameContainingIgnoreCaseAndTradeAndHourlyRateLessThanOrderByAverageRatingDesc(name, trade, maxRate);
+        }
+
+        else if (name != null && trade == null && minRate != null && maxRate != null && !orderByRating) { //name,minRate,maxRate
+            return handyUserRepository.findByNameContainingIgnoreCaseAndHourlyRateBetween(name, minRate, maxRate);
+        }
+        else if (name != null && trade == null && minRate != null && maxRate != null && orderByRating) { //name,minRate,maxRate order
+            return handyUserRepository.findByNameContainingIgnoreCaseAndHourlyRateBetweenOrderByAverageRatingDesc(name, minRate, maxRate);
+        }
+
+        else if (name == null && trade != null && minRate != null && maxRate != null && !orderByRating) { //trade,minRate,maxRate
+            return handyUserRepository.findByTradeAndHourlyRateBetween(trade, minRate, maxRate);
+        }
+        else if (name == null && trade != null && minRate != null && maxRate != null && orderByRating) { //trade,minRate,maxRate order
+            return handyUserRepository.findByTradeAndHourlyRateBetweenOrderByAverageRatingDesc(trade, minRate, maxRate);
+        }
+
+        else if (name == null && trade == null && minRate == null && maxRate == null && !orderByRating) { //null
+            return handyUserRepository.findAll();
+        }
+        else if (name == null && trade == null && minRate == null && maxRate == null && orderByRating) { //null order
+            return handyUserRepository.findAllByOrderByAverageRatingDesc();
+        }
+
+        else if (name != null && trade != null && minRate != null && maxRate != null && !orderByRating) { //name,trade,minRate,maxRate
+            return handyUserRepository.findByNameContainingIgnoreCaseAndTradeAndHourlyRateBetween(name, trade, minRate, maxRate);
+        }
+        else { //name,trade,minRate,maxRate order
+            return handyUserRepository.findByNameContainingIgnoreCaseAndTradeAndHourlyRateBetweenOrderByAverageRatingDesc(name, trade, minRate, maxRate);
+        }
+    }
 }

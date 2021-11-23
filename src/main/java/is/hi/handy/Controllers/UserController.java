@@ -193,9 +193,12 @@ public class UserController {
     @RequestMapping(value = "/handymen", method = RequestMethod.GET)
     public String showHandyUsers(Model model, HttpSession session, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "trade", required = false) Trade trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating, @RequestParam(value = "minRate", required = false) Double minRate, @RequestParam(value = "maxRate", required = false) Double maxRate) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
-        List<HandyUser> handyUsers = userService.findAllHandyUser();
-        if (trade != null) handyUsers = userService.findHandyUserByTrade(trade);
-        if (orderByRating) handyUsers = userService.orderHandyUserByRating(trade, new Double(0), new Double(0)); // value á min og max harðkóðuð tímabundið
+        List<HandyUser> handyUsers;
+        if(name == null && trade == null && !orderByRating && minRate == null && maxRate == null) {
+            handyUsers = userService.findAllHandyUser();
+        } else {
+            handyUsers = userService.findByFilter(name, trade, minRate, maxRate, orderByRating);
+        }
         model.addAttribute("handymen", handyUsers);
         model.addAttribute("ratings", new int[]{0, 1, 2, 3, 4, 5});
         return "handymen";

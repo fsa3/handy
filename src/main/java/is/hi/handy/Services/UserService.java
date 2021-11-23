@@ -29,4 +29,5 @@ public interface UserService {
 
     User login(User user);
 
+    List<HandyUser> findByFilter(String name, Trade trade, Double minRate, Double maxRate, boolean orderByRating);
 }
