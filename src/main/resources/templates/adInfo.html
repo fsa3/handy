@@ -41,7 +41,8 @@
             <div class="col col-10">
                 <p>
                     Posted by:
-                    <span th:text="${ad.user.name}"></span>
+                    <!--<span th:text="${ad.user.name}"></span>-->
+                    <a th:text="${ad.user.name}" th:href="@{/userProfile/{userId}(userId=${ad.user.ID})}"></a>
                 </p>
             </div>
             <div class="col col-2 send-btn">
