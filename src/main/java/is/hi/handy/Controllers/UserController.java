@@ -1,8 +1,10 @@
 package is.hi.handy.Controllers;
 
+import is.hi.handy.Persistence.Entities.Ad;
 import is.hi.handy.Persistence.Entities.HandyUser;
 import is.hi.handy.Persistence.Entities.Trade;
 import is.hi.handy.Persistence.Entities.User;
+import is.hi.handy.Services.AdService;
 import is.hi.handy.Services.PortfolioItemService;
 import is.hi.handy.Services.ReviewService;
 import is.hi.handy.Services.UserService;
@@ -23,6 +25,7 @@ public class UserController {
     private UserService userService;
     private PortfolioItemService portfolioItemService;
     private ReviewService reviewService;
+    private AdService adService;
 
     @Autowired
     public UserController(UserService userService, PortfolioItemService portfolioItemService, ReviewService reviewService) {
@@ -39,6 +42,17 @@ public class UserController {
         model.addAttribute("handymanReviews", userToView.getReviewsAbout());
         model.addAttribute("handymanPortfolioItems", portfolioItemService.findByHandyUser(userToView));
         return "handyUserProfile";
+    }
+
+    // Er ekki að ná að tengjast .html síðunni.
+    @RequestMapping(value = "/userProfile/{userId}", method = RequestMethod.GET)
+    public String userView(@PathVariable("userId") long id, Model model, HttpSession session) {
+        model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
+        User userToView = userService.findUser(id);
+        List<Ad> adsToView = adService.findByUser(userToView);
+        model.addAttribute("user", userToView);
+        model.addAttribute("userAds", adsToView);
+        return "userProfile";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
