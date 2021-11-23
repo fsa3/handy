@@ -90,15 +90,12 @@ public class AdController {
         return "createad";
     }
 
-    @RequestMapping(value = "/ads/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteAd{id}", method = RequestMethod.GET)
     public String deleteAd(@PathVariable("id") long id, HttpSession session, Model model) {
-        Ad adToDelete = adService.findOne(id);
         User sessionUser = (User) session.getAttribute("LoggedInUser");
-        System.out.println(sessionUser);
-        System.out.println(adToDelete.getUser());
-        if(sessionUser == adToDelete.getUser()){ //todo er ekki að virka eins skildi
-            adService.delete(adToDelete);
-        }
-        return "redirect:/ads";
+        model.addAttribute("LoggedInUser", sessionUser);
+        adService.delete(adService.findOne(id));
+        return "redirect:/myprofile";
+
     }
 }
