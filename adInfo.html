@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <title th:text="|${ad.title} - Handy|"></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../static/icons/handy-icon-small.png" th:href="@{/icons/handy-icon-small.png}">
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" media="screen" />
+    <link href="../static/css/grid.css" th:href="@{/css/grid.css}" rel="stylesheet" media="screen" />
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<main>
+    <section class="grid ad-info">
+        <div class="row">
+            <div class="col col-12">
+                <h2 th:text="${ad.title}"></h2>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-5">
+                <div class="attributes">
+                    <p>Skill set needed: <a th:text="${ad.trade}" th:href="@{/handymen?trade={t}(t=${ad.trade})}"></a></p>
+                    <p class="description" th:text="${ad.description}"></p>
+                    <p th:text="${ad.location}"></p>
+                    <p th:text="${ad.formattedDate}"></p>
+                </div>
+            </div>
+            <div class="col col-7 image-col">
+                <div class="image" th:switch="${ad.stringImage}">
+                    <img th:case="null" th:src="@{/img/handyman-business-tools-and-equipment.jpeg}">
+                    <img th:case="*" th:src="|data:image/jpg;base64,${ad.stringImage}|">
+                </div>
+            </div>
+        </div>
+        <div class="row posted-by">
+            <div class="col col-10">
+                <p>
+                    Posted by:
+                    <!--<span th:text="${ad.user.name}"></span>-->
+                    <a th:text="${ad.user.name}" th:href="@{/userProfile/{userId}(userId=${ad.user.ID})}"></a>
+                </p>
+            </div>
+            <div class="col col-2 send-btn">
+                <button><a th:href="@{/messageForm/{id}(id=${ad.user.ID})}">Send a message</a></button>
+            </div>
+        </div>
+    </section>
+</main>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
