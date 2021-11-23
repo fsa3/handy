@@ -45,14 +45,16 @@ public class UserController {
         return "handyUserProfile";
     }
 
-    // Er ekki að ná að tengjast .html síðunni.
-    @RequestMapping(value = "/userProfile/{userId}", method = RequestMethod.GET)
-    public String userView(@PathVariable("userId") long id, Model model, HttpSession session) {
+
+    @RequestMapping(value = "/userProfile/{handyUserId}", method = RequestMethod.GET)
+    public String userView(@PathVariable("handyUserId") long handyUserId, Model model, HttpSession session) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
-        User userToView = userService.findUser(id);
+        User userToView = userService.findUser(handyUserId);
         List<Ad> adsToView = adService.findByUser(userToView);
         model.addAttribute("user", userToView);
         model.addAttribute("userAds", adsToView);
+        //System.out.println(adsToView);
+
         return "userProfile";
     }
 
@@ -69,9 +71,8 @@ public class UserController {
         User exists = userService.findByEmail(user.getEmail());
         if(exists == null) {
             userService.save(user);
-            return "redirect:/login";
         }
-        return "redirect:/signup";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/signuphandy", method = RequestMethod.GET)
@@ -82,14 +83,13 @@ public class UserController {
     @RequestMapping(value = "/signuphandy", method = RequestMethod.POST)
     public String signUpHandy(HandyUser user, BindingResult result, Model model) {
         if(result.hasErrors()) {
-            return "redirect:/signuphandy";
+            return "redirect:/signup";
         }
         User exists = userService.findByEmail(user.getEmail());
         if(exists == null) {
             userService.save(user);
-            return "redirect:/login";
         }
-        return "redirect:/signuphandy";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -118,6 +118,15 @@ public class UserController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(Model model, HttpSession session) {
+        session.setAttribute("LoggedInUser", null);
+        model.addAttribute("LoggedInUser", null);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String deleteUser(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("LoggedInUser");
+        userService.delete(loggedInUser);
         session.setAttribute("LoggedInUser", null);
         model.addAttribute("LoggedInUser", null);
         return "redirect:/";
@@ -176,14 +185,9 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/users/delete/{id}", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable("id") long id, Model model) {
-        User userToDelete = userService.findUser(id);
-        userService.delete(userToDelete);
-        return "redirect:/users";
-    }
 
-    @RequestMapping(value = "/handymen/delete/{id}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "handymen/delete/{id}", method = RequestMethod.GET)
     public String deleteHandyUser(@PathVariable("id") long id, Model model) {
         HandyUser userToDelete = userService.findOneHandyUser(id);
         userService.delete(userToDelete);
@@ -191,7 +195,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/handymen", method = RequestMethod.GET)
-    public String showHandyUsers(Model model, HttpSession session, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "trade", required = false) Trade trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating, @RequestParam(value = "minRate", required = false) Double minRate, @RequestParam(value = "maxRate", required = false) Double maxRate) {
+    public String showHandyUsers(Model model, HttpSession session, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "trade", required = false) Trade trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
         List<HandyUser> handyUsers;
         if(name == null && trade == null && !orderByRating && minRate == null && maxRate == null) {
@@ -200,7 +204,6 @@ public class UserController {
             handyUsers = userService.findByFilter(name, trade, minRate, maxRate, orderByRating);
         }
         model.addAttribute("handymen", handyUsers);
-        model.addAttribute("ratings", new int[]{0, 1, 2, 3, 4, 5});
         return "handymen";
     }
 
