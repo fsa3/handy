@@ -59,8 +59,8 @@
                             </div>
                             <form class="min-max-rating">
                                 <label>Hourly rate:</label>
-                                <input type="number" placeholder="min">
-                                <input type="number" placeholder="max">
+                                <input type="number" placeholder="min" th:value="${minRateSearch}">
+                                <input type="number" placeholder="max" th:value="${maxRateSearch}">
                                 <button type="submit">Apply</button>
                             </form>
                             <button th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" th:attr="onclick=|location.href='${urlBuilder.replaceQueryParam('orderByRating', 'true').toUriString()}'|" onclick="location.href=''">Order by average rating</button>
