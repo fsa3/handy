@@ -185,15 +185,6 @@ public class UserController {
         return "redirect:/login";
     }
 
-
-
-    @RequestMapping(value = "handymen/delete/{id}", method = RequestMethod.GET)
-    public String deleteHandyUser(@PathVariable("id") long id, Model model) {
-        HandyUser userToDelete = userService.findOneHandyUser(id);
-        userService.delete(userToDelete);
-        return "redirect:/handymen";
-    }
-
     @RequestMapping(value = "/handymen", method = RequestMethod.GET)
     public String showHandyUsers(Model model, HttpSession session, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "trade", required = false) Trade trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating, @RequestParam(value = "minRate", required = false) Double minRate, @RequestParam(value = "maxRate", required = false) Double maxRate) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));

@@ -50,15 +50,12 @@ public String messageForm(Model model, HttpSession session, @PathVariable("handy
         return "redirect:/messageForm/" + userId;
     }
 
-    // hér á eftir að búa til mymessages.
-    @RequestMapping(value = "/myMessages/", method = RequestMethod.GET)
+    @RequestMapping(value = "/myMessages", method = RequestMethod.GET)
     public String getMessages( Model model, HttpSession session) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
 
-
-        List<Message> messages = messageService.findAllByRecipient((User)(session.getAttribute("LoggedInUser")));
+        List<Message> messages = messageService.combineMessagesForUser((User)(session.getAttribute("LoggedInUser")));
         System.out.println(messages);
-
 
         model.addAttribute("messages", messages);
 

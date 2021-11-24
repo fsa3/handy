@@ -7,9 +7,8 @@ import is.hi.handy.Services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
 @Service
 public class MessageServiceImplementation implements MessageService {
     MessageRepository messageRepository;
@@ -63,6 +62,14 @@ public class MessageServiceImplementation implements MessageService {
         messages.addAll(messages1);
         messages.addAll(messages2);
         Collections.sort(messages);
+        return messages;
+    }
+    @Override
+    public List<Message> combineMessagesForUser(User user){
+        Set<Message> messageSet = new HashSet<>();
+        messageSet.addAll(messageRepository.findAllByRecipient(user));
+        messageSet.addAll(messageRepository.findAllBySender(user));
+        List<Message> messages = new ArrayList<>(messageSet);
         return messages;
     }
 

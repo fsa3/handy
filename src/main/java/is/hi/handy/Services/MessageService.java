@@ -15,4 +15,5 @@ public interface MessageService {
     List<Message> findAllMessagesBetweenTwoUsers(User user1, User user2);
     Message getById(Long ID);
     List<Message> combineMessagesOrderByTime(List<Message> messages1, List<Message> messages2);
+    List<Message> combineMessagesForUser(User user);
 }
