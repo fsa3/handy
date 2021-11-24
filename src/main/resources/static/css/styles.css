@@ -810,7 +810,7 @@ section {
     min-height: 20rem;
 }
 
-.ad-info .attributes p {
+.ad-info .attributes .icon-info {
     margin-bottom: 1rem;
 }
 
@@ -1010,4 +1010,13 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+}
+
+.icon-info {
+    display: flex;
+    align-items: center;
+}
+
+.icon-info svg {
+    margin-right: 0.3rem;;
 }

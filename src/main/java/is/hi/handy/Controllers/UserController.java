@@ -110,7 +110,7 @@ public class UserController {
             else session.setAttribute("handyUserLoggedIn", false);
             session.setAttribute("LoggedInUser", exists);
             model.addAttribute("LoggedInUser", exists);
-            return "redirect:/myprofile";
+            return "redirect:/";
         }
         model.addAttribute("loginError", true);
         return "login";
