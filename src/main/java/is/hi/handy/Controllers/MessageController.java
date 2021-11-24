@@ -26,19 +26,20 @@ public class MessageController {
         this.userService = userService;
     }
 
-@RequestMapping(value = "/messageForm/{handyUserId}", method = RequestMethod.GET)
-public String messageForm(Model model, HttpSession session, @PathVariable("handyUserId") long userId) {
-    User loggedInUser = (User) session.getAttribute("LoggedInUser");
-    if(loggedInUser != null) {
-        model.addAttribute("LoggedInUser", loggedInUser);
-        User recipient = userService.findUser(userId);
-        model.addAttribute("recipient", recipient);
-        List<Message> messages = messageService.findAllMessagesBetweenTwoUsers(loggedInUser, recipient);
-        model.addAttribute("messages", messages);
-        return "messageForm";
+    @RequestMapping(value = "/messageForm/{handyUserId}", method = RequestMethod.GET)
+    public String messageForm(Model model, HttpSession session, @PathVariable("handyUserId") long userId) {
+        User loggedInUser = (User) session.getAttribute("LoggedInUser");
+        if(loggedInUser != null) {
+            if(loggedInUser.getID() == userId) return "redirect:/";
+            model.addAttribute("LoggedInUser", loggedInUser);
+            User recipient = userService.findUser(userId);
+            model.addAttribute("recipient", recipient);
+            List<Message> messages = messageService.findAllMessagesBetweenTwoUsers(loggedInUser, recipient);
+            model.addAttribute("messages", messages);
+            return "messageForm";
+        }
+        return "redirect:/login";
     }
-    return "redirect:/login";
-}
 
     @RequestMapping(value = "sendMessage/{handyUserId}", method = RequestMethod.POST)
     public String save(Model model, Message message, @PathVariable("handyUserId") long userId, HttpSession session) {

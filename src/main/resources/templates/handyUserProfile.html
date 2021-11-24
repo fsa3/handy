@@ -20,9 +20,9 @@
                 <h2 th:text="${handyman.name}"></h2>
                 <p class="trade" th:text="${handyman.trade}"></p>
             </div>
-            <div class="col col-2 handyUserProfileButtons">
-                <button><a th:href="@{/createReview/{handyUserId}(handyUserId=${handyman.ID})}">Write a review</a></button>
-                <button><a th:href="@{/messageForm/{handyUserId}(handyUserId=${handyman.ID})}">Send a message</a></button>
+            <div class="col col-2 handyUserProfileButtons" th:if="${LoggedInUser != null}">
+                <button th:if="${LoggedInUser.ID != handyman.ID}"><a th:href="@{/createReview/{handyUserId}(handyUserId=${handyman.ID})}">Write a review</a></button>
+                <button th:if="${LoggedInUser.ID != handyman.ID}"><a th:href="@{/messageForm/{handyUserId}(handyUserId=${handyman.ID})}">Send a message</a></button>
             </div>
         </div>
         <div class="row">
