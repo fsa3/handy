@@ -891,6 +891,10 @@ section {
     align-items: flex-end;
     justify-content: space-between;
 }
+.portfolioItemTitle{
+    font-weight: bold;
+    font-weight: 800;
+}
 
 .information .h1,h2,h3 {
     padding-bottom: 0.5rem;
