@@ -16,14 +16,15 @@
 <main>
     <section class="grid messages">
         <div class="row">
-            <div class="row row-2" th:each="message: ${messages}" style="margin:1rem">
-                <a class = "message">
+            <div class="col col-2" th:each="message: ${messages}" style="margin:1rem">
+                <a class="message">
                     <h3 th:text="${message.sender.name}"></h3>
                     <h3 th:text="${message.recipient.name}"></h3>
                     <div class="timeMessage">
                         <p th:text ="${message.timePosted}"></p>
                     </div>
                 </a>
+            </div>
         </div>
     </section>
 </main>

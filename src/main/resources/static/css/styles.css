@@ -228,7 +228,7 @@ footer {
     background-color: #303030;
     color: #fff;
     padding-bottom: 1rem;
-
+    padding-top: 0.5rem;
 }
 footer a {
     color: #fff; }
@@ -877,7 +877,7 @@ section {
     font-family: 'Lato', sans-serif;
 }
 
-.messages {
+.messages-log {
     border: 1px solid #ddd;
     padding: 1rem;
     background-color: #f7f7f7;

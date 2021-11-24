@@ -40,7 +40,7 @@ public String messageForm(Model model, HttpSession session, @PathVariable("handy
     return "redirect:/login";
 }
 
- @RequestMapping(value = "sendMessage/{handyUserId}", method = RequestMethod.POST)
+    @RequestMapping(value = "sendMessage/{handyUserId}", method = RequestMethod.POST)
     public String save(Model model, Message message, @PathVariable("handyUserId") long userId, HttpSession session) {
         User recipient = userService.findUser(userId);
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
