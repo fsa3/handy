@@ -501,11 +501,20 @@ button {
 .handyman-search, .handyman-search form {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-size: 1.3rem;
 }
 
-.handyman-search p, .handyman-search form {
+.handyman-search form {
     margin-right: 2rem;
+}
+
+.handyman-search p {
+    max-width: 7rem;
+}
+
+.handyman-search form {
+    margin-left: 1rem;
 }
 
 .handyman-search input {
@@ -515,8 +524,22 @@ button {
 }
 
 .handyman-search .dropbtn {
-    font-size: 1.3rem;
-    margin-right: 3rem;
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.min-max-rating input {
+    width: 5rem;
+}
+
+.min-max-rating label {
+    font-size: 1rem;
+    margin-right: 0.3rem;
+}
+
+.min-max-rating input[placeholder="min"] {
+    margin-right: 0.2rem;
 }
 
 .handyman-profile {

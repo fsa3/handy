@@ -194,6 +194,7 @@ public class UserController {
         } else {
             handyUsers = userService.findByFilter(name, trade, minRate, maxRate, orderByRating);
         }
+        model.addAttribute("nameSearch", name);
         model.addAttribute("handymen", handyUsers);
         return "handymen";
     }
