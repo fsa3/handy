@@ -53,6 +53,7 @@
             </div>
             <div class="col col-2 send-btn" th:if="${LoggedInUser != null}">
                 <button th:if="${LoggedInUser.ID != ad.user.ID}"><a th:href="@{/messageForm/{id}(id=${ad.user.ID})}">Send a message</a></button>
+                <button th:unless="${LoggedInUser.ID != ad.user.ID}"><a th:href="@{/deleteAd{id}(id=${ad.ID})}">Delete ad</a></button>
             </div>
         </div>
     </section>

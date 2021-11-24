@@ -175,6 +175,7 @@ public class UserController {
             boolean handyUserLoggedIn = (Boolean) session.getAttribute("handyUserLoggedIn");
             model.addAttribute("LoggedInUser", sessionUser);
             model.addAttribute("reviewsWritten", reviewService.findByAuthor(sessionUser));
+            model.addAttribute("ads", adService.findByUser(sessionUser));
             if (handyUserLoggedIn) {
                 model.addAttribute("LoggedInUser", (HandyUser) sessionUser);
                 model.addAttribute("myPortfolioItems", portfolioItemService.findByHandyUser((HandyUser) sessionUser));

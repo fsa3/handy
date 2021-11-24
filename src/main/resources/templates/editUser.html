@@ -18,8 +18,10 @@
     <div class="row">
         <div class="col col-12 profile-header">
             <h2 th:text="${LoggedInUser.name}"></h2>
-            <button><a th:href="@{/logout}">Log Out</a></button>
-            <button><a th:href="@{/delete}">Delete Account</a></button>
+            <div>
+                <button><a th:href="@{/logout}">Log Out</a></button>
+                <button><a th:href="@{/delete}">Delete Account</a></button>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -50,11 +52,11 @@
             </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col col-10 offset-col-1">
+    <div class="row" style="margin-top: 1rem">
+        <div class="col col-12">
             <h3>Reviews written</h3>
         </div>
-        <div class="col col-10 offset-col-1" th:each="review : ${reviewsWritten}">
+        <div class="col col-12" th:each="review : ${reviewsWritten}">
             <div class="review">
                 <div>
                     <p th:text="${review.text}"></p>
@@ -69,11 +71,13 @@
             </div>
         </div>
     </div>
-    <div class="row" style="align-items: stretch">
+    <div class="row" style="margin-top: 1rem">
         <div class="col col-12">
             <h3>My active ads</h3>
         </div>
-        <div class="col col-10" th:each="ad : ${ads}" style="margin-top: 1rem">
+    </div>
+    <div class="row" style="align-items: stretch; margin-bottom: 1rem">
+        <div class="col col-4" th:each="ad : ${ads}" style="margin-top: 1rem">
             <a class="ad" th:href="@{/ads/{id}(id=${ad.ID})}">
                 <div class="image" th:switch="${ad.stringImage}">
                     <img th:case="null" th:src="@{/img/handyman-business-tools-and-equipment.jpeg}">
@@ -84,15 +88,9 @@
                 <div class="location-time">
                     <p th:text="${ad.location}"></p>
                     <p th:text="${ad.formattedDate}"></p>
-                    <!--<button><a th:href="@{/deleteAd{id}(id=${ad.ID})}">Delete ad</a></button>-->
                 </div>
-
             </a>
-            <div class="col col-12">
-                <button><a th:href="@{/deleteAd{id}(id=${ad.ID})}">Delete ad</a></button>
-            </div>
         </div>
-
     </div>
 </section>
 </main>
