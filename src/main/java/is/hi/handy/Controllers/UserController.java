@@ -185,21 +185,15 @@ public class UserController {
         return "redirect:/login";
     }
 
-
-
-    @RequestMapping(value = "handymen/delete/{id}", method = RequestMethod.GET)
-    public String deleteHandyUser(@PathVariable("id") long id, Model model) {
-        HandyUser userToDelete = userService.findOneHandyUser(id);
-        userService.delete(userToDelete);
-        return "redirect:/handymen";
-    }
-
     @RequestMapping(value = "/handymen", method = RequestMethod.GET)
     public String showHandyUsers(Model model, HttpSession session, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "trade", required = false) Trade trade, @RequestParam(value = "orderByRating", required = false, defaultValue = "false") boolean orderByRating) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
-        List<HandyUser> handyUsers = userService.findAllHandyUser();
-        if (trade != null) handyUsers = userService.findHandyUserByTrade(trade);
-        if (orderByRating) handyUsers = userService.orderHandyUserByRating(trade, new Double(0), new Double(0)); // value á min og max harðkóðuð tímabundið
+        List<HandyUser> handyUsers;
+        if(name == null && trade == null && !orderByRating && minRate == null && maxRate == null) {
+            handyUsers = userService.findAllHandyUser();
+        } else {
+            handyUsers = userService.findByFilter(name, trade, minRate, maxRate, orderByRating);
+        }
         model.addAttribute("handymen", handyUsers);
         return "handymen";
     }
