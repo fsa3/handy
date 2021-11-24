@@ -2,6 +2,7 @@ package is.hi.handy.Persistence.Entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 @Entity
 @Table(name = "messages")
@@ -17,6 +18,7 @@ public class Message implements Comparable<Message> {
     private String content;
     private String subjectHeading;
     private Timestamp timePosted;
+    private String timeString;
 
 
     public Message(User sender, User recipient, String content, String subjectHeading) {
@@ -24,10 +26,11 @@ public class Message implements Comparable<Message> {
         this.recipient = recipient;
         this.content = content;
         this.subjectHeading = subjectHeading;
+        this.setTimePosted(new Timestamp(System.currentTimeMillis()));
     }
 
     public Message() {
-        timePosted = new Timestamp(System.currentTimeMillis());
+        this.setTimePosted(new Timestamp(System.currentTimeMillis()));
     }
 
     public long getID() {
@@ -76,6 +79,11 @@ public class Message implements Comparable<Message> {
 
     public void setTimePosted(Timestamp timePosted) {
         this.timePosted = timePosted;
+        this.timeString = new SimpleDateFormat("dd.MM.yy HH:mm").format(timePosted);
+    }
+
+    public String getTimeString() {
+        return timeString;
     }
 
     @Override

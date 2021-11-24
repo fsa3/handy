@@ -876,3 +876,66 @@ section {
 .information pre {
     font-family: 'Lato', sans-serif;
 }
+
+.messages {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    background-color: #f7f7f7;
+}
+
+.message .content {
+    padding: 0.3rem 0.5rem;
+    border: 2px solid rgb(224, 158, 82);
+    border-radius: 14px;
+    width: fit-content;
+}
+
+.message .from-me .content {
+    margin-left: auto;
+    background-color: rgb(224, 195, 161);
+}
+
+.message .from-me {
+    margin-left: auto;
+}
+
+.message .from-me, .to-me {
+    display: flex;
+    align-items: flex-end;
+    width: fit-content;
+    margin-bottom: 0.5rem;
+}
+
+.message .time {
+    font-size: 0.6rem;
+    color: gray;
+    padding: 0 0.2rem;
+}
+
+.message .from-name {
+    font-size: 0.6rem;
+    color: #404040;
+    padding-left: 0.6rem;
+    padding-bottom: 0.2rem;
+}
+
+.message-form {
+    position: relative;
+    width: 100%;
+    border: 1px solid #ddd;
+    margin-top: -1px;
+}
+.message-form button {
+    position:absolute;
+    top: 10px;
+    right: 5px;
+    width: 60px;
+}
+.message-form textarea {
+    position:relative;
+    border: none;
+    width: 730px;
+    resize: none;
+    outline: none;
+    padding: 1rem 1rem 0;
+}
