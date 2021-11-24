@@ -578,6 +578,10 @@ button {
     margin-bottom: 1rem;
 }
 
+hr {
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+}
 .portfolioItem .photo {
     width: 100%;
     display: flex;
