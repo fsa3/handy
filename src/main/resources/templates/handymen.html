@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org" lang="en">
 <head>
-    <title>Handymen</title>
+    <title>Handymen - Handy</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,6 +10,31 @@
     <link rel="icon" type="image/x-icon" href="../static/icons/handy-icon-small.png" th:href="@{/icons/handy-icon-small.png}">
     <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" media="screen" />
     <link href="../static/css/grid.css" th:href="@{/css/grid.css}" rel="stylesheet" media="screen" />
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            let searchNameForm = document.querySelector(".handyman-search form");
+            let nameInput = document.querySelector(".handyman-search input");
+            addToUrlParametersFrom(searchNameForm, [nameInput], ["name"]);
+
+            let minMaxRateForm = document.querySelector(".min-max-rating");
+            let minInput = document.querySelector(".min-max-rating input[placeholder=min]");
+            let maxInput = document.querySelector(".min-max-rating input[placeholder=max]");
+            addToUrlParametersFrom(minMaxRateForm, [minInput, maxInput], ["minRate", "maxRate"]);
+        });
+
+        function addToUrlParametersFrom(form, inputs, variableNames) {
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                let currentUrl = new URL(window.location.href);
+                let queryParams = new URLSearchParams(currentUrl.search.slice(1));
+                for(let i = 0; i < inputs.length; i++) {
+                    queryParams.delete(variableNames[i]);
+                    queryParams.append(variableNames[i], /*encodeURIComponent(*/inputs[i].value/*)*/);
+                }
+                window.location.replace(currentUrl.toString().split('?')[0]+'?'+queryParams);
+            });
+        }
+    </script>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
@@ -22,31 +47,22 @@
                         <h2>Available handymen</h2>
                         <div class="handyman-search">
                             <p>Search for a handyman:</p>
-                            <form th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" th:action="@{${urlBuilder.replaceQueryParam('name', name).toUriString()}}" method="get">
-                                <input type="text" name="name">
+                            <form>
+                                <input type="text" placeholder="Enter a handyman name" th:value="${nameSearch}">
                                 <button type="submit">Search</button>
                             </form>
-                            <p>or</p>
                             <div class="dropdown">
                                 <button class="dropbtn">Select a trade</button>
                                 <div class="dropdown-content">
                                     <a th:each="tradeOpt : ${T(is.hi.handy.Persistence.Entities.Trade).values()}" th:text="${tradeOpt}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" th:href="@{${urlBuilder.replaceQueryParam('trade', tradeOpt).toUriString()}}"></a>
                                 </div>
                             </div>
-                            <div class="min-max-rating">
-                                <div class="dropdown">
-                                    <button class="dropbtn">Minimum rating</button>
-                                    <div class="dropdown-content">
-                                        <a th:each="i: ${ratings}" th:text="${i}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" th:href="@{${urlBuilder.replaceQueryParam('minRate', i).toUriString()}}"></a>
-                                    </div>
-                                </div>
-                                <div class="dropdown">
-                                    <button class="dropbtn">Maximum rating</button>
-                                    <div class="dropdown-content">
-                                        <a th:each="i: ${ratings}" th:text="${i}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" th:href="@{${urlBuilder.replaceQueryParam('maxRate', i).toUriString()}}"></a>
-                                    </div>
-                                </div>
-                            </div>
+                            <form class="min-max-rating">
+                                <label>Hourly rate:</label>
+                                <input type="number" placeholder="min" th:value="${minRateSearch}">
+                                <input type="number" placeholder="max" th:value="${maxRateSearch}">
+                                <button type="submit">Apply</button>
+                            </form>
                             <button th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" th:attr="onclick=|location.href='${urlBuilder.replaceQueryParam('orderByRating', 'true').toUriString()}'|" onclick="location.href=''">Order by average rating</button>
                             <button onclick="location.href='/handymen'">Clear search</button>
                         </div>

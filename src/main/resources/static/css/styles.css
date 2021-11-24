@@ -228,7 +228,7 @@ footer {
     background-color: #303030;
     color: #fff;
     padding-bottom: 1rem;
-
+    padding-top: 0.5rem;
 }
 footer a {
     color: #fff; }
@@ -409,7 +409,10 @@ button {
 }
 
 .handyUserProfileButtons{
-    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
 }
 
 .home-section {
@@ -501,11 +504,20 @@ button {
 .handyman-search, .handyman-search form {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-size: 1.3rem;
 }
 
-.handyman-search p, .handyman-search form {
+.handyman-search form {
     margin-right: 2rem;
+}
+
+.handyman-search p {
+    max-width: 7rem;
+}
+
+.handyman-search form {
+    margin-left: 1rem;
 }
 
 .handyman-search input {
@@ -515,8 +527,22 @@ button {
 }
 
 .handyman-search .dropbtn {
-    font-size: 1.3rem;
-    margin-right: 3rem;
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.min-max-rating input {
+    width: 5rem;
+}
+
+.min-max-rating label {
+    font-size: 1rem;
+    margin-right: 0.3rem;
+}
+
+.min-max-rating input[placeholder="min"] {
+    margin-right: 0.2rem;
 }
 
 .handyman-profile {
@@ -541,6 +567,30 @@ button {
 .handyman-profile .trade {
     color: rgb(46, 46, 46);
     font-size: 1.2rem;
+}
+.PortfolioItem {
+    background-color: rgb(224, 195, 161);
+    border: 1.1px solid rgb(224, 158, 82);
+    border-radius: 5px;
+    display: flex;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+hr {
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+}
+.portfolioItem .photo {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    height: 14rem;
+    border-color: darkorange;
+    border-radius: 8px;
 }
 
 .review {
@@ -581,11 +631,24 @@ button {
     margin-right: 2rem;
 }
 
+.user-information .about {
+    margin: 0;
+    width: 35rem;
+}
+
+.user-information .about div {
+    margin: 0;
+    width: 100%;
+}
+
+.user-information .about div textarea {
+    width: 100%;
+}
+
 .user-information div div {
     display: flex;
     align-items: center;
     margin-bottom: 0.2rem;
-
 }
 
 .user-information .input-label {
@@ -751,7 +814,7 @@ section {
     min-height: 20rem;
 }
 
-.ad-info .attributes p {
+.ad-info .attributes .icon-info {
     margin-bottom: 1rem;
 }
 
@@ -868,6 +931,12 @@ section {
     align-items: flex-end;
     justify-content: space-between;
 }
+.portfolioItemTitle{
+    font-weight: bold;
+    font-weight: 800;
+    font-size: 1.5rem ;
+    margin-bottom: 0.3rem;
+}
 
 .information .h1,h2,h3 {
     padding-bottom: 0.5rem;
@@ -877,7 +946,7 @@ section {
     font-family: 'Lato', sans-serif;
 }
 
-.messages {
+.messages-log {
     border: 1px solid #ddd;
     padding: 1rem;
     background-color: #f7f7f7;
@@ -938,4 +1007,20 @@ section {
     resize: none;
     outline: none;
     padding: 1rem 1rem 0;
+}
+
+.handyman-stats {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.icon-info {
+    display: flex;
+    align-items: center;
+}
+
+.icon-info svg {
+    margin-right: 0.3rem;;
 }

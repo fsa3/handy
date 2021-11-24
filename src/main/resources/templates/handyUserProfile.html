@@ -20,9 +20,9 @@
                 <h2 th:text="${handyman.name}"></h2>
                 <p class="trade" th:text="${handyman.trade}"></p>
             </div>
-            <div class="col col-2 handyUserProfileButtons">
-                <button><a th:href="@{/createReview/{handyUserId}(handyUserId=${handyman.ID})}">Write a review</a></button>
-                <button><a th:href="@{/messageForm/{handyUserId}(handyUserId=${handyman.ID})}">Send a message</a></button>
+            <div class="col col-2 handyUserProfileButtons" th:if="${LoggedInUser != null}">
+                <button th:if="${LoggedInUser.ID != handyman.ID}"><a th:href="@{/createReview/{handyUserId}(handyUserId=${handyman.ID})}">Write a review</a></button>
+                <button th:if="${LoggedInUser.ID != handyman.ID}"><a th:href="@{/messageForm/{handyUserId}(handyUserId=${handyman.ID})}">Send a message</a></button>
             </div>
         </div>
         <div class="row">
@@ -30,36 +30,41 @@
                 <h3>About</h3>
                 <p th:text="${handyman.info}"></p>
             </div>
-            <div class="col col-6">
+            <div class="col col-6 handyman-stats">
                 <p th:text="|Hourly rate: ${handyman.hourlyRate}|"></p>
                 <p th:text="|Average rating: ${handyman.averageRating}|"></p>
             </div>
         </div>
+        <hr>
         <div class="row">
-            <div class="col col-10 offset-col-1">
-                <h3>Portfolio</h3>
+            <div class="col col-12 ">
+                <h2>Portfolio</h2>
             </div>
-            <div class="col col-10 offset-col-1" th:each="portfolioItem : ${handymanPortfolioItems}">
-                <div class="review">
+            <div class="col col-6" th:each="portfolioItem : ${handymanPortfolioItems}">
+                <div class="PortfolioItem">
                     <div th:switch="${portfolioItem.stringImage}">
-                        <p th:text="${portfolioItem.title}"></p>
+                        <p class="portfolioItemTitle" th:text="${portfolioItem.title}">Title:</p>
                         <p th:case="null"></p>
-                        <img th:case="*" th:src="|data:image/jpg;base64,${portfolioItem.stringImage}|" style="height: 7rem">
+                        <p th:text="'Location: ' + ${portfolioItem.location}"></p>
+                        <hr>
+                        <p class="author" th:text="'Description: '+ ${portfolioItem.description}"></p>
                     </div>
                     <div>
-                        <div class="rating">
-                            <p th:text="${portfolioItem.location}"></p>
+                        <div class="col col-12 photo">
+                            <div th:switch="${portfolioItem.stringImage}">
+                            <img th:case="*" th:src="|data:image/jpg;base64,${portfolioItem.stringImage}|" style="height: 16rem">
+                            </div>
                         </div>
-                        <p class="author" th:text="${portfolioItem.description}"></p>
                     </div>
                 </div>
             </div>
         </div>
+        <hr>
         <div class="row">
-            <div class="col col-10 offset-col-1">
+            <div class="col col-12">
                 <h3>Reviews</h3>
             </div>
-            <div class="col col-10 offset-col-1" th:each="review : ${handymanReviews}">
+            <div class="col col-12" th:each="review : ${handymanReviews}">
                 <div class="review">
                     <div>
                         <p th:text="${review.text}"></p>

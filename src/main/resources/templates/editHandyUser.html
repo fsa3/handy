@@ -10,20 +10,6 @@
     <link rel="icon" type="image/x-icon" href="../static/icons/handy-icon-small.png" th:href="@{/icons/handy-icon-small.png}">
     <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" media="screen" />
     <link href="../static/css/grid.css" th:href="@{/css/grid.css}" rel="stylesheet" media="screen" />
-    <script th:inline="javascript">
-
-        /*<![CDATA[*/
-
-        var userName = /*[[${LoggedInUser.name}]]*/ 'name';
-        var userTrade = /*[[${LoggedInUser.trade}]]*/ 'trade';
-        var userInfo = /*[[${LoggedInUser.info}]]*/ 'info';
-        var userRate = /*[[${LoggedInUser.hourlyRate}]]*/ 'hourly rate';
-
-        /*]]>*/
-        console.log("trade: " + userTrade);
-        console.log("info " + userInfo);
-        console.log("Rate " + userRate);
-    </script>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
@@ -32,8 +18,10 @@
         <div class="row">
             <div class="col col-12 profile-header">
                 <h2 th:text="${LoggedInUser.name}"></h2>
-                <button><a th:href="@{/logout}">Log Out</a></button>
-                <button><a th:href="@{/delete}">Delete Account</a></button>
+                <div>
+                    <button><a th:href="@{/logout}">Log Out</a></button>
+                    <button><a th:href="@{/delete}">Delete Account</a></button>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -61,7 +49,7 @@
                                 <input type="number" id="input-hourlyRate" placeholder="0.0" name="hourlyRate" th:value="${LoggedInUser.hourlyRate}">
                             </div>
                         </div>
-                        <div>
+                        <div class="about">
                             <div>
                                 <textarea rows="7" placeholder="A few words about you ..." name="info" th:inline="text">[[${LoggedInUser.info}]]</textarea>
                             </div>
@@ -72,36 +60,39 @@
                         <p th:text="${saved} ? 'Information saved successfully!'"></p>
                     </div>
                 </form>
-                <div class="row">
+                <div class="row" style="margin-top: 1rem">
                     <div class="col col-10">
                         <h3>Portfolio</h3>
                     </div>
-                    <div class="col col-2">
+                    <div class="col col-2" style="display: flex; justify-content: flex-end">
                         <button><a th:href="@{/createPortfolioItem}">Add to your portfolio</a></button>
                     </div>
-                    <div class="col col-12 " th:each="portfolioItem : ${myPortfolioItems}">
-                        <div class="review">
+                    <div class="col col-6" th:each="portfolioItem : ${myPortfolioItems}">
+                        <div class="PortfolioItem">
                             <div th:switch="${portfolioItem.stringImage}">
-                                <p th:text="${portfolioItem.title}"></p>
+                                <p class="portfolioItemTitle" th:text="${portfolioItem.title}">Title:</p>
                                 <p th:case="null"></p>
-                                <img th:case="*" th:src="|data:image/jpg;base64,${portfolioItem.stringImage}|" style="height: 7rem">
+                                <p th:text="'Location: ' + ${portfolioItem.location}"></p>
+                                <hr>
+                                <p class="author" th:text="'Description: '+ ${portfolioItem.description}"></p>
                             </div>
                             <div>
-                                <div class="rating">
-                                    <p th:text="${portfolioItem.location}"></p>
+                                <div class="col col-12 photo">
+                                    <div th:switch="${portfolioItem.stringImage}">
+                                        <img th:case="*" th:src="|data:image/jpg;base64,${portfolioItem.stringImage}|" style="height: 16rem">
+                                    </div>
                                 </div>
-                                <p class="author" th:text="${portfolioItem.description}"></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col col-12 ">
+        <div class="row" style="margin-top: 1rem">
+            <div class="col col-12">
                 <h3>Reviews written</h3>
             </div>
-            <div class="col col-12 " th:each="review : ${reviewsWritten}">
+            <div class="col col-12" th:each="review : ${reviewsWritten}">
                 <div class="review">
                     <div>
                         <p th:text="${review.text}"></p>
@@ -116,11 +107,13 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="align-items: stretch">
+        <div class="row" style="margin-top: 1rem">
             <div class="col col-12">
                 <h3>My active ads</h3>
             </div>
-            <div class="col col-10" th:each="ad : ${ads}" style="margin-top: 1rem">
+        </div>
+        <div class="row" style="align-items: stretch; margin-bottom: 1rem">
+            <div class="col col-4" th:each="ad : ${ads}" style="margin-top: 1rem">
                 <a class="ad" th:href="@{/ads/{id}(id=${ad.ID})}">
                     <div class="image" th:switch="${ad.stringImage}">
                         <img th:case="null" th:src="@{/img/handyman-business-tools-and-equipment.jpeg}">
@@ -131,15 +124,9 @@
                     <div class="location-time">
                         <p th:text="${ad.location}"></p>
                         <p th:text="${ad.formattedDate}"></p>
-                        <!--<button><a th:href="@{/deleteAd{id}(id=${ad.ID})}">Delete ad</a></button>-->
                     </div>
-
                 </a>
-                <div class="col col-12">
-                    <button><a th:href="@{/deleteAd{id}(id=${ad.ID})}">Delete ad</a></button>
-                </div>
             </div>
-
         </div>
     </section>
 </main>

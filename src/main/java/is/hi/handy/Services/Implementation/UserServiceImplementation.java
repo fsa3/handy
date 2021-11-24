@@ -9,6 +9,10 @@ import is.hi.handy.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,6 +141,14 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public List<HandyUser> findByFilter(String name, Trade trade, Double minRate, Double maxRate, boolean orderByRating) {
+        if (name != null) {
+            try {
+                name = URLDecoder.decode(name, StandardCharsets.UTF_8.name());
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
         if (name != null && trade == null && minRate == null && maxRate == null && !orderByRating) { //name
             return handyUserRepository.findByNameContainingIgnoreCase(name);
         }

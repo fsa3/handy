@@ -29,6 +29,7 @@ public class ReviewController {
     public String createReview(Model model, HttpSession session, @PathVariable("handyUserId") long handyUserId) {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
         if(loggedInUser != null) {
+            if (loggedInUser.getID() == handyUserId) return "redirect:/";
             model.addAttribute("LoggedInUser", loggedInUser);
             model.addAttribute("reviewAbout", userService.findOneHandyUser(handyUserId));
             return "createReview";

@@ -64,8 +64,6 @@ public class AdController {
         return "adInfo";
     }
 
-
-
     @RequestMapping(value = "/createad", method = RequestMethod.GET)
     public String adFormGet(Model model, HttpSession session){
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
@@ -94,8 +92,11 @@ public class AdController {
     public String deleteAd(@PathVariable("id") long id, HttpSession session, Model model) {
         User sessionUser = (User) session.getAttribute("LoggedInUser");
         model.addAttribute("LoggedInUser", sessionUser);
-        adService.delete(adService.findOne(id));
+        Ad adToDelete = adService.findOne(id);
+        if (sessionUser.getID() != adToDelete.getUser().getID()) {
+            return "redirect:/";
+        }
+        adService.delete(adToDelete);
         return "redirect:/myprofile";
-
     }
 }

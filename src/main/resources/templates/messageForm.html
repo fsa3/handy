@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
-    <title>Handy - Write a review</title>
+    <title>Handy - Send a message</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
         </div>
         <div class="row">
             <div class="col col-8 offset-col-2">
-                <div class="messages">
+                <div class="messages-log">
                     <div class="message" th:each="message : ${messages}">
                         <div th:if="${message.recipient.ID == LoggedInUser.ID}" class="from-name">
                             <p th:text="${message.sender.name}"></p>

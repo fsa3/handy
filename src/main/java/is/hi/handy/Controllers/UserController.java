@@ -110,7 +110,7 @@ public class UserController {
             else session.setAttribute("handyUserLoggedIn", false);
             session.setAttribute("LoggedInUser", exists);
             model.addAttribute("LoggedInUser", exists);
-            return "redirect:/myprofile";
+            return "redirect:/";
         }
         model.addAttribute("loginError", true);
         return "login";
@@ -175,6 +175,7 @@ public class UserController {
             boolean handyUserLoggedIn = (Boolean) session.getAttribute("handyUserLoggedIn");
             model.addAttribute("LoggedInUser", sessionUser);
             model.addAttribute("reviewsWritten", reviewService.findByAuthor(sessionUser));
+            model.addAttribute("ads", adService.findByUser(sessionUser));
             if (handyUserLoggedIn) {
                 model.addAttribute("LoggedInUser", (HandyUser) sessionUser);
                 model.addAttribute("myPortfolioItems", portfolioItemService.findByHandyUser((HandyUser) sessionUser));
@@ -194,6 +195,9 @@ public class UserController {
         } else {
             handyUsers = userService.findByFilter(name, trade, minRate, maxRate, orderByRating);
         }
+        model.addAttribute("nameSearch", name);
+        model.addAttribute("minRateSearch", minRate);
+        model.addAttribute("maxRateSearch", maxRate);
         model.addAttribute("handymen", handyUsers);
         return "handymen";
     }
