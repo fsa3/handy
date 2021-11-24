@@ -38,30 +38,33 @@
         <hr>
         <div class="row">
             <div class="col col-12 ">
-                <h3>Portfolio</h3>
+                <h2>Portfolio</h2>
             </div>
-            <div class="col col-12" th:each="portfolioItem : ${handymanPortfolioItems}">
-                <div class="review">
+            <div class="col col-6" th:each="portfolioItem : ${handymanPortfolioItems}">
+                <div class="PortfolioItem">
                     <div th:switch="${portfolioItem.stringImage}">
                         <p class="portfolioItemTitle" th:text="${portfolioItem.title}">Title:</p>
                         <p th:case="null"></p>
                         <p th:text="'Location: ' + ${portfolioItem.location}"></p>
-                        <p class="author" th:text="${portfolioItem.description}"></p>
+                        <hr>
+                        <p class="author" th:text="'Description: '+ ${portfolioItem.description}"></p>
                     </div>
                     <div>
-                        <div class="rating">
+                        <div class="col col-12 photo">
                             <div th:switch="${portfolioItem.stringImage}">
-                            <img th:case="*" th:src="|data:image/jpg;base64,${portfolioItem.stringImage}|" style="height: 7rem">
+                            <img th:case="*" th:src="|data:image/jpg;base64,${portfolioItem.stringImage}|" style="height: 16rem">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <hr>
         <div class="row">
-            <div class="col col-10">
+            <div class="col col-12">
                 <h3>Reviews</h3>
             </div>
-            <div class="col col-10 offset-col-1" th:each="review : ${handymanReviews}">
+            <div class="col col-10 offset-col-2" th:each="review : ${handymanReviews}">
                 <div class="review">
                     <div>
                         <p th:text="${review.text}"></p>
