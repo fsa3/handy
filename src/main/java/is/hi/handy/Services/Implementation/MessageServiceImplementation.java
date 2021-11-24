@@ -65,12 +65,29 @@ public class MessageServiceImplementation implements MessageService {
         return messages;
     }
     @Override
-    public List<Message> combineMessagesForUser(User user){
-        Set<Message> messageSet = new HashSet<>();
-        messageSet.addAll(messageRepository.findAllByRecipient(user));
-        messageSet.addAll(messageRepository.findAllBySender(user));
-        List<Message> messages = new ArrayList<>(messageSet);
-        return messages;
+    public List<User> combineMessagesForUser(User user){
+
+        Set<Message> messageSet1 = new HashSet<>();
+        messageSet1.addAll(messageRepository.findAllByRecipient(user));
+        List<Message> messages1 = new ArrayList<>(messageSet1);
+
+        Set<Message> messageSet2 = new HashSet<>();
+        messageSet2.addAll(messageRepository.findAllBySender(user));
+        List<Message> messages2 = new ArrayList<>(messageSet2);
+
+        Set<User> userSet = new HashSet<>();
+
+        for(Message message: messages1){
+            userSet.add(message.getSender());
+        }
+
+        for(Message message: messages2){
+            userSet.add(message.getRecipient());
+        }
+        System.out.println(userSet);
+        List<User> MessagedUsers = new ArrayList<>(userSet);
+        System.out.println(MessagedUsers);
+        return MessagedUsers;
     }
 
 }

@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class MessageController {
@@ -50,8 +53,9 @@ public String messageForm(Model model, HttpSession session, @PathVariable("handy
         return "redirect:/messageForm/" + userId;
     }
 
-    @RequestMapping(value = "/myMessages", method = RequestMethod.GET)
-    public String getMessages( Model model, HttpSession session) {
+/*
+    @RequestMapping(value = "/ourMessages/{messageId}", method = RequestMethod.GET)
+    public String getMessages( Model model, @PathVariable("messageId") long messageId, HttpSession session) {
         model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
 
         List<Message> messages = messageService.combineMessagesForUser((User)(session.getAttribute("LoggedInUser")));
@@ -59,7 +63,18 @@ public String messageForm(Model model, HttpSession session, @PathVariable("handy
 
         model.addAttribute("messages", messages);
 
-        return "myMessages";
+        return "....myMessages";
     }
+*/
 
+@RequestMapping(value = "/myMessages", method = RequestMethod.GET)
+public String getMessages( Model model, HttpSession session) {
+    model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
+
+    List <User> userMessages = messageService.combineMessagesForUser((User)(session.getAttribute("LoggedInUser")));
+    System.out.println(userMessages);
+
+
+    return "myMessages";
+}
 }
