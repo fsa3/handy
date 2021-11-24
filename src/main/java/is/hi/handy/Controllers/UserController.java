@@ -195,6 +195,8 @@ public class UserController {
             handyUsers = userService.findByFilter(name, trade, minRate, maxRate, orderByRating);
         }
         model.addAttribute("nameSearch", name);
+        model.addAttribute("minRateSearch", minRate);
+        model.addAttribute("maxRateSearch", maxRate);
         model.addAttribute("handymen", handyUsers);
         return "handymen";
     }
