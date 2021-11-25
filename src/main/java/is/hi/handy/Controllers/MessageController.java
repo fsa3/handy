@@ -54,19 +54,7 @@ public class MessageController {
         return "redirect:/messageForm/" + userId;
     }
 
-/*
-    @RequestMapping(value = "/ourMessages/{messageId}", method = RequestMethod.GET)
-    public String getMessages( Model model, @PathVariable("messageId") long messageId, HttpSession session) {
-        model.addAttribute("LoggedInUser", session.getAttribute("LoggedInUser"));
 
-        List<Message> messages = messageService.combineMessagesForUser((User)(session.getAttribute("LoggedInUser")));
-        System.out.println(messages);
-
-        model.addAttribute("messages", messages);
-
-        return "....myMessages";
-    }
-*/
 
 @RequestMapping(value = "/myMessages", method = RequestMethod.GET)
 public String getMessages( Model model, HttpSession session) {
@@ -75,6 +63,7 @@ public String getMessages( Model model, HttpSession session) {
     List <User> userMessages = messageService.combineMessagesForUser((User)(session.getAttribute("LoggedInUser")));
     System.out.println(userMessages);
 
+    model.addAttribute(userMessages);
 
     return "myMessages";
 }
