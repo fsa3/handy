@@ -451,6 +451,7 @@ button {
 
 .handymen {
     min-height: 90vh;
+    padding-bottom: 1rem;
 }
 
 .handymen h2 {
