@@ -63,8 +63,8 @@ public String getMessages( Model model, HttpSession session) {
     List <User> userMessages = messageService.combineMessagesForUser((User)(session.getAttribute("LoggedInUser")));
     System.out.println(userMessages);
 
-    model.addAttribute(userMessages);
+    model.addAttribute("userMessages", userMessages);
 
     return "myMessages";
-}
+    }
 }

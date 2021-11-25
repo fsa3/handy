@@ -23,8 +23,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${userMessages}" th:attr="onclick=|location.href='/messageForm/{handyUserId}(handyUserId=${handyman.ID})'|">
-                <td><strong th:text="${User.name}"></strong></td>
+            <tr th:each="user : ${userMessages}" >
+                <td><strong th:text="${user.name}"></strong></td>
                 <td><svg class="open-icon"  viewBox='0 0 2048 2048' xmlns='http://www.w3.org/2000/svg'><path d='M658 2023l-121-121 878-878-878-878L658 25l999 999-999 999z' fill='#000000'></path></svg></td>
             </tr>
             </tbody>
