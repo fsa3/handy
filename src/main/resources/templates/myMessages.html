@@ -15,7 +15,7 @@
 <div th:replace="fragments/header :: header"></div>
 <main>
     <section class="grid handymen">
-        <table class="handymen-table">
+        <table class="handymen-table" style="margin-top: 1rem;">
             <thead>
             <tr>
                 <th>Name</th>
@@ -23,9 +23,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${userMessages}" >
+            <tr th:each="user : ${userMessages}" th:attr="onclick=|location.href='/messageForm/${user.ID}'|">
                 <td><strong th:text="${user.name}"></strong></td>
-                <td><svg class="open-icon"  viewBox='0 0 2048 2048' xmlns='http://www.w3.org/2000/svg'><path d='M658 2023l-121-121 878-878-878-878L658 25l999 999-999 999z' fill='#000000'></path></svg></td>
+                <td style="width: 3rem"><svg class="open-icon"  viewBox='0 0 2048 2048' xmlns='http://www.w3.org/2000/svg'><path d='M658 2023l-121-121 878-878-878-878L658 25l999 999-999 999z' fill='#000000'></path></svg></td>
             </tr>
             </tbody>
         </table>
