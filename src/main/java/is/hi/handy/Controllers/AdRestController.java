@@ -27,7 +27,7 @@ public class AdRestController {
         this.imageService = imageService;
     }
 
-    @RequestMapping(value = "/api/ads", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/ads", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Ad> getAds(@RequestParam(value = "trade", required = false) Trade trade, @RequestParam(value = "search", required = false) String searchString) throws InterruptedException {
         List<Ad> advertisements;
         if (trade != null) advertisements = adService.findByTrade(trade);
