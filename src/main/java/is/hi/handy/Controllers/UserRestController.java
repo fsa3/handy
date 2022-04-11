@@ -1,18 +1,19 @@
 package is.hi.handy.Controllers;
 
+import is.hi.handy.Persistence.Entities.Ad;
 import is.hi.handy.Persistence.Entities.HandyUser;
 import is.hi.handy.Persistence.Entities.Trade;
+import is.hi.handy.Persistence.Entities.User;
 import is.hi.handy.Services.AdService;
 import is.hi.handy.Services.PortfolioItemService;
 import is.hi.handy.Services.ReviewService;
 import is.hi.handy.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -52,5 +53,17 @@ public class UserRestController {
             handyUser.setReviewsAbout(null);
         }
         return handyUsers;
+    }
+
+    @RequestMapping(value = "/api/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<User> login(@RequestBody User user) {
+        User exists = userService.login(user);
+        if(exists != null) {
+            for (Ad ad : exists.getAds()) {
+                ad.setUser(null);
+            }
+            return ResponseEntity.ok(exists);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new User());
     }
 }
