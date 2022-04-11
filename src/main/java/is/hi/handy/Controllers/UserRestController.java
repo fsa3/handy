@@ -1,9 +1,6 @@
 package is.hi.handy.Controllers;
 
-import is.hi.handy.Persistence.Entities.Ad;
-import is.hi.handy.Persistence.Entities.HandyUser;
-import is.hi.handy.Persistence.Entities.Trade;
-import is.hi.handy.Persistence.Entities.User;
+import is.hi.handy.Persistence.Entities.*;
 import is.hi.handy.Services.AdService;
 import is.hi.handy.Services.PortfolioItemService;
 import is.hi.handy.Services.ReviewService;
@@ -58,6 +55,7 @@ public class UserRestController {
     @RequestMapping(value = "/api/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> login(@RequestBody User user) {
         User exists = userService.login(user);
+        System.out.println(exists);
         if(exists != null) {
             for (Ad ad : exists.getAds()) {
                 ad.setUser(null);

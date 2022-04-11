@@ -1,5 +1,8 @@
 package is.hi.handy.Persistence.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -14,8 +17,10 @@ public class HandyUser extends User {
     private double hourlyRate;
     private double averageRating;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<PortfolioItem> portfolioItem = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "handyman", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviewsAbout = new ArrayList<>();
     // todo messages
