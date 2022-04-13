@@ -64,4 +64,24 @@ public class UserRestController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new User());
     }
+
+    @RequestMapping(value = "/api/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public User getUser(@PathVariable long id) {
+        User user = userService.findUser(id);
+        assert user != null;
+        for (Ad a : user.getAds()) {
+            a.setUser(null);
+        }
+        return user;
+    }
+
+    @RequestMapping(value = "/api/handyUser/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public HandyUser getHandyUser(@PathVariable long id) {
+        HandyUser user = userService.findOneHandyUser(id);
+        assert user != null;
+        for (Ad a : user.getAds()) {
+            a.setUser(null);
+        }
+        return user;
+    }
 }
