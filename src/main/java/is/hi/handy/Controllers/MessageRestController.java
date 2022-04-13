@@ -6,10 +6,7 @@ import is.hi.handy.Services.MessageService;
 import is.hi.handy.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +29,16 @@ public class MessageRestController {
 
 
         return messages;
+    }
+
+    @RequestMapping(value = "/api/myMessages/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<User> getMyMessages(@PathVariable long userId){
+        User user = userService.findUser(userId);
+        List<User> userMessages = messageService.combineMessagesForUser(user);
+        for (User u : userMessages) {
+            u.setAds(null);
+        }
+        return userMessages;
     }
 
 }
