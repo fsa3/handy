@@ -1,6 +1,7 @@
 package is.hi.handy.Persistence.Entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "ImageProfile")
@@ -28,6 +29,14 @@ public class Image {
     public Image(byte[] image) {
         super();
         this.image = image;
+    }
+    public Image(ArrayList<Byte> bytes) {
+        int size = bytes.size();
+        byte[] img = new byte[size];
+        for (int i = 0; i < size; i++) {
+            img[i] = bytes.get(i);
+        }
+        this.image = img;
     }
     public long getId() {
         return id;

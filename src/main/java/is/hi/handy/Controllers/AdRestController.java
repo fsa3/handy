@@ -1,30 +1,36 @@
 package is.hi.handy.Controllers;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import is.hi.handy.Persistence.Entities.Ad;
 import is.hi.handy.Persistence.Entities.Image;
 import is.hi.handy.Persistence.Entities.Trade;
+import is.hi.handy.Persistence.Entities.User;
 import is.hi.handy.Services.AdService;
 import is.hi.handy.Services.ImageService;
+import is.hi.handy.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @RestController
 public class AdRestController {
     private AdService adService;
+    private UserService userService;
     private ImageService imageService;
 
     @Autowired
-    public AdRestController(AdService adService, ImageService imageService) {
+    public AdRestController(AdService adService, ImageService imageService, UserService userService) {
         this.adService = adService;
         this.imageService = imageService;
+        this.userService = userService;
     }
 
     @RequestMapping(value = "/api/ads", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -40,5 +46,34 @@ public class AdRestController {
             ad.setImage(null);
         }
         return advertisements;
+    }
+
+    @RequestMapping(value = "/api/createad", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Ad> login(@RequestBody ObjectNode json) {
+        try {
+            User user = userService.findUser(json.get("user").asLong());
+            ArrayList<Byte> imageBytes = new ArrayList<>();
+            for (JsonNode b : json.get("imageBytes")) {
+                imageBytes.add((byte) b.asInt());
+            }
+            Image image = new Image(imageBytes);
+
+            Ad ad = new Ad();
+            ad.setTitle(json.get("title").asText());
+            ad.setDescription(json.get("description").asText());
+            ad.setLocation(json.get("location").asText());
+            ad.setTrade(Trade.valueOf(json.get("trade").asText()));
+            ad.setUser(user);
+            ad.setImage(image);
+
+            imageService.save(image);
+            Ad savedAd = adService.save(ad);
+            savedAd.getUser().setAds(null);
+            savedAd.setImage(null);
+
+            return ResponseEntity.ok().body(savedAd);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(new Ad());
+        }
     }
 }
