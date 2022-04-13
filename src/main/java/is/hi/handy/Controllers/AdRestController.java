@@ -76,4 +76,11 @@ public class AdRestController {
             return ResponseEntity.status(400).body(new Ad());
         }
     }
+
+    @RequestMapping(value = "/api/ads/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Ad> deleteAd(@PathVariable long id) {
+        Ad ad = adService.findOne(id);
+        adService.delete(ad);
+        return ResponseEntity.status(204).body(ad);
+    }
 }
