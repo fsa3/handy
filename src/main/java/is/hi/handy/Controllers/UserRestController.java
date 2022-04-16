@@ -84,4 +84,37 @@ public class UserRestController {
         }
         return user;
     }
+    
+    @RequestMapping(value = "/api/createuser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<User> login(@RequestBody Object json) {
+        try {
+            User user = new User();
+            user.setName(json.get"name".asText());
+            user.setEmail(json.get"email".asText());
+            user.setPassword(json.get"password".asText());
+
+            User savedUser = userService.save(user);
+
+            return ResponseEntity.ok().body(savedUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(new User());
+        }
+    }
+
+    @RequestMapping(value = "/api/createhandyuser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<HandyUser> login(@RequestBody Object json) {
+        try {
+            HandyUser handyUser = new HandyUser();
+            handyUser.setName(json.get"name".asText());
+            handyUser.setEmail(json.get"email".asText());
+            handyUser.setPassword(json.get"password".asText());
+            handyUser.setTrade(json.get"trade".asText());
+
+            HandyUser savedHandyUser = userService.save(handyUser);
+
+            return ResponseEntity.ok().body(savedHandyUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(new handyUser());
+        }
+    }
 }
