@@ -48,8 +48,19 @@ public class AdRestController {
         return advertisements;
     }
 
+    @RequestMapping(value = "/api/ads/user/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Ad> getAdsByUser(@PathVariable long userId) throws InterruptedException {
+        User user = userService.findUser(userId);
+        List<Ad> advertisements = adService.findByUser(user);
+        for(Ad ad : advertisements) {
+            ad.getUser().setAds(null);
+            ad.setImage(null);
+        }
+        return advertisements;
+    }
+
     @RequestMapping(value = "/api/createad", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Ad> login(@RequestBody ObjectNode json) {
+    public ResponseEntity<Ad> createAd(@RequestBody ObjectNode json) {
         try {
             User user = userService.findUser(json.get("user").asLong());
             ArrayList<Byte> imageBytes = new ArrayList<>();
