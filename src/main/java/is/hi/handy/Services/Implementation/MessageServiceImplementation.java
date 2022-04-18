@@ -1,5 +1,7 @@
 package is.hi.handy.Services.Implementation;
 
+import com.pusher.pushnotifications.PushNotifications;
+import is.hi.handy.HandyApplication;
 import is.hi.handy.Persistence.Entities.Message;
 import is.hi.handy.Persistence.Entities.User;
 import is.hi.handy.Persistence.Repositories.MessageRepository;
@@ -7,17 +9,54 @@ import is.hi.handy.Services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 @Service
 public class MessageServiceImplementation implements MessageService {
     MessageRepository messageRepository;
+    PushNotifications beamsClient = new PushNotifications(HandyApplication.instanceId, HandyApplication.secretKey);
 
     @Autowired
-    public MessageServiceImplementation(MessageRepository repository){this.messageRepository = repository;}
+    public MessageServiceImplementation(MessageRepository repository) {this.messageRepository = repository;}
 
     @Override
     public Message save(Message message) {
+
+        List<String> interests = List.of(message.getRecipient().getEmail());
+
+        Map<String, Map> publishRequest = new HashMap();
+
+        Map<String, String> apsAlert = new HashMap();
+        apsAlert.put("title", "New message from " + message.getSender().getName());
+        apsAlert.put("body", message.getContent());
+        Map<String, Map> alert = new HashMap();
+        alert.put("alert", apsAlert);
+        Map<String, Map> aps = new HashMap();
+        aps.put("aps", alert);
+        publishRequest.put("apns", aps);
+
+        Map<String, String> fcmNotification = new HashMap();
+        fcmNotification.put("title", "New message from " + message.getSender().getName());
+        fcmNotification.put("body", message.getContent());
+        Map<String, Map> fcm = new HashMap();
+        fcm.put("notification", fcmNotification);
+        publishRequest.put("fcm", fcm);
+
+        Map<String, String> webNotification = new HashMap();
+        webNotification.put("title", "New message from " + message.getSender().getName());
+        webNotification.put("body", message.getContent());
+        Map<String, Map> web = new HashMap();
+        web.put("notification", webNotification);
+        publishRequest.put("web", web);
+
+        try {
+            beamsClient.publishToInterests(interests, publishRequest);
+        } catch (IOException | InterruptedException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
         return messageRepository.save(message);
     }
 

@@ -1,5 +1,7 @@
 package is.hi.handy.Services.Implementation;
 
+import com.pusher.pushnotifications.PushNotifications;
+import is.hi.handy.HandyApplication;
 import is.hi.handy.Persistence.Entities.Ad;
 import is.hi.handy.Persistence.Entities.Image;
 import is.hi.handy.Persistence.Entities.Trade;
@@ -9,13 +11,16 @@ import is.hi.handy.Services.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.*;
 
 @Service
 public class AdServiceImplementation implements AdService {
     AdRepository adRepository;
+    PushNotifications beamsClient = new PushNotifications(HandyApplication.instanceId, HandyApplication.secretKey);
 
     @Autowired
     public AdServiceImplementation(AdRepository repository) {
@@ -24,6 +29,40 @@ public class AdServiceImplementation implements AdService {
 
     @Override
     public Ad save(Ad ad) {
+        String trade = ad.getTrade().toString();
+        List<String> interests = List.of(trade);
+
+        Map<String, Map> publishRequest = new HashMap();
+
+        Map<String, String> apsAlert = new HashMap();
+        apsAlert.put("title", "New Ad!");
+        apsAlert.put("body", ad.getTitle());
+        Map<String, Map> alert = new HashMap();
+        alert.put("alert", apsAlert);
+        Map<String, Map> aps = new HashMap();
+        aps.put("aps", alert);
+        publishRequest.put("apns", aps);
+
+        Map<String, String> fcmNotification = new HashMap();
+        fcmNotification.put("title", "New Ad!");
+        fcmNotification.put("body", ad.getTitle());
+        Map<String, Map> fcm = new HashMap();
+        fcm.put("notification", fcmNotification);
+        publishRequest.put("fcm", fcm);
+
+        Map<String, String> webNotification = new HashMap();
+        webNotification.put("title", "New Ad!");
+        webNotification.put("body", ad.getTitle());
+        Map<String, Map> web = new HashMap();
+        web.put("notification", webNotification);
+        publishRequest.put("web", web);
+
+        try {
+            beamsClient.publishToInterests(interests, publishRequest);
+        } catch (IOException | InterruptedException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
         return adRepository.save(ad);
     }
 
