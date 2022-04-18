@@ -86,12 +86,12 @@ public class UserRestController {
     }
     
     @RequestMapping(value = "/api/createuser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<User> createUser(@RequestBody Object json) {
+    public ResponseEntity<User> createUser(@RequestBody ObjectNode json) {
         try {
             User user = new User();
-            user.setName(json.get"name".asText());
-            user.setEmail(json.get"email".asText());
-            user.setPassword(json.get"password".asText());
+            user.setName(json.get("name").asText());
+            user.setEmail(json.get("email").asText());
+            user.setPassword(json.get("password").asText());
 
             User savedUser = userService.save(user);
 
@@ -102,19 +102,19 @@ public class UserRestController {
     }
 
     @RequestMapping(value = "/api/createhandyuser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<HandyUser> createHandyUser(@RequestBody Object json) {
+    public ResponseEntity<HandyUser> createHandyUser(@RequestBody ObjectNode json) {
         try {
             HandyUser handyUser = new HandyUser();
-            handyUser.setName(json.get"name".asText());
-            handyUser.setEmail(json.get"email".asText());
-            handyUser.setPassword(json.get"password".asText());
-            handyUser.setTrade(json.get"trade".asText());
+            handyUser.setName(json.get("name").asText());
+            handyUser.setEmail(json.get("email").asText());
+            handyUser.setPassword(json.get("password").asText());
+            handyUser.setTrade(json.get("trade").asText());
 
             HandyUser savedHandyUser = userService.save(handyUser);
 
             return ResponseEntity.ok().body(savedHandyUser);
         } catch (Exception e) {
-            return ResponseEntity.status(400).body(new handyUser());
+            return ResponseEntity.status(400).body(new HandyUser());
         }
     }
 }
