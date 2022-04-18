@@ -21,12 +21,17 @@ public class MessageRestController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/api/messages", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Message> getMessages(@RequestParam(value = "user1", required = false) User user1, @RequestParam(value = "user2", required = false) User user2){
-    List<Message> messages;
-        if(user1 != null && user2 != null) {messages = getMessages(user1, user2);}
-        else {messages = null;}
+    @RequestMapping(value = "/api/messages-between/{userId1}/{userId2}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Message> getMessagesBetweenUsers(@PathVariable long userId1, @PathVariable long userId2){
+        List<Message> messages;
+        User user1 = userService.findUser(userId1);
+        User user2 = userService.findUser(userId2);
+        messages = messageService.findAllMessagesBetweenTwoUsers(user1, user2);
 
+        for (Message m : messages) {
+            m.getSender().setAds(null);
+            m.getRecipient().setAds(null);
+        }
 
         return messages;
     }
