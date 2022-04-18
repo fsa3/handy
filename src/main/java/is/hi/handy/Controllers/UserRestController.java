@@ -86,7 +86,7 @@ public class UserRestController {
     }
     
     @RequestMapping(value = "/api/createuser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<User> login(@RequestBody Object json) {
+    public ResponseEntity<User> createUser(@RequestBody Object json) {
         try {
             User user = new User();
             user.setName(json.get"name".asText());
@@ -102,7 +102,7 @@ public class UserRestController {
     }
 
     @RequestMapping(value = "/api/createhandyuser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<HandyUser> login(@RequestBody Object json) {
+    public ResponseEntity<HandyUser> createHandyUser(@RequestBody Object json) {
         try {
             HandyUser handyUser = new HandyUser();
             handyUser.setName(json.get"name".asText());
