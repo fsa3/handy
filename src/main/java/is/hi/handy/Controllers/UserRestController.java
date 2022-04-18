@@ -1,5 +1,6 @@
 package is.hi.handy.Controllers;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import is.hi.handy.Persistence.Entities.*;
 import is.hi.handy.Services.AdService;
 import is.hi.handy.Services.PortfolioItemService;
@@ -108,7 +109,7 @@ public class UserRestController {
             handyUser.setName(json.get("name").asText());
             handyUser.setEmail(json.get("email").asText());
             handyUser.setPassword(json.get("password").asText());
-            handyUser.setTrade(json.get("trade").asText());
+            handyUser.setTrade(Trade.valueOf(json.get("trade").asText()));
 
             HandyUser savedHandyUser = userService.save(handyUser);
 
