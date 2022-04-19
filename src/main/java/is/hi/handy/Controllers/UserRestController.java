@@ -118,4 +118,53 @@ public class UserRestController {
             return ResponseEntity.status(400).body(new HandyUser());
         }
     }
+
+    @RequestMapping(value = "/api/user", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<User> saveUserProfile(@RequestBody ObjectNode json) {
+        try {
+            User user = userService.findUser(json.get("id").asLong());
+            user.setName(json.get("name").asText());
+            user.setEmail(json.get("email").asText());
+            user.setInfo(json.get("info").asText());
+
+            User savedUser = userService.save(user);
+
+            for (Ad a : savedUser.getAds()) {
+                a.setUser(null);
+            }
+
+            return ResponseEntity.ok().body(savedUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(new User());
+        }
+    }
+
+    @RequestMapping(value = "/api/handyuser", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<HandyUser> saveHandyUserProfile(@RequestBody ObjectNode json) {
+        try {
+            HandyUser handyUser = userService.findOneHandyUser(json.get("id").asLong());
+            handyUser.setName(json.get("name").asText());
+            handyUser.setEmail(json.get("email").asText());
+            handyUser.setInfo(json.get("info").asText());
+            handyUser.setTrade(Trade.valueOf(json.get("trade").asText()));
+            handyUser.setHourlyRate(json.get("hourlyRate").asDouble());
+
+            HandyUser savedHandyUser = userService.save(handyUser);
+
+            for (Ad a : savedHandyUser.getAds()) {
+                a.setUser(null);
+            }
+
+            return ResponseEntity.ok().body(savedHandyUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(new HandyUser());
+        }
+    }
+
+    @RequestMapping(value = "/api/user/{userId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<User> deleteUser(@PathVariable long userId) {
+        User user = userService.findUser(userId);
+        userService.delete(user);
+        return ResponseEntity.status(204).body(user);
+    }
 }
