@@ -40,7 +40,7 @@ public class PortfolioItemRestController {
         return portfolioItem;
     }
 
-    @RequestMapping(value = "/api/createportfolio_item", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/api/createPortfolioItem", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<PortfolioItem> createPortfolioItem(@RequestBody ObjectNode json) {
         try {
             HandyUser handyUser = userService.findOneHandyUser(json.get("user").asLong());
