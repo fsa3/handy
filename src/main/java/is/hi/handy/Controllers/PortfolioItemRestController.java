@@ -14,7 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.sampled.Port;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -30,14 +32,15 @@ public class PortfolioItemRestController {
         this.imageService = imageService;
     }
 
-    @RequestMapping(value ="/api/portfolio_item", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public PortfolioItem getPortfolioItem(@RequestParam(value = "user", required = false) User user)  {
-        PortfolioItem portfolioItem;
-        if(user != null){ portfolioItem = getPortfolioItem(user);}
-        else
-            portfolioItem = null;
-
-        return portfolioItem;
+    @RequestMapping(value ="/api/portfolioItem/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<PortfolioItem> getPortfolioItemByUser(@PathVariable long userId)  {
+        HandyUser user = userService.findOneHandyUser(userId);
+        List<PortfolioItem> portfolioItems = portfolioItemService.findByHandyUser(user);
+        for(PortfolioItem p : portfolioItems) {
+            p.getUser().setAds(null);
+            p.setImage(null);
+        }
+        return portfolioItems;
     }
 
     @RequestMapping(value = "/api/createPortfolioItem", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -45,7 +48,7 @@ public class PortfolioItemRestController {
         try {
             HandyUser handyUser = userService.findOneHandyUser(json.get("user").asLong());
             ArrayList<Byte> imageBytes = new ArrayList<>();
-            for(JsonNode b : json.get("imageBYtes")) {
+            for(JsonNode b : json.get("imageBytes")) {
                 imageBytes.add((byte) b.asInt());
             }
             Image image = new Image(imageBytes);
@@ -60,6 +63,7 @@ public class PortfolioItemRestController {
             imageService.save(image);
             PortfolioItem savedItem = portfolioItemService.save(item);
             savedItem.getUser().setPortfolioItem(null);
+            savedItem.getUser().setAds(null);
             savedItem.setImage(null);
 
             return ResponseEntity.ok().body(savedItem);
