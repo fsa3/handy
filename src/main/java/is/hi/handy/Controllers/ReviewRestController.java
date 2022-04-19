@@ -24,9 +24,14 @@ public class ReviewRestController {
     @RequestMapping(value ="/api/reviews/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Review> getReviews(@PathVariable long userId)  {
         HandyUser handy = userService.findOneHandyUser(userId);
-        List<Review> Reviews = reviewService.findByHandyman(handy);
+        List<Review> reviews = reviewService.findByHandyman(handy);
 
-        return Reviews;
+        for (Review r : reviews) {
+            r.getHandyman().setAds(null);
+            r.getAuthor().setAds(null);
+        }
+
+        return reviews;
     }
 
 
