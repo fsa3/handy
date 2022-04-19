@@ -21,11 +21,10 @@ public class Message implements Comparable<Message> {
     private String timeString;
 
 
-    public Message(User sender, User recipient, String content, String subjectHeading) {
+    public Message(User sender, User recipient, String content) {
         this.sender = sender;
         this.recipient = recipient;
         this.content = content;
-        this.subjectHeading = subjectHeading;
         this.setTimePosted(new Timestamp(System.currentTimeMillis()));
     }
 
